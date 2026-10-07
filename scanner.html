@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="theme-color" content="#131722"/>
+<title>Phantom Scanner</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>"/>
+<style>
+  :root{
+    --bg:#131722; --panel:#1e222d; --panel2:#2a2e39; --line:#363c4e;
+    --text:#d1d4dc; --muted:#787b86; --blue:#2962ff; --blue-d:#1e53e5;
+    --up:#26a69a; --down:#ef5350; --amber:#ffa726;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font:14px/1.45 -apple-system,BlinkMacSystemFont,"Trebuchet MS",Roboto,Ubuntu,sans-serif;
+    padding-bottom:env(safe-area-inset-bottom);
+  }
+  /* ---------- top bar ---------- */
+  .topbar{
+    display:flex; align-items:center; gap:12px;
+    padding:12px 14px; position:sticky; top:0; z-index:20;
+    background:rgba(19,23,34,.96); backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .brand{display:flex; align-items:center; gap:9px; min-width:0; flex:1;}
+  .logo{
+    width:34px; height:34px; border-radius:8px; flex:none;
+    background:linear-gradient(135deg,#2962ff,#7c4dff);
+    display:flex; align-items:center; justify-content:center; font-size:19px;
+    box-shadow:0 2px 10px rgba(41,98,255,.35);
+  }
+  .brand h1{margin:0; font-size:15px; font-weight:700; letter-spacing:.06em;}
+  .brand h1 span{color:var(--blue); filter:brightness(1.5);}
+  .brand small{display:block; font-size:11px; color:var(--muted); font-weight:400; letter-spacing:0;}
+  .scanbtn{
+    flex:none; min-height:44px; padding:0 20px; border:0; border-radius:6px;
+    background:var(--blue); color:#fff; font:700 13px/1 inherit; letter-spacing:.08em;
+    cursor:pointer; box-shadow:0 2px 12px rgba(41,98,255,.4);
+  }
+  .scanbtn:active{background:var(--blue-d); transform:translateY(1px);}
+  .scanbtn[disabled]{opacity:.6;}
+  .statusbar{
+    padding:8px 14px; font-size:12px; color:var(--muted);
+    border-bottom:1px solid var(--line); display:flex; align-items:center; gap:8px;
+  }
+  .dot{width:8px; height:8px; border-radius:50%; background:var(--up); flex:none; box-shadow:0 0 6px var(--up);}
+  .dot.live{background:var(--blue); box-shadow:0 0 6px var(--blue); animation:pulse 1.2s infinite;}
+  @keyframes pulse{50%{opacity:.35;}}
+  /* ---------- banners ---------- */
+  .banner{
+    margin:10px 14px 0; padding:10px 12px; border-radius:8px; font-size:12.5px;
+    display:flex; gap:10px; align-items:flex-start; border:1px solid;
+  }
+  .banner.info{background:rgba(41,98,255,.08); border-color:rgba(41,98,255,.35); color:#a9bdfc;}
+  .banner.error{background:rgba(239,83,80,.08); border-color:rgba(239,83,80,.4); color:#f2a3a5; display:none;}
+  .banner .x{margin-left:auto; flex:none; background:none; border:0; color:inherit; font-size:16px; cursor:pointer; padding:0 2px; opacity:.7;}
+  /* ---------- stats ---------- */
+  .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; padding:12px 14px 4px;}
+  .stat{background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:9px 10px; min-width:0;}
+  .stat .k{font-size:10px; letter-spacing:.1em; color:var(--muted); text-transform:uppercase;}
+  .stat .v{font-size:17px; font-weight:700; margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .v.up{color:var(--up);} .v.down{color:var(--down);} .v.blue{color:#8ea6ff;}
+  /* ---------- controls ---------- */
+  .controls{padding:10px 14px 0; position:sticky; top:59px; z-index:10; background:var(--bg);}
+  .tabs{display:flex; gap:4px; border-bottom:1px solid var(--line);}
+  .tab{
+    background:none; border:0; color:var(--muted); font:600 13px inherit;
+    padding:10px 14px; cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-1px;
+  }
+  .tab.on{color:var(--text); border-bottom-color:var(--blue);}
+  .tab .n{font-size:11px; background:var(--panel2); border-radius:10px; padding:1px 7px; margin-left:6px; color:var(--muted);}
+  .tab.on .n{background:rgba(41,98,255,.2); color:#a9bdfc;}
+  .filters{display:flex; gap:8px; padding:10px 0;}
+  .search{
+    flex:1; display:flex; align-items:center; gap:8px; background:var(--panel);
+    border:1px solid var(--line); border-radius:6px; padding:0 10px; min-height:40px;
+  }
+  .search input{flex:1; min-width:0; background:none; border:0; outline:0; color:var(--text); font:14px inherit;}
+  .search input::placeholder{color:var(--muted);}
+  select{
+    background:var(--panel); color:var(--text); border:1px solid var(--line);
+    border-radius:6px; font:13px inherit; padding:0 8px; min-height:40px; max-width:32vw;
+  }
+  .soonbtn{
+    flex:none; min-height:40px; padding:0 12px; border-radius:6px; cursor:pointer;
+    background:var(--panel); color:var(--muted); border:1px solid var(--line);
+    font:700 12px inherit; letter-spacing:.04em; white-space:nowrap;
+  }
+  .soonbtn.on{background:rgba(41,98,255,.18); border-color:var(--blue); color:#8ea6ff;}
+  .countline{padding:2px 14px 0; font-size:12px; color:var(--muted);}
+  /* ---------- cards ---------- */
+  main{padding:8px 14px 24px; display:flex; flex-direction:column; gap:10px;}
+  .card{
+    display:block; text-decoration:none; color:inherit; background:var(--panel);
+    border:1px solid var(--line); border-radius:10px; padding:12px 13px;
+    transition:border-color .15s, transform .1s; cursor:pointer;
+  }
+  .card:active{transform:scale(.995); border-color:var(--blue);}
+  .card-top{display:flex; align-items:center; justify-content:space-between; gap:8px;}
+  .badges{display:flex; gap:6px; align-items:center;}
+  .pill{font-size:10.5px; font-weight:700; letter-spacing:.08em; border-radius:5px; padding:3px 8px;}
+  .size-full{background:var(--up); color:#0d2b28;}
+  .size-half{background:transparent; color:var(--amber); border:1px solid var(--amber);}
+  .size-skip{background:transparent; color:var(--muted); border:1px solid var(--line);}
+  .side-buy{background:rgba(38,166,154,.14); color:var(--up);}
+  .side-sell{background:rgba(239,83,80,.14); color:var(--down);}
+  .price{font-size:20px; font-weight:700; font-variant-numeric:tabular-nums;}
+  .price.up{color:var(--up);} .price.down{color:var(--down);} .price.mut{color:var(--muted);}
+  .title{font-size:13.5px; font-weight:600; margin:8px 0 10px; line-height:1.35;}
+  .card.skip{opacity:.55;}
+  .pbar{height:6px; border-radius:3px; background:var(--panel2); overflow:hidden;}
+  .pbar i{display:block; height:100%; border-radius:3px;}
+  .quote{display:flex; gap:14px; margin-top:8px; font-size:11.5px; color:var(--muted); font-variant-numeric:tabular-nums;}
+  .quote b{color:var(--text); font-weight:600;}
+  .cardmeta{margin-top:7px; padding-top:8px; border-top:1px solid var(--line); font-size:12px; color:var(--muted); font-variant-numeric:tabular-nums;}
+  .cardmeta b{font-weight:600;}
+  .up{color:var(--up);} .down{color:var(--down);}
+  .open-hint{float:right; color:var(--muted); font-size:11px;}
+  /* ---------- whales ---------- */
+  .wtable{background:var(--panel); border:1px solid var(--line); border-radius:10px; overflow:hidden;}
+  .wrow{display:grid; grid-template-columns:34px 1fr auto auto; gap:10px; align-items:center; padding:10px 13px; border-top:1px solid var(--line); font-variant-numeric:tabular-nums;}
+  .wrow:first-child{border-top:0;}
+  .wrow.head{font-size:10.5px; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); background:var(--panel2);}
+  .wrank{color:var(--muted); font-weight:700;}
+  .wname{font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .wpnl{color:var(--up); font-weight:700; text-align:right;}
+  .wvol{color:var(--muted); font-size:12px; text-align:right;}
+  /* ---------- misc ---------- */
+  .empty{background:var(--panel); border:1px dashed var(--line); border-radius:10px; padding:26px; text-align:center; color:var(--muted); font-size:13px;}
+  .skel{background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:12px 13px;}
+  .skel i{display:block; border-radius:5px; background:linear-gradient(90deg,var(--panel2) 25%,#343a4e 50%,var(--panel2) 75%); background-size:200% 100%; animation:sh 1.1s infinite;}
+  @keyframes sh{to{background-position:-200% 0;}}
+  /* ---------- tracker ---------- */
+  .trackbtn{
+    float:right; background:rgba(41,98,255,.12); color:#8ea6ff; border:1px solid rgba(41,98,255,.45);
+    border-radius:6px; font:700 11px inherit; padding:6px 10px; cursor:pointer; min-height:32px; margin-left:8px;
+  }
+  .trackbtn:active{background:rgba(41,98,255,.28);}
+  .tsum{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:10px;}
+  .tstat{background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:9px 10px; min-width:0;}
+  .tstat .k{font-size:10px; letter-spacing:.1em; color:var(--muted); text-transform:uppercase;}
+  .tstat .v{font-size:16px; font-weight:700; margin-top:2px; white-space:nowrap;}
+  .tbank{display:flex; align-items:center; font-size:16px; font-weight:700; margin-top:2px;}
+  .tbank input{width:66px; background:var(--panel2); border:1px solid var(--line); border-radius:5px; color:var(--text); font:700 15px inherit; padding:2px 6px; margin-left:2px;}
+  .trow{background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:11px 12px;}
+  .trow-top{display:flex; align-items:center; gap:8px;}
+  .tmarket{flex:1; min-width:0; font-weight:600; font-size:13px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .tpl{font-variant-numeric:tabular-nums; font-size:15px; white-space:nowrap;}
+  .trow-sub{font-size:11.5px; color:var(--muted); margin-top:5px; font-variant-numeric:tabular-nums;}
+  .trow-actions{display:flex; gap:8px; margin-top:9px; align-items:center;}
+  .trow-actions button{flex:1; min-height:38px; border-radius:6px; font:700 12px inherit; cursor:pointer; background:var(--panel2); color:var(--text); border:1px solid var(--line);}
+  .trow-actions .ry{border-color:rgba(38,166,154,.55); color:var(--up);}
+  .trow-actions .rn{border-color:rgba(239,83,80,.55); color:var(--down);}
+  .trow-actions .tdel{flex:0 0 44px; color:var(--muted);}
+  .res-pill{font-size:10.5px; font-weight:700; letter-spacing:.06em; border-radius:5px; padding:3px 8px; background:var(--panel2); color:var(--muted); white-space:nowrap;}
+  /* ---------- bottom sheet ---------- */
+  .sheet-wrap{position:fixed; inset:0; z-index:50; background:rgba(0,0,0,.62); display:flex; align-items:flex-end; justify-content:center;}
+  .sheet{width:100%; max-width:520px; background:var(--panel); border:1px solid var(--line); border-bottom:0; border-radius:14px 14px 0 0; padding:16px 16px calc(16px + env(safe-area-inset-bottom));}
+  .sheet-title{font-size:15px; font-weight:700; margin-bottom:2px;}
+  .sheet-market{font-size:12.5px; color:var(--muted); margin-bottom:12px; line-height:1.4;}
+  .sheet-row{margin-bottom:12px;}
+  .sheet-row>label{display:block; font-size:11px; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); margin-bottom:6px;}
+  .seg{display:flex; gap:8px;}
+  .seg button{flex:1; min-height:44px; border-radius:8px; border:1px solid var(--line); background:var(--panel2); color:var(--muted); font:700 13px inherit; cursor:pointer;}
+  .seg button.on-buy{background:rgba(38,166,154,.18); border-color:var(--up); color:var(--up);}
+  .seg button.on-sell{background:rgba(239,83,80,.18); border-color:var(--down); color:var(--down);}
+  .seg button.on{background:rgba(41,98,255,.18); border-color:var(--blue); color:#8ea6ff;}
+  .sheet-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px;}
+  .sheet-grid label{font-size:11px; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); display:block;}
+  .sheet-grid input{width:100%; margin-top:6px; background:var(--panel2); border:1px solid var(--line); border-radius:8px; color:var(--text); font:600 16px inherit; padding:10px; min-height:46px;}
+  .sheet-hint{font-size:12.5px; color:var(--muted); margin-bottom:12px; font-variant-numeric:tabular-nums;}
+  .sheet-actions{display:flex; gap:10px;}
+  .sheet-actions button{flex:1; min-height:48px; border-radius:8px; font:700 14px inherit; cursor:pointer;}
+  .sheet-actions .ghost{background:none; border:1px solid var(--line); color:var(--muted);}
+  .sheet-actions .primary{background:var(--blue); border:0; color:#fff;}
+  footer{padding:0 14px 26px; font-size:11px; color:var(--muted); text-align:center;}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">⚡</div>
+    <h1>PHANTOM <span>SCANNER</span><small>Polymarket flow · tape + order book</small></h1>
+  </div>
+  <button class="scanbtn" id="scan" type="button">SCAN</button>
+</header>
+
+<div class="statusbar"><span class="dot" id="dot"></span><span id="meta">waiting</span></div>
+
+<div class="banner info" id="tip">
+  <div>💡 <b>Tip:</b> tap any card to open Polymarket US. For live scans, open this file in <b>Safari</b> — the chat preview can't reach Polymarket and may block links.</div>
+  <button class="x" id="tipx" aria-label="dismiss">×</button>
+</div>
+<div class="banner error" id="err"></div>
+
+<section class="stats" id="stats"></section>
+
+<div class="controls">
+  <div class="tabs" role="tablist">
+    <button class="tab on" data-tab="signals" role="tab">Signals<span class="n" id="n-signals">0</span></button>
+    <button class="tab" data-tab="board" role="tab">Board<span class="n" id="n-board">0</span></button>
+    <button class="tab" data-tab="whales" role="tab">Whales<span class="n" id="n-whales">0</span></button>
+    <button class="tab" data-tab="tracker" role="tab">Tracker<span class="n" id="n-tracker">0</span></button>
+  </div>
+  <div class="filters" id="filters">
+    <label class="search">🔍<input id="q" type="search" placeholder="Filter markets…" autocomplete="off"/></label>
+    <select id="sort" aria-label="sort">
+      <option value="smart">Top signals</option>
+      <option value="net">Net flow</option>
+      <option value="liq">Liquidity</option>
+      <option value="vol">Volume 24h</option>
+      <option value="price">Price</option>
+    </select>
+    <select id="side" aria-label="side">
+      <option value="all">All</option>
+      <option value="BUY">Buys</option>
+      <option value="SELL">Sells</option>
+    </select>
+    <button type="button" id="soonBtn" class="soonbtn" aria-pressed="false" title="Only markets resolving within 48 hours">≤48h</button>
+  </div>
+</div>
+<div class="countline" id="countline"></div>
+<main id="list"></main>
+<footer>Phantom Scanner · prices in ¢ · B/A = best bid/ask · tap any card to open Polymarket US</footer>
+
+<div class="sheet-wrap" id="sheetWrap" style="display:none">
+  <div class="sheet">
+    <div class="sheet-title">Log paper trade</div>
+    <div class="sheet-market" id="shMarket"></div>
+    <div class="sheet-row">
+      <label>Side</label>
+      <div class="seg" id="shSide">
+        <button type="button" data-v="BUY">BUY</button><button type="button" data-v="SELL">SELL</button>
+      </div>
+    </div>
+    <div class="sheet-row">
+      <label>Size</label>
+      <div class="seg" id="shSize">
+        <button type="button" data-v="full">FULL</button><button type="button" data-v="half">HALF</button><button type="button" data-v="skip">SKIP</button>
+      </div>
+    </div>
+    <div class="sheet-grid">
+      <label>Entry ¢<input id="shPrice" type="number" inputmode="decimal" step="0.1" min="0.5" max="99.5"></label>
+      <label>Stake $<input id="shStake" type="number" inputmode="decimal" step="1" min="1"></label>
+    </div>
+    <div class="sheet-hint" id="shHint"></div>
+    <div class="sheet-actions">
+      <button type="button" class="ghost" id="shCancel">Cancel</button>
+      <button type="button" class="primary" id="shSave">Log trade</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ================= saved scan (fallback when live fetch is blocked) ================= */
+const SEED = {"as_of": "2026-10-07 14:07:02 UTC", "signals": [{"market": "Counter-Strike: PARIVISION vs Natus Vincere (BO3) - ESL Pro League Group Stage", "slug": "cs2-prv-navi-2026-10-07", "yes": 0.335, "bid": 0.33, "ask": 0.34, "spread": 0.01, "liquidity": 552285, "volume24hr": 210160, "prints": 5, "wallets": 4, "buy_usd": 276.23, "sell_usd": 47.61, "net": 228.62, "liq_s": 69, "tight": 80, "tape": 0, "votes": 3, "side": "BUY", "size": "full"}, {"market": "Counter-Strike: K27 vs Metizport (BO3) - 1win Private Club #2: Closed Qualifier Playoffs", "slug": "cs2-k271-mzp-2026-10-07", "yes": 0.675, "bid": 0.67, "ask": 0.68, "spread": 0.01, "liquidity": 70621, "volume24hr": 93371, "prints": 6, "wallets": 6, "buy_usd": 1335.28, "sell_usd": 0.0, "net": 1335.28, "liq_s": 8, "tight": 80, "tape": 3, "votes": 2, "side": "BUY", "size": "half"}, {"market": "China Open: Ann Li vs Elina Svitolina", "slug": "wta-annli-svitoli-2026-10-06", "yes": 0.125, "bid": 0.12, "ask": 0.13, "spread": 0.01, "liquidity": 93302, "volume24hr": 153596, "prints": 6, "wallets": 5, "buy_usd": 881.3, "sell_usd": 0.0, "net": 881.3, "liq_s": 11, "tight": 80, "tape": 2, "votes": 2, "side": "BUY", "size": "half"}, {"market": "Will the price of Bitcoin be above $82,000 on October 7?", "slug": "bitcoin-above-82k-on-october-7-2026", "yes": 0.9305, "bid": 0.93, "ask": 0.931, "spread": 0.001, "liquidity": 57052, "volume24hr": 139083, "prints": 3, "wallets": 3, "buy_usd": 44.84, "sell_usd": 150.68, "net": -105.84, "liq_s": 7, "tight": 98, "tape": 0, "votes": 2, "side": "SELL", "size": "half"}, {"market": "2026 Balance of Power: R Senate, R House", "slug": "2026-balance-of-power-r-senate-r-house-537", "yes": 0.075, "bid": 0.07, "ask": 0.08, "spread": 0.01, "liquidity": 2266066, "volume24hr": 117689, "prints": 7, "wallets": 1, "buy_usd": 16.8, "sell_usd": 0.0, "net": 16.8, "liq_s": 100, "tight": 80, "tape": 0, "votes": 2, "side": "BUY", "size": "half"}], "board": [{"market": "Counter-Strike: PARIVISION vs Natus Vincere (BO3) - ESL Pro League Group Stage", "slug": "cs2-prv-navi-2026-10-07", "yes": 0.335, "bid": 0.33, "ask": 0.34, "spread": 0.01, "liquidity": 552285, "volume24hr": 210160, "prints": 5, "wallets": 4, "buy_usd": 276.23, "sell_usd": 47.61, "net": 228.62, "liq_s": 69, "tight": 80, "tape": 0, "votes": 3, "side": "BUY", "size": "full"}, {"market": "Counter-Strike: K27 vs Metizport (BO3) - 1win Private Club #2: Closed Qualifier Playoffs", "slug": "cs2-k271-mzp-2026-10-07", "yes": 0.675, "bid": 0.67, "ask": 0.68, "spread": 0.01, "liquidity": 70621, "volume24hr": 93371, "prints": 6, "wallets": 6, "buy_usd": 1335.28, "sell_usd": 0.0, "net": 1335.28, "liq_s": 8, "tight": 80, "tape": 3, "votes": 2, "side": "BUY", "size": "half"}, {"market": "China Open: Ann Li vs Elina Svitolina", "slug": "wta-annli-svitoli-2026-10-06", "yes": 0.125, "bid": 0.12, "ask": 0.13, "spread": 0.01, "liquidity": 93302, "volume24hr": 153596, "prints": 6, "wallets": 5, "buy_usd": 881.3, "sell_usd": 0.0, "net": 881.3, "liq_s": 11, "tight": 80, "tape": 2, "votes": 2, "side": "BUY", "size": "half"}, {"market": "Putin out as President of Russia by December 31, 2026?", "slug": "putin-out-before-2027-346", "yes": 0.0305, "bid": 0.03, "ask": 0.031, "spread": 0.001, "liquidity": 658429, "volume24hr": 638740, "prints": 0, "wallets": 0, "buy_usd": 0.0, "sell_usd": 0.0, "net": 0.0, "liq_s": 82, "tight": 98, "tape": 0, "votes": 2, "side": "BUY", "size": "half"}, {"market": "Will Fl\u00e1vio Bolsonaro win the 2026 Brazilian presidential election?", "slug": "will-flvio-bolsonaro-win-the-2026-brazilian-presidential-election", "yes": 0.8495, "bid": 0.849, "ask": 0.85, "spread": 0.001, "liquidity": 899898, "volume24hr": 470122, "prints": 0, "wallets": 0, "buy_usd": 0.0, "sell_usd": 0.0, "net": 0.0, "liq_s": 100, "tight": 80, "tape": 0, "votes": 2, "side": "BUY", "size": "half"}, {"market": "Will the Democratic Party control the House after the 2026 Midterm elections?", "slug": "will-the-democratic-party-control-the-house-after-the-2026-midterm-elections", "yes": 0.925, "bid": 0.92, "ask": 0.93, "spread": 0.01, "liquidity": 2330530, "volume24hr": 324713, "prints": 0, "wallets": 0, "buy_usd": 0.0, "sell_usd": 0.0, "net": 0.0, "liq_s": 100, "tight": 80, "tape": 0, "votes": 2, "side": "BUY", "size": "half"}, {"market": "Will Luiz In\u00e1cio Lula da Silva win the 2026 Brazilian presidential election?", "slug": "will-luiz-incio-lula-da-silva-win-the-2026-brazilian-presidential-election", "yes": 0.145, "bid": 0.14, "ask": 0.15, "spread": 0.01, "liquidity": 1262763, "volume24hr": 274855, "prints": 0, "wallets": 0, "buy_usd": 0.0, "sell_usd": 0.0, "net": 0.0, "liq_s": 100, "tight": 80, "tape": 0, "votes": 2, "side": "BUY", "size": "half"}, {"market": "Will the U.S. invade Iran before 2027?", "slug": "will-the-us-invade-iran-before-2027", "yes": 0.155, "bid": 0.15, "ask": 0.16, "spread": 0.01, "liquidity": 928729, "volume24hr": 213158, "prints": 0, "wallets": 0, "buy_usd": 0.0, "sell_usd": 0.0, "net": 0.0, "liq_s": 100, "tight": 80, "tape": 0, "votes": 2, "side": "BUY", "size": "half"}, {"market": "Will the Republican Party control the House after the 2026 Midterm elections?", "slug": "will-the-republican-party-control-the-house-after-the-2026-midterm-elections", "yes": 0.075, "bid": 0.07, "ask": 0.08, "spread": 0.01, "liquidity": 2202174, "volume24hr": 206455, "prints": 0, "wallets": 0, "buy_usd": 0.0, "sell_usd": 0.0, "net": 0.0, "liq_s": 100, "tight": 80, "tape": 0, "votes": 2, "side": "BUY", "size": "half"}, {"market": "Will there be no change in Fed interest rates after the October 2026 meeting?", "slug": "will-there-be-no-change-in-fed-interest-rates-after-the-october-2026-meeting-20260617190324031", "yes": 0.825, "bid": 0.82, "ask": 0.83, "spread": 0.01, "liquidity": 734480, "volume24hr": 168964, "prints": 0, "wallets": 0, "buy_usd": 0.0, "sell_usd": 0.0, "net": 0.0, "liq_s": 100, "tight": 80, "tape": 0, "votes": 2, "side": "BUY", "size": "half"}, {"market": "Will Benjamin Netanyahu be the next Prime Minister of Israel?", "slug": "will-benjamin-netanyahu-be-the-next-prime-minister-of-israel", "yes": 0.355, "bid": 0.35, "ask": 0.36, "spread": 0.01, "liquidity": 456329, "volume24hr": 164748, "prints": 0, "wallets": 0, "buy_usd": 0.0, "sell_usd": 0.0, "net": 0.0, "liq_s": 100, "tight": 80, "tape": 0, "votes": 2, "side": "BUY", "size": "half"}, {"market": "Will the price of Bitcoin be above $82,000 on October 7?", "slug": "bitcoin-above-82k-on-october-7-2026", "yes": 0.9305, "bid": 0.93, "ask": 0.931, "spread": 0.001, "liquidity": 57052, "volume24hr": 139083, "prints": 3, "wallets": 3, "buy_usd": 44.84, "sell_usd": 150.68, "net": -105.84, "liq_s": 7, "tight": 98, "tape": 0, "votes": 2, "side": "SELL", "size": "half"}, {"market": "2026 Balance of Power: R Senate, R House", "slug": "2026-balance-of-power-r-senate-r-house-537", "yes": 0.075, "bid": 0.07, "ask": 0.08, "spread": 0.01, "liquidity": 2266066, "volume24hr": 117689, "prints": 7, "wallets": 1, "buy_usd": 16.8, "sell_usd": 0.0, "net": 16.8, "liq_s": 100, "tight": 80, "tape": 0, "votes": 2, "side": "BUY", "size": "half"}, {"market": "Will the Fed increase interest rates by 25 bps after the October 2026 meeting?", "slug": "will-the-fed-increase-interest-rates-by-25-bps-after-the-october-2026-meeting-20260617190324032", "yes": 0.175, "bid": 0.17, "ask": 0.18, "spread": 0.01, "liquidity": 455700, "volume24hr": 111367, "prints": 0, "wallets": 0, "buy_usd": 0.0, "sell_usd": 0.0, "net": 0.0, "liq_s": 100, "tight": 80, "tape": 0, "votes": 2, "side": "BUY", "size": "half"}, {"market": "Will the Democrats win the Texas Senate race in 2026?", "slug": "will-the-democrats-win-the-texas-senate-race-in-2026", "yes": 0.655, "bid": 0.65, "ask": 0.66, "spread": 0.01, "liquidity": 384964, "volume24hr": 98148, "prints": 0, "wallets": 0, "buy_usd": 0.0, "sell_usd": 0.0, "net": 0.0, "liq_s": 100, "tight": 80, "tape": 0, "votes": 2, "side": "BUY", "size": "half"}, {"market": "Counter-Strike: Spirit vs M80 (BO3) - ESL Pro League Group Stage", "slug": "cs2-ts7-m80-2026-10-07", "yes": 0.865, "bid": 0.86, "ask": 0.87, "spread": 0.01, "liquidity": 333141, "volume24hr": 90378, "prints": 0, "wallets": 0, "buy_usd": 0.0, "sell_usd": 0.0, "net": 0.0, "liq_s": 100, "tight": 80, "tape": 0, "votes": 2, "side": "BUY", "size": "half"}, {"market": "Will David Lisnard win the 2027 French presidential election?", "slug": "will-david-lisnard-win-the-2027-french-presidential-election", "yes": 0.1195, "bid": 0.119, "ask": 0.12, "spread": 0.001, "liquidity": 343320, "volume24hr": 86188, "prints": 0, "wallets": 0, "buy_usd": 0.0, "sell_usd": 0.0, "net": 0.0, "liq_s": 100, "tight": 80, "tape": 0, "votes": 2, "side": "BUY", "size": "half"}, {"market": "2026 Balance of Power: D Senate, D House", "slug": "2026-balance-of-power-d-senate-d-house-949", "yes": 0.645, "bid": 0.64, "ask": 0.65, "spread": 0.01, "liquidity": 2210336, "volume24hr": 75892, "prints": 0, "wallets": 0, "buy_usd": 0.0, "sell_usd": 0.0, "net": 0.0, "liq_s": 100, "tight": 80, "tape": 0, "votes": 2, "side": "BUY", "size": "half"}], "whales": [{"name": "mooseborzoii", "pnl": 2002660, "vol": 36969382}, {"name": "joseph00677", "pnl": 1585102, "vol": 9887650}, {"name": "SmartPredictOrNot", "pnl": 807348, "vol": 11498374}, {"name": "crispychook99", "pnl": 781889, "vol": 11951046}, {"name": "Papeasy", "pnl": 704092, "vol": 0}, {"name": "e46m3", "pnl": 609926, "vol": 449331}, {"name": "BillyGating", "pnl": 599150, "vol": 1895549}, {"name": "juice-fruit", "pnl": 576075, "vol": 2233783}, {"name": "gmpm2", "pnl": 561234, "vol": 8390191}, {"name": "TeamA", "pnl": 511643, "vol": 499761}], "tape_prints": 500, "tape_wallets": 281};
+
+/* ================= state ================= */
+const state = { tab:"signals", q:"", sort:"smart", side:"all", soon:false, pack:SEED, label:"", live:false, asof:null, lastRows:[] };
+
+/* ================= paper-trade store ================= */
+let trades = [];
+try { trades = JSON.parse(localStorage.getItem("phantom_trades_v1") || "[]"); } catch(e){ trades = []; }
+let bankroll = 100;
+try { bankroll = num(localStorage.getItem("phantom_bankroll_v1")) || 100; } catch(e){}
+function saveTrades(){ try { localStorage.setItem("phantom_trades_v1", JSON.stringify(trades)); } catch(e){} }
+function money2(n){ const v=num(n); return (v<0?"-":"")+"$"+Math.abs(v).toLocaleString(undefined,{minimumFractionDigits:2, maximumFractionDigits:2}); }
+/* P&L for one paper trade. stake = premium paid (BUY) or received (SELL). */
+function tradePL(t){
+  if (!t || !t.result) return null;
+  const p = num(t.price), s = num(t.stake);
+  if (!(p>0 && p<1 && s>0)) return 0;
+  const sh = s/p, yesWon = t.result==="yes";
+  if (t.side==="BUY") return yesWon ? sh*(1-p) : -s;
+  return yesWon ? -sh*(1-p) : s;
+}
+
+/* ================= helpers ================= */
+const $ = id => document.getElementById(id);
+const meta = $("meta"), errBox = $("err"), list = $("list"), dot = $("dot");
+function num(v){ const n = Number(v); return Number.isFinite(n) ? n : 0; }
+function money(n){ return (n<0?"-":"")+"$"+Math.abs(Math.round(n)).toLocaleString(); }
+function compact(n){
+  n = num(n); const a = Math.abs(n);
+  if (a >= 1e9) return (n/1e9).toFixed(1)+"B";
+  if (a >= 1e6) return (n/1e6).toFixed(1)+"M";
+  if (a >= 1e3) return (n/1e3).toFixed(1)+"K";
+  return String(Math.round(n));
+}
+function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+function relTime(d){
+  if (!d) return "";
+  const s = Math.max(0, Math.round((Date.now()-d.getTime())/1000));
+  if (s < 60) return s+"s ago";
+  if (s < 3600) return Math.floor(s/60)+"m ago";
+  if (s < 86400) return Math.floor(s/3600)+"h ago";
+  return Math.floor(s/86400)+"d ago";
+}
+/* time until market resolution, for intraday filtering */
+function expInfo(end){
+  if (!end) return null;
+  const t = new Date(end).getTime();
+  if (!isFinite(t)) return null;
+  const h = (t - Date.now())/36e5;
+  if (h < 0) return {label:"ended", hours:h};
+  if (h < 1) return {label:Math.max(1,Math.round(h*60))+"m", hours:h};
+  if (h < 48) return {label:Math.round(h)+"h", hours:h};
+  if (h < 24*30) return {label:Math.round(h/24)+"d", hours:h};
+  return {label:new Date(t).toLocaleDateString(undefined,{month:"short",day:"numeric"}), hours:h};
+}
+function link(slug, title){
+  // US market only — polymarket.com slugs don't exist on the .us site,
+  // so every tap opens the Polymarket US front door.
+  return "https://polymarket.us/?signup=true&referring_domain=polymarket.com&referring_surface=banner";
+}
+
+/* ================= scoring (unchanged logic) ================= */
+function score(markets, trades){
+  const by = new Map();
+  for (const t of trades){
+    const title = t.title || "";
+    if (!title) continue;
+    const usd = num(t.size)*num(t.price);
+    const row = by.get(title) || {buy:0,sell:0,prints:0,wallets:new Set()};
+    row.prints++; row.wallets.add(t.proxyWallet||"");
+    if (String(t.side||"").toUpperCase()==="BUY") row.buy += usd; else row.sell += usd;
+    by.set(title, row);
+  }
+  return markets.map(m => {
+    let prices=[]; try { prices=JSON.parse(m.outcomePrices||"[]").map(Number);} catch(e) {}
+    const bid=num(m.bestBid), ask=num(m.bestAsk);
+    const spread=num(m.spread || (ask&&bid ? ask-bid : 1));
+    const liq=num(m.liquidity);
+    const yes=prices[0] ?? ((bid&&ask)?(bid+ask)/2:0);
+    const flow=by.get(m.question)||{buy:0,sell:0,prints:0,wallets:new Set()};
+    const wallets=flow.wallets.size||0;
+    const net=flow.buy-flow.sell;
+    const votes=[liq>=32000, spread<=0.03, flow.prints>=3 || wallets>=3].filter(Boolean).length;
+    const confirmed=flow.prints>=3 || wallets>=2;
+    let size="skip";
+    if (votes>=2 && confirmed && liq>=20000 && yes>0.03 && yes<0.97 && spread<=0.04) size = votes===3 && wallets>=3 ? "full" : "half";
+    return {market:m.question||"", slug:m.slug||"", yes, spread, prints:flow.prints, wallets, net, votes, side:net>=0?"BUY":"SELL", size,
+            bid:bid||null, ask:ask||null, liquidity:liq, volume24hr:num(m.volume24hr), end:m.endDate||null};
+  }).sort((a,b)=>(b.size!=="skip")-(a.size!=="skip") || b.votes-a.votes || b.prints-a.prints);
+}
+
+/* ================= rendering ================= */
+function priceHTML(r){
+  const c = (num(r.yes)*100).toFixed(1)+"¢";
+  const cls = r.size==="skip" ? "mut" : (r.side==="BUY" ? "up" : "down");
+  return '<div class="price '+cls+'">'+c+'</div>';
+}
+function cardHTML(r, i){
+  const href = link(r.slug, r.market);
+  const sizeCls = r.size==="full" ? "size-full" : r.size==="half" ? "size-half" : "size-skip";
+  const sideCls = r.side==="BUY" ? "side-buy" : "side-sell";
+  const pct = Math.max(0, Math.min(100, num(r.yes)*100));
+  const barColor = r.size==="skip" ? "var(--muted)" : (r.side==="BUY" ? "var(--up)" : "var(--down)");
+  const bid = r.bid!=null ? (num(r.bid)*100).toFixed(1)+"¢" : (num(r.yes)*100).toFixed(1)+"¢";
+  const ask = r.ask!=null ? (num(r.ask)*100).toFixed(1)+"¢" : "—";
+  const net = num(r.net||0);
+  const netCls = net>=0 ? "up" : "down";
+  const skipCls = r.size==="skip" ? " skip" : "";
+  const xp = expInfo(r.end);
+  return '<div class="card'+skipCls+'" data-href="'+href+'" role="link" tabindex="0">'
+    + '<div class="card-top"><div class="badges">'
+    + '<span class="pill '+sizeCls+'">'+esc(r.size.toUpperCase())+'</span>'
+    + '<span class="pill '+sideCls+'">'+esc(r.side)+'</span>'
+    + '</div>'+priceHTML(r)+'</div>'
+    + '<div class="title">'+esc(r.market)+'</div>'
+    + '<div class="pbar"><i style="width:'+pct.toFixed(1)+'%;background:'+barColor+'"></i></div>'
+    + '<div class="quote"><span>BID <b>'+bid+'</b></span><span>ASK <b>'+ask+'</b></span><span>SPR <b>'+(num(r.spread)*100).toFixed(1)+'¢</b></span>'+(xp?'<span>⏳ <b>'+xp.label+'</b></span>':'')+'</div>'
+    + '<div class="cardmeta"><span class="open-hint">open ↗</span><button type="button" class="trackbtn" data-trk="'+i+'">+ track</button>'
+    + '<b>'+num(r.wallets)+'</b> wallets · <b>'+num(r.prints)+'</b> prints · net <b class="'+netCls+'">'+money(net)+'</b>'
+    + '<br/>liq <b>$'+compact(r.liquidity)+'</b> · vol 24h <b>$'+compact(r.volume24hr)+'</b> · votes <b>'+num(r.votes)+'/3</b></div>'
+    + '</div>';
+}
+function whaleRows(ws){
+  const rows = (ws||[]).slice().sort((a,b)=>num(b.pnl)-num(a.pnl));
+  if (!rows.length) return '<div class="empty">Whale board ships with the saved scan.<br/>Run a live scan in Safari — whales stay on the saved snapshot.</div>';
+  let h = '<div class="wtable"><div class="wrow head"><span>#</span><span>Trader</span><span style="text-align:right">P&amp;L</span><span style="text-align:right">Volume</span></div>';
+  rows.forEach((w,i)=>{
+    h += '<div class="wrow"><span class="wrank">'+(i+1)+'</span><span class="wname">'+esc(w.name)+'</span>'
+      + '<span class="wpnl">'+money(w.pnl)+'</span><span class="wvol">$'+compact(w.vol)+'</span></div>';
+  });
+  return h+'</div>';
+}
+function filtered(rows){
+  const q = state.q.trim().toLowerCase();
+  let out = rows.filter(r => {
+    if (state.side!=="all" && r.side!==state.side) return false;
+    if (state.soon){
+      const xp = expInfo(r.end);
+      if (!xp || xp.hours < 0 || xp.hours > 48) return false;
+    }
+    if (q && !String(r.market||"").toLowerCase().includes(q)) return false;
+    return true;
+  });
+  const by = {
+    smart:(a,b)=>((b.size!=="skip")-(a.size!=="skip")) || num(b.votes)-num(a.votes) || num(b.prints)-num(a.prints),
+    net:(a,b)=>num(b.net)-num(a.net),
+    liq:(a,b)=>num(b.liquidity)-num(a.liquidity),
+    vol:(a,b)=>num(b.volume24hr)-num(a.volume24hr),
+    price:(a,b)=>num(b.yes)-num(a.yes)
+  };
+  return out.sort(by[state.sort]||by.smart);
+}
+function renderStats(){
+  const p = state.pack;
+  const sigs = p.signals || [];
+  const net = sigs.reduce((s,r)=>s+num(r.net), 0);
+  const prints = p.tape_prints!=null ? p.tape_prints : sigs.reduce((s,r)=>s+num(r.prints),0);
+  const wallets = p.tape_wallets!=null ? p.tape_wallets : sigs.reduce((s,r)=>s+num(r.wallets),0);
+  $("stats").innerHTML =
+      stat("Signals", sigs.length, "blue")
+    + stat("Net flow", money(net), net>=0?"up":"down")
+    + stat("Prints", compact(prints), "")
+    + stat("Wallets", compact(wallets), "");
+  function stat(k,v,cls){ return '<div class="stat"><div class="k">'+k+'</div><div class="v '+cls+'">'+v+'</div></div>'; }
+}
+function render(){
+  const p = state.pack;
+  const board = p.board || [];
+  const sigs = p.signals || board.filter(r=>r.size!=="skip");
+  const whales = p.whales || [];
+  $("n-signals").textContent = sigs.length;
+  $("n-board").textContent = board.length;
+  $("n-whales").textContent = whales.length;
+  $("n-tracker").textContent = trades.length;
+  $("filters").style.display = (state.tab==="whales" || state.tab==="tracker") ? "none" : "flex";
+  if (state.tab==="tracker"){ renderTracker(); renderStats(); return; }
+  let html = "", count = "";
+  if (state.tab==="whales"){
+    html = whaleRows(whales);
+    count = whales.length ? whales.length+" traders tracked" : "";
+  } else {
+    const rows = filtered(state.tab==="signals" ? sigs : board);
+    state.lastRows = rows;
+    const hasExp = board.some(r=>expInfo(r.end));
+    html = rows.length ? rows.map((r,i)=>cardHTML(r,i)).join("")
+      : '<div class="empty">'+(state.soon && !hasExp
+          ? 'No expiry data in this saved scan.<br/>Run a live scan in Safari to use the ≤48h filter.'
+          : 'No markets match.<br/>Try clearing the filter.')+'</div>';
+    count = rows.length+" shown · "+(state.live?"live":"saved")+" scan";
+  }
+  list.innerHTML = html;
+  $("countline").textContent = count;
+  renderStats();
+  const ago = state.asof ? " · "+relTime(state.asof) : "";
+  meta.textContent = state.label + ago;
+}
+function tradeRowHTML(t){
+  const pl = tradePL(t);
+  const sideCls = t.side==="BUY" ? "side-buy" : "side-sell";
+  const dt = new Date(t.ts).toLocaleString(undefined,{month:"short",day:"numeric",hour:"numeric",minute:"2-digit"});
+  let h = '<div class="trow"><div class="trow-top"><span class="pill '+sideCls+'">'+esc(t.side)+'</span>'
+    + '<span class="tmarket">'+esc(t.market)+'</span>'
+    + (pl==null ? '<span class="res-pill">OPEN</span>' : '<b class="tpl '+(pl>=0?"up":"down")+'">'+money2(pl)+'</b>')
+    + '</div><div class="trow-sub">'+(num(t.price)*100).toFixed(1)+'¢ entry · '+money2(t.stake)+' stake · '+(num(t.stake)/num(t.price)).toFixed(1)+' sh · '+esc(t.size)+' · '+dt+'</div>';
+  if (pl==null){
+    h += '<div class="trow-actions"><button type="button" class="ry" data-res="yes" data-id="'+t.id+'">Yes won</button>'
+      + '<button type="button" class="rn" data-res="no" data-id="'+t.id+'">No won</button>'
+      + '<button type="button" class="tdel" data-del="'+t.id+'">✕</button></div>';
+  } else {
+    h += '<div class="trow-actions"><span class="res-pill">'+(t.result==="yes"?"YES WON":"NO WON")+'</span>'
+      + '<button type="button" class="tdel" data-del="'+t.id+'">✕</button></div>';
+  }
+  return h+'</div>';
+}
+function renderTracker(){
+  const open = trades.filter(t=>!t.result), done = trades.filter(t=>t.result);
+  const pl = done.reduce((a,t)=>a+num(tradePL(t)), 0);
+  const wins = done.filter(t=>num(tradePL(t))>0).length;
+  let h = '<div class="tsum">'
+    + '<div class="tstat"><div class="k">Bankroll</div><div class="tbank">$<input id="bankrollIn" type="number" inputmode="decimal" value="'+bankroll+'"></div></div>'
+    + '<div class="tstat"><div class="k">Realized P&amp;L</div><div class="v '+(pl>=0?"up":"down")+'">'+money2(pl)+'</div></div>'
+    + '<div class="tstat"><div class="k">Win rate</div><div class="v">'+(done.length?Math.round(wins/done.length*100)+"%":"—")+'</div></div>'
+    + '<div class="tstat"><div class="k">Open risk</div><div class="v">'+money2(open.reduce((a,t)=>a+num(t.stake),0))+'</div></div>'
+    + '</div>';
+  if (!trades.length){
+    const n = (state.pack.signals||[]).length;
+    h += '<div class="empty">No paper trades yet.<br/>Tap <b>+ track</b> on any signal card, or log them all at once.<br/><br/>'
+      + '<button type="button" class="scanbtn" id="logAll">LOG ALL '+n+' SIGNALS</button></div>';
+  } else {
+    h += trades.slice().reverse().map(tradeRowHTML).join("");
+  }
+  list.innerHTML = h;
+  $("countline").textContent = trades.length+" paper trades · "+done.length+" graded";
+  const bi = $("bankrollIn");
+  if (bi) bi.addEventListener("change", ()=>{
+    bankroll = num(bi.value) || 100;
+    try { localStorage.setItem("phantom_bankroll_v1", String(bankroll)); } catch(e){}
+    render();
+  });
+  const la = $("logAll");
+  if (la) la.addEventListener("click", ()=>{
+    const sigs = state.pack.signals || [];
+    const now = Date.now();
+    sigs.forEach((r,i)=>{ trades.push({id:now+i, market:r.market, slug:r.slug, side:r.side, size:r.size, price:num(r.yes), stake:r.size==="full"?20:10, result:null, ts:now}); });
+    saveTrades(); render();
+  });
+}
+function draw(pack, label, live, asof){
+  state.pack = pack; state.label = label; state.live = !!live; state.asof = asof || null;
+  dot.className = "dot" + (live ? " live" : "");
+  render();
+}
+
+/* ================= scan ================= */
+function skeletons(){
+  list.innerHTML = Array.from({length:4},()=>'<div class="skel"><i style="height:14px;width:38%;margin-bottom:10px"></i><i style="height:12px;width:92%;margin-bottom:8px"></i><i style="height:6px;width:100%;margin-bottom:8px"></i><i style="height:12px;width:64%"></i></div>').join("");
+}
+async function scan(){
+  const btn = $("scan");
+  btn.disabled = true; btn.textContent = "···";
+  errBox.style.display = "none";
+  skeletons();
+  meta.textContent = "calling Polymarket…";
+  dot.className = "dot live";
+  try {
+    const [markets, trades] = await Promise.all([
+      fetch("https://gamma-api.polymarket.com/markets?closed=false&active=true&limit=80&order=volume24hr&ascending=false").then(r => { if(!r.ok) throw new Error("markets "+r.status); return r.json(); }),
+      fetch("https://data-api.polymarket.com/trades?limit=500").then(r => { if(!r.ok) throw new Error("trades "+r.status); return r.json(); })
+    ]);
+    const board = score(markets, trades);
+    draw({board, signals:board.filter(r=>r.size!=="skip")}, "live scan", true, new Date());
+  } catch (e) {
+    errBox.style.display = "flex";
+    errBox.innerHTML = "<div>⚠️ Couldn't reach Polymarket ("+esc(e.message)+"). This device blocks the request — open the file in Safari for live scans. Showing the saved scan below.</div>";
+    draw(SEED, "saved scan · Oct 7, 2026 14:07 UTC", false, new Date("2026-10-07T14:07:02Z"));
+  }
+  btn.disabled = false; btn.textContent = "SCAN";
+}
+
+/* ================= wire up ================= */
+$("scan").addEventListener("click", scan);
+$("tipx").addEventListener("click", ()=>{ $("tip").style.display="none"; });
+function switchTab(name){
+  document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("on", x.dataset.tab===name));
+  state.tab = name; render();
+}
+document.querySelectorAll(".tab").forEach(t=>{
+  t.addEventListener("click", ()=>switchTab(t.dataset.tab));
+});
+$("q").addEventListener("input", e=>{ state.q = e.target.value; render(); });
+$("sort").addEventListener("change", e=>{ state.sort = e.target.value; render(); });
+$("side").addEventListener("change", e=>{ state.side = e.target.value; render(); });
+$("soonBtn").addEventListener("click", ()=>{
+  state.soon = !state.soon;
+  $("soonBtn").classList.toggle("on", state.soon);
+  $("soonBtn").setAttribute("aria-pressed", String(state.soon));
+  render();
+});
+
+/* tap a card -> open its market. window.open first (new tab), fall back to
+   same-tab navigation for webviews that swallow _blank links. */
+function openHref(url){
+  let w = null;
+  try { w = window.open(url, "_blank", "noopener"); } catch(e) {}
+  if (!w){ try { window.location.href = url; } catch(e2) {} }
+}
+list.addEventListener("click", e=>{
+  const ce = e.target.closest ? e.target.closest("[data-res],[data-del],.trackbtn,[data-href]") : null;
+  if (!ce) return;
+  if (ce.hasAttribute("data-res")){
+    const t = trades.find(x=>String(x.id)===ce.dataset.id);
+    if (t){ t.result = ce.dataset.res; saveTrades(); render(); }
+    return;
+  }
+  if (ce.hasAttribute("data-del")){
+    trades = trades.filter(x=>String(x.id)!==ce.dataset.del);
+    saveTrades(); render();
+    return;
+  }
+  if (ce.classList.contains("trackbtn")){ openSheet(state.lastRows[Number(ce.dataset.trk)]); return; }
+  openHref(ce.getAttribute("data-href"));
+});
+list.addEventListener("keydown", e=>{
+  if (e.key==="Enter" || e.key===" "){
+    const c = e.target.closest ? e.target.closest("[data-href]") : null;
+    if (c){ e.preventDefault(); openHref(c.getAttribute("data-href")); }
+  }
+});
+
+/* ================= paper-trade sheet ================= */
+let sheetRow = null, sheetSide = "BUY", sheetSize = "half";
+function paintSeg(){
+  document.querySelectorAll("#shSide button").forEach(b=>{
+    b.className = b.dataset.v===sheetSide ? (sheetSide==="BUY"?"on-buy":"on-sell") : "";
+  });
+  document.querySelectorAll("#shSize button").forEach(b=>{
+    b.className = b.dataset.v===sheetSize ? "on" : "";
+  });
+}
+function updHint(){
+  const p = num($("shPrice").value)/100, s = num($("shStake").value);
+  if (!(p>0 && p<1 && s>0)){ $("shHint").textContent = "Enter a valid price and stake."; return; }
+  const sh = s/p;
+  const win = sheetSide==="BUY" ? sh*(1-p) : s;
+  const lose = sheetSide==="BUY" ? s : sh*(1-p);
+  $("shHint").innerHTML = "Win: <b class=\"up\">+"+money2(win)+"</b> · Lose: <b class=\"down\">-"+money2(lose)+"</b> · "+sh.toFixed(1)+" shares";
+}
+function openSheet(r){
+  if (!r) return;
+  sheetRow = r;
+  sheetSide = r.side || "BUY";
+  sheetSize = (r.size==="full"||r.size==="half") ? r.size : "half";
+  $("shMarket").textContent = r.market;
+  $("shPrice").value = (num(r.yes)*100).toFixed(1);
+  $("shStake").value = r.size==="full" ? 20 : r.size==="half" ? 10 : 5;
+  paintSeg(); updHint();
+  $("sheetWrap").style.display = "flex";
+}
+document.querySelectorAll("#shSide button").forEach(b=>b.addEventListener("click", ()=>{ sheetSide=b.dataset.v; paintSeg(); updHint(); }));
+document.querySelectorAll("#shSize button").forEach(b=>b.addEventListener("click", ()=>{ sheetSize=b.dataset.v; paintSeg(); updHint(); }));
+$("shPrice").addEventListener("input", updHint);
+$("shStake").addEventListener("input", updHint);
+$("shCancel").addEventListener("click", ()=>{ $("sheetWrap").style.display="none"; });
+$("sheetWrap").addEventListener("click", e=>{ if (e.target===$("sheetWrap")) $("sheetWrap").style.display="none"; });
+$("shSave").addEventListener("click", ()=>{
+  const p = num($("shPrice").value)/100, s = num($("shStake").value);
+  if (!(p>0 && p<1 && s>0) || !sheetRow) return;
+  trades.push({id:Date.now(), market:sheetRow.market, slug:sheetRow.slug, side:sheetSide, size:sheetSize, price:p, stake:s, result:null, ts:Date.now()});
+  saveTrades();
+  $("sheetWrap").style.display = "none";
+  switchTab("tracker");
+});
+
+draw(SEED, "saved scan · Oct 7, 2026 14:07 UTC", false, new Date("2026-10-07T14:07:02Z"));
+</script>
+</body>
+</html>

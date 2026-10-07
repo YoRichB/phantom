@@ -1,0 +1,8 @@
+# runtime state — machine-local, never commit
+paper.json
+seen.json
+resolutions.json
+# editor / OS noise
+.DS_Store
+*.swp
+*~
