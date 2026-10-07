@@ -215,7 +215,7 @@
     <button class="tab" data-tab="board" role="tab">Board<span class="n" id="n-board">0</span></button>
     <button class="tab" data-tab="whales" role="tab">Whales<span class="n" id="n-whales">0</span></button>
     <button class="tab" data-tab="tracker" role="tab">Tracker<span class="n" id="n-tracker">0</span></button>
-    <button class="tab" data-tab="bot" role="tab">Bot<span class="n" id="n-bot">0</span></button>
+    <button class="tab" data-tab="bot" role="tab">Trading Agent<span class="n" id="n-bot">0</span></button>
   </div>
   <div class="filters" id="filters">
     <label class="search">🔍<input id="q" type="search" placeholder="Filter markets…" autocomplete="off"/></label>
@@ -502,7 +502,7 @@ function paperState(){
 function renderBot(){
   var s = paperState(), h = "";
   if (!s){
-    list.innerHTML = '<div class="empty">The bot has not reported yet.<br/>It runs every ~30 minutes and injects its state here.</div>';
+    list.innerHTML = '<div class="empty">The trading agent has not reported yet.<br/>It runs every ~30 minutes and injects its state here.</div>';
     return;
   }
   var g = function(n){ return n>=0 ? "up" : "down"; };
