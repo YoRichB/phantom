@@ -33,7 +33,7 @@ const note = (check, ok, detail) => findings.push({ check, ok, detail: detail ||
     void realized;
   }
   // 4. dashboard freshness
-  const dash = '/home/hatch/workspace/your_files/phantom-paper-trader.html';
+  const dash = '/home/hatch/workspace/your_files/phantom.html';
   try {
     const ageMin = (Date.now() - fs.statSync(dash).mtimeMs) / 60000;
     note('dashboard:fresh', ageMin < 90, Math.round(ageMin) + ' min old');

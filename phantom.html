@@ -221,7 +221,7 @@
     <label class="search">🔍<input id="q" type="search" placeholder="Filter markets…" autocomplete="off"/></label>
     <select id="sort" aria-label="sort">
       <option value="smart">Top signals</option>
-      <option value="net">Net flow</option>
+      <option value="net">Tape flow</option>
       <option value="liq">Liquidity</option>
       <option value="vol">Volume 24h</option>
       <option value="price">Price</option>
@@ -431,7 +431,7 @@ function renderStats(){
   const wallets = p.tape_wallets!=null ? p.tape_wallets : sigs.reduce((s,r)=>s+num(r.wallets),0);
   $("stats").innerHTML =
       stat("Signals", sigs.length, "blue")
-    + stat("Net flow", money(net), net>=0?"up":"down")
+    + stat("Tape flow", money(net), net>=0?"up":"down")
     + stat("Prints", compact(prints), "")
     + stat("Wallets", compact(wallets), "");
   function stat(k,v,cls){ return '<div class="stat"><div class="k">'+k+'</div><div class="v '+cls+'">'+v+'</div></div>'; }
