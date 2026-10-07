@@ -310,11 +310,16 @@ async function live(){
   });
   const opened = [];
   const t = new Date(now).toISOString();
+  // One position per event: "Spirit vs M80 - Map 2" and "Spirit vs M80 (BO3)"
+  // share the same match, so a second position would double the event risk.
+  const evKey = s => (s.market || '').split(' - ')[0].trim().toLowerCase();
+  const openEvents = new Set(state.positions.filter(p => p.status === 'open').map(evKey));
   for (const q of quals){
+    if (openEvents.has(evKey(q.market))) continue; // already exposed to this event
     const gate = canOpen(state);
     if (gate){ state.skipped++; continue; }
     const res = openPosition(state, q, t);
-    if (res === 'opened') opened.push({ market: q.market, side: q.side === 'BUY' ? 'YES' : 'NO', stake: STAKE[q.size], entry_c: Math.round((q.side === 'BUY' ? (q.ask || q.yes) : 1 - (q.bid || q.yes)) * 10000) / 100 });
+    if (res === 'opened'){ opened.push({ market: q.market, side: q.side === 'BUY' ? 'YES' : 'NO', stake: STAKE[q.size], entry_c: Math.round((q.side === 'BUY' ? (q.ask || q.yes) : 1 - (q.bid || q.yes)) * 10000) / 100 }); openEvents.add(evKey(q.market)); }
   }
   const graded = await gradeAll(state);
   const sum = summary(state, opened, graded);
