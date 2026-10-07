@@ -24,3 +24,5 @@ Ordered by value. Checked items are done.
       drawdown on the dashboard
 - [ ] **Stale-position reaper** — auto-flag positions past expiry + N hours
       with no resolution so they don't sit open forever
+---
+- DONE 2026-10-07: one-position-per-event cap (was: $20/$30 on Spirit vs M80 via Map2+Series). Next after 30-50 graded: feed win/loss back into scoring weights.
