@@ -7,13 +7,12 @@ Ordered by value. Checked items are done.
 - [x] Paper-trading bot on a simulated $100 wallet (BUY=YES, SELL=NO math)
 - [x] Auto-grading on market resolution + live dashboard
 - [x] Background self-check (`doctor.js`)
-- [ ] **Fix the browser app's tracker math** — the HTML tracker's SELL
-      handling still uses premium-received semantics; convert it to
-      BUY YES / BUY NO like the bot
-- [ ] **Exits before resolution** — take-profit / stop-loss and time-based
-      exits instead of always holding to settlement
-- [ ] **Sizing options** — flat stakes work, but add fractional-Kelly as an
-      alternative and compare both on the ledger
+- [x] **Fix the browser app's tracker math** — SELL signals now grade as
+      buy-NO at (1 − yes); signal language is BUY YES / BUY NO
+- [x] **Exits before resolution** — +100% partial take-profit, −50% stop,
+      near-expiry take, stale reaper
+- [x] **Sizing options** — flat stakes cut to $10/$5 so the $100 wallet stays
+      deployed across ~10 positions instead of saturating at 5; Kelly still open
 - [ ] **Longer backtest** — replay weeks of historical tape + resolutions
       instead of judging on one day
 - [ ] **US-market mapping** — match .com signals to polymarket.us listings so

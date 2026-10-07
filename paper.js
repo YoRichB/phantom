@@ -4,9 +4,12 @@
 //   node paper.js backfill   one-time: enter this morning's seed signals
 //   node paper.js live       every 30 min: score, open new positions, grade opens
 //
-// Semantics (corrected): a BUY signal = buy YES at the yes price;
-// a SELL signal = buy NO at (1 - yes). Stake = wallet cash risked.
-// Sizing: full = $20, half = $10. Never open if stake > available cash.
+// Semantics: a BUY signal = buy YES at the ASK (honest fill);
+// a SELL signal = buy NO at (1 - BID). Stake = wallet cash risked.
+// Sizing: full = $10, half = $5. Never open if stake > available cash.
+// Exits: +100% partial take-profit (sell half, ride the rest),
+// -50% stop-loss, near-expiry (<30 min) profit take, stale reaper (>6h past
+// end). Daily breaker: no new opens once day P&L <= -$30. Max 10 open.
 const fs = require('fs');
 const path = require('path');
 const { getJSON, scoreMarkets } = require('./lib');
@@ -14,7 +17,13 @@ const DIR = '/home/hatch/workspace/phantom-signal-monitor';
 const PAPER = path.join(DIR, 'paper.json');
 
 const START = 100;
-const STAKE = { full: 20, half: 10 };
+const STAKE = { full: 10, half: 5 };
+const TP_AT = 1.0;          // +100% unrealized -> sell half
+const SL_AT = -0.5;         // -50% unrealized -> exit all
+const EXPIRY_TAKE_MIN = 30; // <30 min to end + green -> exit all
+const STALE_AFTER_H = 6;    // >6h past end, unresolved -> settle at mark
+const MAX_OPEN = 10;
+const MAX_DAILY_LOSS = 30;
 const r2 = n => Math.round(n * 100) / 100;
 
 function load(){
@@ -25,13 +34,14 @@ function save(s){ fs.mkdirSync(DIR, { recursive: true }); fs.writeFileSync(PAPER
 
 const tradedSlugs = s => new Set([...s.positions, ...s.closed].map(p => p.slug));
 
-// sig: {market, slug, yes, side:'BUY'|'SELL', size, end}
+// sig: {market, slug, yes, bid, ask, side:'BUY'|'SELL', size, end}
 function openPosition(state, sig, entryTime){
   const stake = STAKE[sig.size];
   if (!stake || tradedSlugs(state).has(sig.slug)) return 'dup';
   if (stake > state.bankroll) { state.skipped++; return 'skipped'; }
   const yesSide = sig.side === 'BUY';
-  const entryPrice = yesSide ? sig.yes : (1 - sig.yes);
+  // Honest fills: pay the ask on YES, i.e. 1 - bid on NO.
+  const entryPrice = yesSide ? (sig.ask || sig.yes) : (1 - (sig.bid || sig.yes));
   if (!(entryPrice > 0 && entryPrice < 1)) return 'badprice';
   const shares = stake / entryPrice;
   state.bankroll = r2(state.bankroll - stake);
@@ -40,9 +50,25 @@ function openPosition(state, sig, entryTime){
     side: yesSide ? 'YES' : 'NO', signal: sig.side, size: sig.size,
     entry_yes: r2(sig.yes * 10000) / 10000, entry_price: r2(entryPrice * 10000) / 10000,
     stake, shares: r2(shares * 100) / 100,
+    cash_in: 0, tp_taken: false,
     opened_at: entryTime, end: sig.end || null, status: 'open'
   });
   return 'opened';
+}
+
+function bumpDay(state, pnl){
+  const d = new Date().toISOString().slice(0, 10);
+  if (!state.day || state.day.date !== d) state.day = { date: d, pnl: 0 };
+  state.day.pnl = r2(state.day.pnl + pnl);
+}
+
+// Gate for new opens: daily loss breaker + max open positions.
+function canOpen(state){
+  const d = new Date().toISOString().slice(0, 10);
+  const dayPnl = (state.day && state.day.date === d) ? state.day.pnl : 0;
+  if (dayPnl <= -MAX_DAILY_LOSS) return 'daily-breaker';
+  if (state.positions.filter(p => p.status === 'open').length >= MAX_OPEN) return 'max-open';
+  return null;
 }
 
 async function marketState(slug){
@@ -87,16 +113,40 @@ function loadOverrides(){
 // a market is treated as delisted and settled at its last known mark.
 const MAX_MISSES = 4;
 
-function closePosition(state, p, yesWon, note){
-  const won = (p.side === 'YES') === yesWon;
-  const payout = won ? p.shares : 0;         // each share pays $1
-  const pnl = r2(payout - p.stake);
+// Settle a position: cash_in tracks every dollar received (partial sales +
+// final payout); pnl is always cash_in - stake, so partials can't double-count.
+function settle(state, p, payout, won, yesWon, note){
+  p.cash_in = r2((p.cash_in || 0) + payout);
+  const pnl = r2(p.cash_in - p.stake);
   state.bankroll = r2(state.bankroll + payout);
   p.status = 'closed'; p.yes_won = yesWon; p.won = won;
   p.pnl = pnl; p.closed_at = new Date().toISOString();
   if (note) p.note = note;
+  bumpDay(state, pnl);
   state.closed.push(p);
-  return { market: p.market, side: p.side, stake: p.stake, won, pnl, note: note || null };
+  return { market: p.market, side: p.side, stake: p.stake, won: p.won, pnl, note: note || null };
+}
+
+function closePosition(state, p, yesWon, note){
+  const won = (p.side === 'YES') === yesWon;
+  return settle(state, p, won ? p.shares : 0, won, yesWon, note); // each share pays $1
+}
+
+// Full exit at the current mark (stop-loss, expiry take, stale).
+function exitAtMarket(state, p, cur, note){
+  const payout = r2(p.shares * cur);
+  return settle(state, p, payout, payout > (p.stake - (p.cash_in || 0)), null, note);
+}
+
+// Partial take-profit: sell half the remaining shares at +100%, ride the rest.
+function takePartial(state, p, cur){
+  const q = r2(p.shares / 2);
+  const proceeds = r2(q * cur);
+  state.bankroll = r2(state.bankroll + proceeds);
+  p.cash_in = r2((p.cash_in || 0) + proceeds);
+  p.shares = r2(p.shares - q);
+  p.tp_taken = true;
+  return { market: p.market, sold: q, proceeds };
 }
 
 async function gradeAll(state){
@@ -116,50 +166,68 @@ async function gradeAll(state){
       graded.push(closePosition(state, p, ms.yesWon, null));
       continue;
     }
-    // 3) Unresolvable right now: refresh mark if we have one, count the miss.
-    //    Only a fully failed lookup counts as a miss; a live market that
-    //    simply lacks a price never settles early.
+    // 3) Live market: refresh the mark, then run the exit ladder.
     if (ms.ok) {
       p.misses = 0;
       if (ms.yesNow != null) p.yes_now = r2(ms.yesNow * 10000) / 10000;
+      if (p.yes_now != null) {
+        const cur = p.side === 'YES' ? p.yes_now : (1 - p.yes_now);
+        const upnl = ((p.cash_in || 0) + p.shares * cur - p.stake) / p.stake;
+        const minsToEnd = p.end ? (new Date(p.end).getTime() - Date.now()) / 60000 : Infinity;
+        const stale = p.end && Date.now() > new Date(p.end).getTime() + STALE_AFTER_H * 3600e3;
+        if (!p.tp_taken && upnl >= TP_AT) {
+          const tp = takePartial(state, p, cur);   // sell half, ride the rest
+          p.note = 'partial-tp';
+          graded.push({ market: p.market, side: p.side, stake: p.stake, won: true,
+                        pnl: r2(tp.proceeds - (tp.sold * p.entry_price)), note: 'take-profit (half)' });
+        } else if (upnl <= SL_AT) {
+          graded.push(exitAtMarket(state, p, cur, 'stop-loss'));
+          continue;
+        } else if (minsToEnd <= EXPIRY_TAKE_MIN && upnl > 0) {
+          graded.push(exitAtMarket(state, p, cur, 'expiry-take'));
+          continue;
+        } else if (stale) {
+          graded.push(exitAtMarket(state, p, cur, 'stale-expired'));
+          continue;
+        }
+      }
       continue;
     }
     p.misses = (p.misses || 0) + 1;
     // 4) Persistently absent + we hold a last mark: settle there, clearly noted.
     if (p.misses >= MAX_MISSES && p.yes_now != null){
       const cur = p.side === 'YES' ? p.yes_now : (1 - p.yes_now);
-      const payout = r2(p.shares * cur);
-      const pnl = r2(payout - p.stake);
-      state.bankroll = r2(state.bankroll + payout);
-      p.status = 'closed'; p.yes_won = null; p.won = pnl > 0;
-      p.pnl = pnl; p.closed_at = new Date().toISOString();
-      p.note = 'delisted_settled_at_last_mark';
-      state.closed.push(p);
-      graded.push({ market: p.market, side: p.side, stake: p.stake, won: p.won, pnl, note: p.note });
+      graded.push(exitAtMarket(state, p, cur, 'delisted_settled_at_last_mark'));
     }
   }
   state.positions = state.positions.filter(p => p.status === 'open');
-  // refresh mark-to-market on remaining opens
+  // refresh mark-to-market on remaining opens (banked partials count)
   for (const p of state.positions){
     if (p.yes_now != null){
       const cur = p.side === 'YES' ? p.yes_now : (1 - p.yes_now);
-      p.unrealized = r2(p.shares * cur - p.stake);
+      p.unrealized = r2((p.cash_in || 0) + p.shares * cur - p.stake);
     }
   }
   return graded;
 }
 
 function summary(state, opened, graded){
-  const realized = r2(state.closed.reduce((a, p) => a + (p.pnl || 0), 0));
+  const closed = state.closed || [];
+  const realized = r2(closed.reduce((a, p) => a + (p.pnl || 0), 0));
   const openRisk = r2(state.positions.reduce((a, p) => a + p.stake, 0));
   const openVal = r2(state.positions.reduce((a, p) => {
     const cur = (p.yes_now != null) ? (p.side === 'YES' ? p.yes_now : (1 - p.yes_now)) : p.entry_price;
-    return a + p.shares * cur;
+    return a + (p.cash_in || 0) + p.shares * cur;
   }, 0));
+  const grossW = r2(closed.filter(p => p.pnl > 0).reduce((a, p) => a + p.pnl, 0));
+  const grossL = r2(closed.filter(p => p.pnl < 0).reduce((a, p) => a - p.pnl, 0));
   return {
     bankroll: state.bankroll, equity: r2(state.bankroll + openVal),
     realized_pnl: realized, open_count: state.positions.length,
     open_risk: openRisk, skipped: state.skipped,
+    profit_factor: grossL > 0 ? r2(grossW / grossL) : (grossW > 0 ? Infinity : null),
+    best: closed.length ? r2(Math.max(...closed.map(p => p.pnl))) : null,
+    worst: closed.length ? r2(Math.min(...closed.map(p => p.pnl))) : null,
     opened, graded,
     positions: state.positions.map(p => ({
       market: p.market, side: p.side, stake: p.stake,
@@ -202,8 +270,9 @@ function writeReport(state, sum){
   const closedRows = [...closed].reverse().map(p =>
     `<tr><td>${esc(p.market)}</td><td>${p.side}</td><td>$${p.stake}</td>` +
     `<td style="color:${p.won ? '#26a69a' : '#ef5350'}">${p.won ? 'WON' : 'LOST'}</td>` +
+    `<td style="color:#8a93a6">${esc(p.note || 'resolved')}</td>` +
     `<td style="color:${g(p.pnl)}">${p.pnl >= 0 ? '+' : ''}$${p.pnl.toFixed(2)}</td></tr>`
-  ).join('') || '<tr><td colspan="5" style="color:#5b6478">nothing graded yet</td></tr>';
+  ).join('') || '<tr><td colspan="6" style="color:#5b6478">nothing graded yet</td></tr>';
   const asof = hist.length ? new Date(hist[hist.length - 1].t) : new Date();
   const html = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="refresh" content="300">
@@ -230,11 +299,14 @@ footer{color:#5b6478;font-size:11px;text-align:center;margin-top:18px}</style></
 <div class="card"><div class="l">Open</div><div class="v">${sum.open_count}</div></div>
 <div class="card"><div class="l">Win rate</div><div class="v">${winRate != null ? winRate + '%' : '—'}</div></div>
 <div class="card"><div class="l">Graded</div><div class="v">${closed.length}</div></div>
+<div class="card"><div class="l">Profit factor</div><div class="v">${sum.profit_factor != null ? (sum.profit_factor === Infinity ? '∞' : sum.profit_factor.toFixed(2)) : '—'}</div></div>
+<div class="card"><div class="l">Best trade</div><div class="v" style="color:${sum.best != null ? g(sum.best) : '#d1d4dc'}">${sum.best != null ? (sum.best >= 0 ? '+' : '') + '$' + sum.best.toFixed(2) : '—'}</div></div>
+<div class="card"><div class="l">Worst trade</div><div class="v" style="color:${sum.worst != null ? g(sum.worst) : '#d1d4dc'}">${sum.worst != null ? (sum.worst >= 0 ? '+' : '') + '$' + sum.worst.toFixed(2) : '—'}</div></div>
 </div>
 <div class="panel"><h2>Equity curve</h2>${spark}</div>
 <div class="panel"><h2>Open positions</h2><table><tr><th>Market</th><th>Side</th><th>Stake</th><th>Entry</th><th>Now</th><th>Unreal.</th></tr>${openRows}</table></div>
-<div class="panel"><h2>Graded</h2><table><tr><th>Market</th><th>Side</th><th>Stake</th><th>Result</th><th>P&amp;L</th></tr>${closedRows}</table></div>
-<footer>Paper trading simulation on a $100 starting wallet · full signals $20, half signals $10 · not real money</footer>
+<div class="panel"><h2>Graded</h2><table><tr><th>Market</th><th>Side</th><th>Stake</th><th>Result</th><th>Exit</th><th>P&amp;L</th></tr>${closedRows}</table></div>
+<footer>Paper trading simulation on a $100 starting wallet · full signals $10, half signals $5 · exits: +100% half take-profit, −50% stop, expiry take, stale reaper · not real money</footer>
 </div></body></html>`;
   fs.writeFileSync('/home/hatch/workspace/your_files/phantom-paper-trader.html', html);
 }
@@ -279,8 +351,10 @@ async function live(){
   const opened = [];
   const t = new Date(now).toISOString();
   for (const q of quals){
+    const gate = canOpen(state);
+    if (gate){ state.skipped++; continue; }
     const res = openPosition(state, q, t);
-    if (res === 'opened') opened.push({ market: q.market, side: q.side === 'BUY' ? 'YES' : 'NO', stake: STAKE[q.size], entry_c: Math.round((q.side === 'BUY' ? q.yes : 1 - q.yes) * 10000) / 100 });
+    if (res === 'opened') opened.push({ market: q.market, side: q.side === 'BUY' ? 'YES' : 'NO', stake: STAKE[q.size], entry_c: Math.round((q.side === 'BUY' ? (q.ask || q.yes) : 1 - (q.bid || q.yes)) * 10000) / 100 });
   }
   const graded = await gradeAll(state);
   const sum = summary(state, opened, graded);

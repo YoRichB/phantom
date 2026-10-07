@@ -234,7 +234,7 @@
     <div class="sheet-row">
       <label>Side</label>
       <div class="seg" id="shSide">
-        <button type="button" data-v="BUY">BUY</button><button type="button" data-v="SELL">SELL</button>
+        <button type="button" data-v="YES">YES</button><button type="button" data-v="NO">NO</button>
       </div>
     </div>
     <div class="sheet-row">
@@ -269,14 +269,16 @@ let bankroll = 100;
 try { bankroll = num(localStorage.getItem("phantom_bankroll_v1")) || 100; } catch(e){}
 function saveTrades(){ try { localStorage.setItem("phantom_trades_v1", JSON.stringify(trades)); } catch(e){} }
 function money2(n){ const v=num(n); return (v<0?"-":"")+"$"+Math.abs(v).toLocaleString(undefined,{minimumFractionDigits:2, maximumFractionDigits:2}); }
-/* P&L for one paper trade. stake = premium paid (BUY) or received (SELL). */
+/* P&L for one paper trade. YES = buy Yes at p; NO = buy No at (1-p).
+   Stake is wallet cash risked in both cases. Legacy BUY/SELL map to YES/NO. */
 function tradePL(t){
   if (!t || !t.result) return null;
   const p = num(t.price), s = num(t.stake);
   if (!(p>0 && p<1 && s>0)) return 0;
-  const sh = s/p, yesWon = t.result==="yes";
-  if (t.side==="BUY") return yesWon ? sh*(1-p) : -s;
-  return yesWon ? -sh*(1-p) : s;
+  const yesWon = t.result==="yes";
+  const isNo = t.side==="NO" || t.side==="SELL";
+  if (isNo){ const q = 1-p, sh = s/q; return yesWon ? -s : sh-s; }
+  const sh = s/p; return yesWon ? sh-s : -s;
 }
 
 /* ================= helpers ================= */
@@ -455,12 +457,14 @@ function render(){
 }
 function tradeRowHTML(t){
   const pl = tradePL(t);
-  const sideCls = t.side==="BUY" ? "side-buy" : "side-sell";
+  const isNo = t.side==="NO" || t.side==="SELL";
+  const sideCls = isNo ? "side-sell" : "side-buy";
   const dt = new Date(t.ts).toLocaleString(undefined,{month:"short",day:"numeric",hour:"numeric",minute:"2-digit"});
-  let h = '<div class="trow"><div class="trow-top"><span class="pill '+sideCls+'">'+esc(t.side)+'</span>'
+  const eprice = isNo ? 1-num(t.price) : num(t.price);
+  let h = '<div class="trow"><div class="trow-top"><span class="pill '+sideCls+'">'+esc(isNo?"NO":"YES")+'</span>'
     + '<span class="tmarket">'+esc(t.market)+'</span>'
     + (pl==null ? '<span class="res-pill">OPEN</span>' : '<b class="tpl '+(pl>=0?"up":"down")+'">'+money2(pl)+'</b>')
-    + '</div><div class="trow-sub">'+(num(t.price)*100).toFixed(1)+'¢ entry · '+money2(t.stake)+' stake · '+(num(t.stake)/num(t.price)).toFixed(1)+' sh · '+esc(t.size)+' · '+dt+'</div>';
+    + '</div><div class="trow-sub">'+(num(t.price)*100).toFixed(1)+'¢ yes · '+(eprice*100).toFixed(1)+'¢ entry · '+money2(t.stake)+' stake · '+(num(t.stake)/eprice).toFixed(1)+' sh · '+esc(t.size)+' · '+dt+'</div>';
   if (pl==null){
     h += '<div class="trow-actions"><button type="button" class="ry" data-res="yes" data-id="'+t.id+'">Yes won</button>'
       + '<button type="button" class="rn" data-res="no" data-id="'+t.id+'">No won</button>'
@@ -500,7 +504,7 @@ function renderTracker(){
   if (la) la.addEventListener("click", ()=>{
     const sigs = state.pack.signals || [];
     const now = Date.now();
-    sigs.forEach((r,i)=>{ trades.push({id:now+i, market:r.market, slug:r.slug, side:r.side, size:r.size, price:num(r.yes), stake:r.size==="full"?20:10, result:null, ts:now}); });
+    sigs.forEach((r,i)=>{ trades.push({id:now+i, market:r.market, slug:r.slug, side:r.side==="SELL"?"NO":"YES", size:r.size, price:num(r.yes), stake:r.size==="full"?20:10, result:null, ts:now}); });
     saveTrades(); render();
   });
 }
@@ -599,15 +603,14 @@ function paintSeg(){
 function updHint(){
   const p = num($("shPrice").value)/100, s = num($("shStake").value);
   if (!(p>0 && p<1 && s>0)){ $("shHint").textContent = "Enter a valid price and stake."; return; }
-  const sh = s/p;
-  const win = sheetSide==="BUY" ? sh*(1-p) : s;
-  const lose = sheetSide==="BUY" ? s : sh*(1-p);
+  const ep = sheetSide==="NO" ? 1-p : p;   // price of the side actually bought
+  const sh = s/ep, win = sh-s, lose = s;
   $("shHint").innerHTML = "Win: <b class=\"up\">+"+money2(win)+"</b> · Lose: <b class=\"down\">-"+money2(lose)+"</b> · "+sh.toFixed(1)+" shares";
 }
 function openSheet(r){
   if (!r) return;
   sheetRow = r;
-  sheetSide = r.side || "BUY";
+  sheetSide = r.side==="SELL" ? "NO" : "YES";
   sheetSize = (r.size==="full"||r.size==="half") ? r.size : "half";
   $("shMarket").textContent = r.market;
   $("shPrice").value = (num(r.yes)*100).toFixed(1);

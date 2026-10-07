@@ -22,21 +22,31 @@ Each market gets up to 3 votes: deep liquidity (≥$32k), tight spread (≤3¢),
 and real tape (≥3 prints or ≥3 wallets). A signal needs ≥2 votes plus
 confirmation, then:
 
-- **FULL** (3 votes, ≥3 wallets): stake $20
-- **HALF** (2 votes + confirmed): stake $10
+- **FULL** (3 votes, ≥3 wallets): stake $10
+- **HALF** (2 votes + confirmed): stake $5
 
 Only markets resolving within 48 hours are traded. Scan alerts fire on new
 FULL signals; the bot trades both sizes.
 
 ## Paper-trading semantics
 
-- A **BUY** signal = buy **YES** at the yes price.
-- A **SELL** signal = buy **NO** at `1 − yes` (the executable equivalent for a
+- A **BUY** signal = buy **YES** at the ask (honest fill).
+- A **SELL** signal = buy **NO** at `1 − bid` (the executable equivalent for a
   cash wallet — not a short sale).
 - Stake = wallet cash risked. Shares = stake ÷ entry price. Each share pays $1.
-- A new position opens only if the stake fits in free cash.
-- Grading: the market is fetched by slug from the Gamma API; when
-  `closed=true` and `outcomePrices` show a winner, the position settles.
+- A new position opens only if the stake fits in free cash, fewer than 10
+  positions are open, and today's realized P&L is above −$30 (daily breaker).
+
+## Exit policy (research-backed)
+
+Holding every position to resolution leaves money on the table and lets
+losers bleed. Each run re-marks open positions and:
+
+- **+100% partial take-profit** — sell half, let the rest ride to resolution
+- **−50% stop-loss** — exit the full position
+- **Near-expiry take** — under 30 minutes to resolution and green: exit all
+- **Stale reaper** — 6+ hours past expiry with no resolution: settle at mark
+- Verified resolutions for delisted markets live in `resolutions.json`
 
 ## Running it
 
