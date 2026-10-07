@@ -10,9 +10,9 @@ against a simulated **$100 wallet**. Paper only — it never touches real money.
 |---|---|
 | `lib.js` | Shared fetch + Phantom scoring logic |
 | `scan.js` | 30-min monitor: finds **new full-size** intraday signals, dedupes via `seen.json` |
-| `paper.js` | Paper-trading bot: opens/grades positions, keeps the ledger in `paper.json`, rebuilds the dashboard |
+| `paper.js` | Paper-trading bot: opens/grades positions, keeps the ledger in `paper.json`, injects live state into the app's Bot tab |
 | `doctor.js` | Background self-check: validates scripts, state files, dashboard freshness, API reachability |
-| `scanner.html` | Standalone browser UI (cards, whales, manual paper tracker) — copy of the user-facing app |
+| `phantom.html` | The single Phantom app (signals, board, whales, tracker, bot tabs) — template copy of the user-facing app |
 
 Runtime state (`paper.json`, `seen.json`, `resolutions.json`) is git-ignored.
 
@@ -52,13 +52,13 @@ losers bleed. Each run re-marks open positions and:
 
 ```bash
 node scan.js          # one monitor sweep (JSON of new full signals)
-node paper.js live    # score, open, grade, rebuild dashboard
+node paper.js live    # score, open, grade, inject state into app
 node paper.js backfill # one-time: enter the seed scan as positions
 node doctor.js        # self-check; exits 0 clean, 1 with findings
 ```
 
 In production this runs on a 30-minute schedule. Each run rebuilds the
-dashboard at `phantom-paper-trader.html` (user-facing copy).
+unified app at `~/workspace/your_files/phantom.html` (paper.js injects the bot state into its Bot tab each run; this file is the user-facing copy, this repo holds the template).
 
 ## Honest limitations
 
