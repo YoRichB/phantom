@@ -6,3 +6,5 @@ resolutions.json
 .DS_Store
 *.swp
 *~
+
+backups/
