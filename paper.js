@@ -238,77 +238,37 @@ function summary(state, opened, graded){
 
 function esc(s){ return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 
-function writeReport(state, sum){
+// Inject the bot's live state into the unified Phantom app (Bot tab).
+// The app file lives outside git; the repo keeps a template with {"none":true}.
+const APP_PATH = '/home/hatch/workspace/your_files/phantom.html';
+function injectAppState(state, sum){
   const closed = state.closed || [];
-  const wins = closed.filter(p => p.won).length;
-  const winRate = closed.length ? Math.round(wins / closed.length * 100) : null;
-  const hist = state.history || [];
-  let spark = '<div style="color:#5b6478;font-size:13px;padding:28px 0">not enough data yet — check back after a few runs</div>';
-  if (hist.length > 1){
-    const W = 560, H = 120, P = 10;
-    const vals = hist.map(h => h.equity);
-    const lo = Math.min(...vals, 100), hi = Math.max(...vals, 100);
-    const rng = (hi - lo) || 1;
-    const y0 = (H - P - (100 - lo) / rng * (H - 2 * P)).toFixed(1);
-    const pts = vals.map((v, i) =>
-      (P + i * (W - 2 * P) / (vals.length - 1)).toFixed(1) + ',' +
-      (H - P - (v - lo) / rng * (H - 2 * P)).toFixed(1)).join(' ');
-    const up = vals[vals.length - 1] >= 100;
-    spark = `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:120px;display:block">
-      <line x1="${P}" y1="${y0}" x2="${W - P}" y2="${y0}" stroke="#3a4356" stroke-dasharray="4 4"/>
-      <polyline points="${pts}" fill="none" stroke="${up ? '#26a69a' : '#ef5350'}" stroke-width="2"/></svg>
-      <div style="display:flex;justify-content:space-between;color:#5b6478;font-size:11px"><span>$${lo.toFixed(0)}</span><span>started $100</span><span>$${hi.toFixed(0)}</span></div>`;
-  }
-  const g = n => n >= 0 ? '#26a69a' : '#ef5350';
-  const openRows = state.positions.map(p => {
-    const nowC = p.yes_now != null ? Math.round((p.side === 'YES' ? p.yes_now : 1 - p.yes_now) * 10000) / 100 : null;
-    const u = p.unrealized ?? null;
-    return `<tr><td>${esc(p.market)}</td><td>${p.side}</td><td>$${p.stake}</td>` +
-      `<td>${(p.entry_price * 100).toFixed(1)}¢</td><td>${nowC != null ? nowC.toFixed(1) + '¢' : '—'}</td>` +
-      `<td style="color:${u != null ? g(u) : '#8a93a6'}">${u != null ? (u >= 0 ? '+' : '') + '$' + u.toFixed(2) : '—'}</td></tr>`;
-  }).join('') || '<tr><td colspan="6" style="color:#5b6478">no open positions</td></tr>';
-  const closedRows = [...closed].reverse().map(p =>
-    `<tr><td>${esc(p.market)}</td><td>${p.side}</td><td>$${p.stake}</td>` +
-    `<td style="color:${p.won ? '#26a69a' : '#ef5350'}">${p.won ? 'WON' : 'LOST'}</td>` +
-    `<td style="color:#8a93a6">${esc(p.note || 'resolved')}</td>` +
-    `<td style="color:${g(p.pnl)}">${p.pnl >= 0 ? '+' : ''}$${p.pnl.toFixed(2)}</td></tr>`
-  ).join('') || '<tr><td colspan="6" style="color:#5b6478">nothing graded yet</td></tr>';
-  const asof = hist.length ? new Date(hist[hist.length - 1].t) : new Date();
-  const html = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta http-equiv="refresh" content="300">
-<title>Phantom Paper Trader</title>
-<style>body{background:#0d1420;color:#d1d4dc;font-family:-apple-system,Helvetica,Arial,sans-serif;margin:0;padding:16px}
-.wrap{max-width:720px;margin:0 auto}h1{font-size:20px;margin:4px 0}.sub{color:#5b6478;font-size:12px;margin-bottom:14px}
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
-.card{background:#131722;border:1px solid #1e2532;border-radius:10px;padding:12px}
-.card .l{font-size:11px;color:#5b6478;text-transform:uppercase;letter-spacing:.5px}
-.card .v{font-size:22px;font-weight:700;margin-top:4px}
-.panel{background:#131722;border:1px solid #1e2532;border-radius:10px;padding:14px;margin-bottom:14px}
-.panel h2{font-size:14px;margin:0 0 10px;color:#8a93a6;text-transform:uppercase;letter-spacing:.5px}
-table{width:100%;border-collapse:collapse;font-size:13px}
-td,th{padding:8px 6px;border-bottom:1px solid #1e2532;text-align:left;vertical-align:top}
-th{color:#5b6478;font-size:11px;text-transform:uppercase;letter-spacing:.4px}
-footer{color:#5b6478;font-size:11px;text-align:center;margin-top:18px}</style></head>
-<body><div class="wrap">
-<h1>🤖 Phantom Paper Trader</h1>
-<div class="sub">Updated ${asof.toLocaleString()} · rebuilds every ~30 min when the bot runs · re-open for the latest</div>
-<div class="cards">
-<div class="card"><div class="l">Cash</div><div class="v">$${sum.bankroll.toFixed(2)}</div></div>
-<div class="card"><div class="l">Equity</div><div class="v" style="color:${g(sum.equity - 100)}">$${sum.equity.toFixed(2)}</div></div>
-<div class="card"><div class="l">Realized P&amp;L</div><div class="v" style="color:${g(sum.realized_pnl)}">${sum.realized_pnl >= 0 ? '+' : ''}$${sum.realized_pnl.toFixed(2)}</div></div>
-<div class="card"><div class="l">Open</div><div class="v">${sum.open_count}</div></div>
-<div class="card"><div class="l">Win rate</div><div class="v">${winRate != null ? winRate + '%' : '—'}</div></div>
-<div class="card"><div class="l">Graded</div><div class="v">${closed.length}</div></div>
-<div class="card"><div class="l">Profit factor</div><div class="v">${sum.profit_factor != null ? (sum.profit_factor === Infinity ? '∞' : sum.profit_factor.toFixed(2)) : '—'}</div></div>
-<div class="card"><div class="l">Best trade</div><div class="v" style="color:${sum.best != null ? g(sum.best) : '#d1d4dc'}">${sum.best != null ? (sum.best >= 0 ? '+' : '') + '$' + sum.best.toFixed(2) : '—'}</div></div>
-<div class="card"><div class="l">Worst trade</div><div class="v" style="color:${sum.worst != null ? g(sum.worst) : '#d1d4dc'}">${sum.worst != null ? (sum.worst >= 0 ? '+' : '') + '$' + sum.worst.toFixed(2) : '—'}</div></div>
-</div>
-<div class="panel"><h2>Equity curve</h2>${spark}</div>
-<div class="panel"><h2>Open positions</h2><table><tr><th>Market</th><th>Side</th><th>Stake</th><th>Entry</th><th>Now</th><th>Unreal.</th></tr>${openRows}</table></div>
-<div class="panel"><h2>Graded</h2><table><tr><th>Market</th><th>Side</th><th>Stake</th><th>Result</th><th>Exit</th><th>P&amp;L</th></tr>${closedRows}</table></div>
-<footer>Paper trading simulation on a $100 starting wallet · full signals $10, half signals $5 · exits: +100% half take-profit, −50% stop, expiry take, stale reaper · not real money</footer>
-</div></body></html>`;
-  fs.writeFileSync('/home/hatch/workspace/your_files/phantom-paper-trader.html', html);
+  const payload = {
+    as_of: new Date().toISOString(),
+    bankroll: sum.bankroll, equity: sum.equity, realized_pnl: sum.realized_pnl,
+    open_count: sum.open_count, open_risk: sum.open_risk,
+    profit_factor: sum.profit_factor, best: sum.best, worst: sum.worst,
+    positions: state.positions.map(p => ({
+      market: p.market, side: p.side, stake: p.stake,
+      entry_c: r2(p.entry_price * 100), unrealized: p.unrealized ?? null
+    })),
+    closed: closed.map(p => ({
+      market: p.market, side: p.side, stake: p.stake,
+      won: !!p.won, pnl: p.pnl, note: p.note || 'resolved'
+    })),
+    history: (state.history || []).slice(-120)
+  };
+  try {
+    let html = fs.readFileSync(APP_PATH, 'utf8');
+    const a = html.indexOf('<script id="paper-state" type="application/json">');
+    if (a < 0) return false;
+    const b = html.indexOf('</scr' + 'ipt>', a);
+    if (b < 0) return false;
+    const openEnd = html.indexOf('>', a) + 1;
+    html = html.slice(0, openEnd) + JSON.stringify(payload) + html.slice(b);
+    fs.writeFileSync(APP_PATH, html);
+    return true;
+  } catch (e) { return false; }
 }
 
 // ---- this morning's seed scan (2026-10-07 14:07:02 UTC), intraday only ----
@@ -331,7 +291,7 @@ async function backfill(){
   const sum = summary(state, opened, graded);
   state.history = [...(state.history || []), { t: new Date().toISOString(), equity: sum.equity }].slice(-500);
   save(state);
-  writeReport(state, sum);
+  injectAppState(state, sum);
   console.log(JSON.stringify({ mode: 'backfill', ...sum }, null, 1));
 }
 
@@ -360,7 +320,7 @@ async function live(){
   const sum = summary(state, opened, graded);
   state.history = [...(state.history || []), { t: new Date().toISOString(), equity: sum.equity }].slice(-500);
   save(state);
-  writeReport(state, sum);
+  injectAppState(state, sum);
   console.log(JSON.stringify({ mode: 'live', as_of: t, ...sum }, null, 1));
 }
 
