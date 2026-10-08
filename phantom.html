@@ -81,10 +81,10 @@
   .tab.on{color:var(--text); border-bottom-color:var(--blue);}
   .tab .n{font-size:11px; background:var(--panel2); border-radius:10px; padding:1px 7px; margin-left:6px; color:var(--muted);}
   .tab.on .n{background:rgba(41,98,255,.2); color:#a9bdfc;}
-  .filters{display:flex; gap:8px; padding:10px 0;}
+  .filters{display:flex; gap:8px; padding:10px 0; flex-wrap:wrap;}
   .search{
-    flex:1; display:flex; align-items:center; gap:8px; background:var(--panel);
-    border:1px solid var(--line); border-radius:6px; padding:0 10px; min-height:40px;
+    flex:1 1 170px; display:flex; align-items:center; gap:8px; background:var(--panel);
+    border:1px solid var(--line); border-radius:6px; padding:0 10px; min-height:40px; min-width:0;
   }
   .search input{flex:1; min-width:0; background:none; border:0; outline:0; color:var(--text); font:14px inherit;}
   .search input::placeholder{color:var(--muted);}
@@ -174,6 +174,8 @@
   .btable th{color:var(--muted); font-size:10.5px; text-transform:uppercase; letter-spacing:.05em;}
   .bsec{background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:12px; margin-bottom:10px;}
   .bsec h3{font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin:0 0 8px;}
+  .bsec .trow{margin-bottom:8px; background:var(--panel2);}
+  .bsec .trow:last-child{margin-bottom:0;}
   /* ---------- bottom sheet ---------- */
   .sheet-wrap{position:fixed; inset:0; z-index:50; background:rgba(0,0,0,.62); display:flex; align-items:flex-end; justify-content:center;}
   .sheet{width:100%; max-width:520px; background:var(--panel); border:1px solid var(--line); border-bottom:0; border-radius:14px 14px 0 0; padding:16px 16px calc(16px + env(safe-area-inset-bottom));}
@@ -542,20 +544,24 @@ function renderBot(){
        + segs + '</svg></div>';
   }
   // open positions
-  var orows = s.positions.map(function(o){
+  var ocards = s.positions.map(function(o){
     var u = o.unrealized;
-    return '<tr><td>'+esc(o.market)+'</td><td>'+o.side+'</td><td>$'+o.stake+'</td><td>'+o.entry_c.toFixed(1)+'\u00a2</td>'
-      + '<td class="'+(u==null?"":g(u))+'">'+(u==null?"\u2014":(u>=0?"+":"")+money2(u).replace("$-","-$"))+'</td></tr>';
-  }).join("") || '<tr><td colspan="5" style="color:var(--muted)">no open positions</td></tr>';
-  h += '<div class="bsec"><h3>Open positions</h3><table class="btable"><tr><th>Market</th><th>Side</th><th>Stake</th><th>Entry</th><th>Unreal.</th></tr>'+orows+'</table></div>';
+    var uv = u==null ? "—" : (u>=0?"+":"")+money2(u).replace("$-","-$");
+    return '<div class="trow"><div class="trow-top"><span class="pill '+(o.side==="NO"?"side-sell":"side-buy")+'">'+o.side+'</span>'
+      + '<span class="tmarket">'+esc(o.market)+'</span>'
+      + '<b class="tpl '+(u==null?"":g(u))+'">'+uv+'</b></div>'
+      + '<div class="trow-sub">$'+o.stake+' stake · entry '+o.entry_c.toFixed(1)+'¢</div></div>';
+  }).join("") || '<div class="empty">no open positions</div>';
+  h += '<div class="bsec"><h3>Open positions</h3>'+ocards+'</div>';
   // graded
-  var grows = s.closed.slice().reverse().map(function(c){
-    return '<tr><td>'+esc(c.market)+'</td><td>'+c.side+'</td><td>$'+c.stake+'</td>'
-      + '<td class="'+(c.won?"up":"down")+'">'+(c.won?"WON":"LOST")+'</td>'
-      + '<td style="color:var(--muted)">'+esc(c.note||"resolved")+'</td>'
-      + '<td class="'+g(c.pnl)+'">'+(c.pnl>=0?"+":"")+money2(c.pnl).replace("$-","-$")+'</td></tr>';
-  }).join("") || '<tr><td colspan="6" style="color:var(--muted)">nothing graded yet</td></tr>';
-  h += '<div class="bsec"><h3>Graded</h3><table class="btable"><tr><th>Market</th><th>Side</th><th>Stake</th><th>Result</th><th>Exit</th><th>P&amp;L</th></tr>'+grows+'</table></div>';
+  var gcards = s.closed.slice().reverse().map(function(c){
+    var pv = (c.pnl>=0?"+":"")+money2(c.pnl).replace("$-","-$");
+    return '<div class="trow"><div class="trow-top"><span class="pill '+(c.side==="NO"?"side-sell":"side-buy")+'">'+c.side+'</span>'
+      + '<span class="tmarket">'+esc(c.market)+'</span>'
+      + '<b class="tpl '+g(c.pnl)+'">'+pv+'</b></div>'
+      + '<div class="trow-sub">$'+c.stake+' stake · '+(c.won?"WON":"LOST")+' · '+esc(c.note||"resolved")+'</div></div>';
+  }).join("") || '<div class="empty">nothing graded yet</div>';
+  h += '<div class="bsec"><h3>Graded</h3>'+gcards+'</div>';
   list.innerHTML = h;
 }
 
