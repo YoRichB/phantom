@@ -516,14 +516,22 @@ function renderBot(){
     + stat("Open", s.open_count) + stat("Win rate", wr) + stat("Graded", s.closed.length)
     + stat("Profit factor", pf) + stat("Best", s.best==null?"\u2014":(s.best>=0?"+":"")+money2(s.best).replace("$-","-$"), s.best==null?"":g(s.best)) + stat("Worst", s.worst==null?"\u2014":(s.worst>=0?"+":"")+money2(s.worst).replace("$-","-$"), s.worst==null?"":g(s.worst))
     + '</div>';
-  // equity curve
+  // equity curve: each segment green when equity rose, red when it fell
   var hist = s.history || [];
   if (hist.length > 1){
     var W=560,H=110,P=10, vals=hist.map(function(x){return x.equity;}),
         lo=Math.min.apply(null,vals.concat([100])), hi=Math.max.apply(null,vals.concat([100])), rng=(hi-lo)||1,
-        pts=vals.map(function(v,i){ return (P+i*(W-2*P)/(vals.length-1)).toFixed(1)+","+(H-P-(v-lo)/rng*(H-2*P)).toFixed(1); }).join(" "),
-        upc = vals[vals.length-1]>=100;
-    h += '<div class="bsec"><h3>Equity curve</h3><svg class="beq" viewBox="0 0 '+W+' '+H+'"><polyline points="'+pts+'" fill="none" stroke="'+(upc?"var(--up)":"var(--down)")+'" stroke-width="2"/></svg></div>';
+        X=function(i){ return P+i*(W-2*P)/(vals.length-1); },
+        Y=function(v){ return H-P-(v-lo)/rng*(H-2*P); },
+        segs="";
+    for (var i=1;i<vals.length;i++){
+      var c = vals[i]>=vals[i-1] ? "#26a69a" : "#ef5350";
+      segs += '<line x1="'+X(i-1).toFixed(1)+'" y1="'+Y(vals[i-1]).toFixed(1)+'" x2="'+X(i).toFixed(1)+'" y2="'+Y(vals[i]).toFixed(1)+'" stroke="'+c+'" stroke-width="2"/>';
+    }
+    var baseY = Y(100).toFixed(1);
+    h += '<div class="bsec"><h3>Equity curve</h3><svg class="beq" viewBox="0 0 '+W+' '+H+'">'
+       + '<line x1="'+P+'" y1="'+baseY+'" x2="'+(W-P)+'" y2="'+baseY+'" stroke="#5a6274" stroke-width="1" stroke-dasharray="4 3"/>'
+       + segs + '</svg></div>';
   }
   // open positions
   var orows = s.positions.map(function(o){
