@@ -139,14 +139,19 @@ function exitAtMarket(state, p, cur, note){
 }
 
 // Partial take-profit: sell half the remaining shares at +100%, ride the rest.
+// The banked profit is real the moment it sells: record it so realized P&L,
+// profit factor and the daily breaker see it (it is NOT in closed[] yet).
 function takePartial(state, p, cur){
   const q = r2(p.shares / 2);
   const proceeds = r2(q * cur);
+  const banked = r2(proceeds - q * p.entry_price);
   state.bankroll = r2(state.bankroll + proceeds);
   p.cash_in = r2((p.cash_in || 0) + proceeds);
+  p.banked = r2((p.banked || 0) + banked);
   p.shares = r2(p.shares - q);
   p.tp_taken = true;
-  return { market: p.market, sold: q, proceeds };
+  bumpDay(state, banked);
+  return { market: p.market, sold: q, proceeds, banked };
 }
 
 async function gradeAll(state){
@@ -213,13 +218,19 @@ async function gradeAll(state){
 
 function summary(state, opened, graded){
   const closed = state.closed || [];
-  const realized = r2(closed.reduce((a, p) => a + (p.pnl || 0), 0));
+  // Banked partial profits live on still-open positions; count them exactly once.
+  // (When such a position finally closes, its closed pnl = cash_in - stake already
+  // includes the banked part, and it leaves the open list — no double count.)
+  const bankedOpen = r2(state.positions.reduce((a, p) => a + (p.banked || 0), 0));
+  const realized = r2(closed.reduce((a, p) => a + (p.pnl || 0), 0) + bankedOpen);
   const openRisk = r2(state.positions.reduce((a, p) => a + p.stake, 0));
+  // Equity = cash + market value of remaining shares. Banked cash already sits in
+  // bankroll, so openVal must NOT include cash_in (that was the double count).
   const openVal = r2(state.positions.reduce((a, p) => {
     const cur = (p.yes_now != null) ? (p.side === 'YES' ? p.yes_now : (1 - p.yes_now)) : p.entry_price;
-    return a + (p.cash_in || 0) + p.shares * cur;
+    return a + p.shares * cur;
   }, 0));
-  const grossW = r2(closed.filter(p => p.pnl > 0).reduce((a, p) => a + p.pnl, 0));
+  const grossW = r2(closed.filter(p => p.pnl > 0).reduce((a, p) => a + p.pnl, 0) + bankedOpen);
   const grossL = r2(closed.filter(p => p.pnl < 0).reduce((a, p) => a - p.pnl, 0));
   return {
     bankroll: state.bankroll, equity: r2(state.bankroll + openVal),
