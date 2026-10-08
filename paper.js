@@ -312,7 +312,7 @@ async function live(){
   const t = new Date(now).toISOString();
   // One position per event: "Spirit vs M80 - Map 2" and "Spirit vs M80 (BO3)"
   // share the same match, so a second position would double the event risk.
-  const evKey = s => (s.market || '').split(' - ')[0].trim().toLowerCase();
+  const evKey = s => (s.market || '').split(' - ')[0].replace(/\s*\([^)]*\)/g, '').trim().toLowerCase();
   const openEvents = new Set(state.positions.filter(p => p.status === 'open').map(evKey));
   for (const q of quals){
     if (openEvents.has(evKey(q.market))) continue; // already exposed to this event
