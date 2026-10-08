@@ -65,10 +65,18 @@
   .v.up{color:var(--up);} .v.down{color:var(--down);} .v.blue{color:#8ea6ff;}
   /* ---------- controls ---------- */
   .controls{padding:10px 14px 0; position:sticky; top:59px; z-index:10; background:var(--bg);}
-  .tabs{display:flex; gap:4px; border-bottom:1px solid var(--line);}
+  .tabs-wrap{position:relative; border-bottom:1px solid var(--line);}
+  .tabs{display:flex; gap:4px; overflow-x:auto; max-width:100%;
+    scrollbar-width:none; -webkit-overflow-scrolling:touch; scroll-behavior:smooth;}
+  .tabs::-webkit-scrollbar{display:none;}
+  .tabs-wrap::after{content:""; position:absolute; top:0; right:0; bottom:0; width:30px;
+    background:linear-gradient(90deg,transparent,var(--bg)); pointer-events:none;
+    opacity:0; transition:opacity .25s;}
+  .tabs-wrap.more::after{opacity:1;}
   .tab{
-    background:none; border:0; color:var(--muted); font:600 13px inherit;
-    padding:10px 14px; cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-1px;
+    flex:none; background:none; border:0; color:var(--muted); font:600 13px inherit;
+    padding:10px 12px; cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-1px;
+    white-space:nowrap;
   }
   .tab.on{color:var(--text); border-bottom-color:var(--blue);}
   .tab .n{font-size:11px; background:var(--panel2); border-radius:10px; padding:1px 7px; margin-left:6px; color:var(--muted);}
@@ -210,13 +218,13 @@
 <section class="stats" id="stats"></section>
 
 <div class="controls">
-  <div class="tabs" role="tablist">
+  <div class="tabs-wrap" id="tabsWrap"><div class="tabs" role="tablist">
     <button class="tab on" data-tab="signals" role="tab">Signals<span class="n" id="n-signals">0</span></button>
     <button class="tab" data-tab="board" role="tab">Board<span class="n" id="n-board">0</span></button>
     <button class="tab" data-tab="whales" role="tab">Whales<span class="n" id="n-whales">0</span></button>
     <button class="tab" data-tab="tracker" role="tab">Tracker<span class="n" id="n-tracker">0</span></button>
     <button class="tab" data-tab="bot" role="tab">Trading Agent<span class="n" id="n-bot">0</span></button>
-  </div>
+  </div></div>
   <div class="filters" id="filters">
     <label class="search">🔍<input id="q" type="search" placeholder="Filter markets…" autocomplete="off"/></label>
     <select id="sort" aria-label="sort">
@@ -619,10 +627,22 @@ async function scan(){
 /* ================= wire up ================= */
 $("scan").addEventListener("click", scan);
 $("tipx").addEventListener("click", ()=>{ $("tip").style.display="none"; });
+function tabsFade(){
+  var t=document.querySelector(".tabs"), w=document.getElementById("tabsWrap");
+  if(!t||!w) return;
+  w.classList.toggle("more", t.scrollWidth > t.clientWidth+4 && t.scrollLeft+t.clientWidth < t.scrollWidth-4);
+}
 function switchTab(name){
   document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("on", x.dataset.tab===name));
   state.tab = name; render();
+  var a=document.querySelector('.tab[data-tab="'+name+'"]');
+  if(a&&a.scrollIntoView) a.scrollIntoView({inline:"center",block:"nearest",behavior:"smooth"});
+  setTimeout(tabsFade,350);
 }
+var _tabsEl=document.querySelector(".tabs");
+if(_tabsEl){ _tabsEl.addEventListener("scroll",tabsFade,{passive:true}); }
+window.addEventListener("resize",tabsFade);
+setTimeout(tabsFade,300);
 document.querySelectorAll(".tab").forEach(t=>{
   t.addEventListener("click", ()=>switchTab(t.dataset.tab));
 });
