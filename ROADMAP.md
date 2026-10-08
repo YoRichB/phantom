@@ -24,5 +24,8 @@ Ordered by value. Checked items are done.
       drawdown on the dashboard
 - [ ] **Stale-position reaper** — auto-flag positions past expiry + N hours
       with no resolution so they don't sit open forever
+- [ ] **Grade-count milestone** — monitor notes when closed trades cross ~40
+      graded and pings, since that is when the user accepted the scoring
+      review (feed win/loss back into signal weights) becomes due
 ---
 - DONE 2026-10-07: one-position-per-event cap (was: $20/$30 on Spirit vs M80 via Map2+Series). Next after 30-50 graded: feed win/loss back into scoring weights.
