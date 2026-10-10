@@ -7,6 +7,37 @@ async function getJSON(url){
   return r.json();
 }
 
+// Per-market tape. The global recent-trades feed (?limit=500 with no market)
+// is dominated by crypto up/down micro-markets, so most of the top-80 volume
+// markets show zero prints and every signal degrades to "skip". Pulling each
+// candidate market's own tape is the reliable read (verified 2026-10-10:
+// 34 candidates -> 3,272 prints -> 34 signals vs 0 with the global feed).
+async function fetchTape(markets){
+  const cands = (markets || []).filter(m => {
+    let prices = [];
+    try { prices = JSON.parse(m.outcomePrices || '[]').map(Number); } catch(e){}
+    const bid = num(m.bestBid), ask = num(m.bestAsk);
+    const spread = num(m.spread || (ask && bid ? ask - bid : 1));
+    const liq = num(m.liquidity);
+    const yes = prices[0] ?? ((bid && ask) ? (bid + ask) / 2 : 0);
+    return m.conditionId && liq >= 20000 && spread <= 0.04 && yes > 0.03 && yes < 0.97;
+  }).slice(0, 40);
+  const res = await Promise.all(cands.map(m =>
+    getJSON('https://data-api.polymarket.com/trades?market=' + encodeURIComponent(m.conditionId) + '&limit=100')
+      .catch(() => [])
+  ));
+  const trades = [];
+  for (const a of res) if (Array.isArray(a)) trades.push(...a);
+  if (!trades.length){
+    // last resort: global feed (noisy, but better than no tape at all)
+    try {
+      const g = await getJSON('https://data-api.polymarket.com/trades?limit=500');
+      if (Array.isArray(g)) trades.push(...g);
+    } catch(e){}
+  }
+  return trades;
+}
+
 function scoreMarkets(markets, trades){
   const by = new Map();
   for (const t of trades){
@@ -46,4 +77,4 @@ function scoreMarkets(markets, trades){
   });
 }
 
-module.exports = { num, getJSON, scoreMarkets };
+module.exports = { num, getJSON, fetchTape, scoreMarkets };

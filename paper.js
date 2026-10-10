@@ -12,7 +12,7 @@
 // end). Daily breaker: no new opens once day P&L <= -$300. Max 10 open.
 const fs = require('fs');
 const path = require('path');
-const { getJSON, scoreMarkets } = require('./lib');
+const { getJSON, fetchTape, scoreMarkets } = require('./lib');
 const DIR = '/home/hatch/workspace/phantom-signal-monitor';
 const PAPER = path.join(DIR, 'paper.json');
 
@@ -28,7 +28,7 @@ const r2 = n => Math.round(n * 100) / 100;
 
 function load(){
   try { return JSON.parse(fs.readFileSync(PAPER, 'utf8')); }
-  catch(e){ return { start_bankroll: START, bankroll: START, positions: [], closed: [], skipped: 0 }; }
+  catch(e){ return { start_bankroll: START, bankroll: START, positions: [], closed: [], skipped: 0, savings: 0, sweep_log: [], day: null, history: [] }; }
 }
 function save(s){ fs.mkdirSync(DIR, { recursive: true }); fs.writeFileSync(PAPER, JSON.stringify(s, null, 1)); }
 
@@ -142,7 +142,10 @@ function settle(state, p, payout, won, yesWon, note){
   p.status = 'closed'; p.yes_won = yesWon; p.won = won;
   p.pnl = pnl; p.closed_at = new Date().toISOString();
   if (note) p.note = note;
-  bumpDay(state, pnl);
+  // Only bump the incremental P&L: any partial take-profit was already
+  // recorded in day.pnl when it was banked (takePartial). Bumping the full
+  // pnl here double-counted it and inflated the daily-breaker figure.
+  bumpDay(state, r2(pnl - (p.banked || 0)));
   state.closed.push(p);
   return { market: p.market, side: p.side, stake: p.stake, won: p.won, pnl, note: note || null };
 }
@@ -332,10 +335,8 @@ async function backfill(){
 async function live(){
   const state = load();
   const now = Date.now();
-  const [markets, trades] = await Promise.all([
-    getJSON('https://gamma-api.polymarket.com/markets?closed=false&active=true&limit=80&order=volume24hr&ascending=false'),
-    getJSON('https://data-api.polymarket.com/trades?limit=500')
-  ]);
+  const markets = await getJSON('https://gamma-api.polymarket.com/markets?closed=false&active=true&limit=80&order=volume24hr&ascending=false');
+  const trades = await fetchTape(markets);
   const seen = tradedSlugs(state);
   const quals = scoreMarkets(markets, trades).filter(r => {
     if ((r.size !== 'full' && r.size !== 'half') || seen.has(r.slug) || !r.end) return false;
