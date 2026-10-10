@@ -170,7 +170,12 @@
   /* ---------- bot tab ---------- */
   .botgrid{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:10px;}
   .botnote{font-size:11.5px; color:var(--muted); margin-bottom:10px;}
-  .beq{width:100%; height:110px; display:block;}
+  .beq{width:100%; height:150px; display:block; touch-action:pan-y;}
+  .beq-wrap{position:relative;}
+  .beq-tip{position:absolute; pointer-events:none; background:#1a1f2e; border:1px solid var(--line); border-radius:8px; padding:6px 9px; font-size:12px; color:var(--text); white-space:nowrap; transform:translate(-50%,-115%); display:none; z-index:5; box-shadow:0 4px 14px rgba(0,0,0,.4);}
+  .beq-head{display:flex; justify-content:space-between; align-items:baseline; margin:0 0 8px;}
+  .beq-head h3{margin:0;}
+  .beq-delta{font-size:12px; font-weight:700; font-variant-numeric:tabular-nums;}
   .btable{width:100%; border-collapse:collapse; font-size:12.5px;}
   .btable td,.btable th{padding:7px 6px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top;}
   .btable th{color:var(--muted); font-size:10.5px; text-transform:uppercase; letter-spacing:.05em;}
@@ -544,22 +549,45 @@ function renderBot(){
   h += '<div class="bsec" id="savingsLog" style="display:none"><h3>Savings</h3>'+sweepRows
     + (sweeps.length ? '<div class="trow-sub" style="margin-top:6px">Total saved: <b class="tpl up">'+money2(run)+'</b></div>' : '')
     + '</div>';
-  // equity curve: each segment green when equity rose, red when it fell
+  // equity curve: gradient area + $1,000 baseline, min/max/current markers, tap tooltip
   var hist = s.history || [];
   if (hist.length > 1){
-    var W=560,H=110,P=10, vals=hist.map(function(x){return x.equity;}),
+    var W=560,H=150,P=34,PB=22, vals=hist.map(function(x){return x.equity;}),
         lo=Math.min.apply(null,vals.concat([1000])), hi=Math.max.apply(null,vals.concat([1000])), rng=(hi-lo)||1,
-        X=function(i){ return P+i*(W-2*P)/(vals.length-1); },
-        Y=function(v){ return H-P-(v-lo)/rng*(H-2*P); },
-        segs="";
-    for (var i=1;i<vals.length;i++){
-      var c = vals[i]>=vals[i-1] ? "#26a69a" : "#ef5350";
-      segs += '<line x1="'+X(i-1).toFixed(1)+'" y1="'+Y(vals[i-1]).toFixed(1)+'" x2="'+X(i).toFixed(1)+'" y2="'+Y(vals[i]).toFixed(1)+'" stroke="'+c+'" stroke-width="2"/>';
-    }
-    var baseY = Y(100).toFixed(1);
-    h += '<div class="bsec"><h3>Equity curve</h3><svg class="beq" viewBox="0 0 '+W+' '+H+'">'
-       + '<line x1="'+P+'" y1="'+baseY+'" x2="'+(W-P)+'" y2="'+baseY+'" stroke="#5a6274" stroke-width="1" stroke-dasharray="4 3"/>'
-       + segs + '</svg></div>';
+        X=function(i){ return P+i*(W-P-14)/(vals.length-1); },
+        Y=function(v){ return 8+(1-(v-lo)/rng)*(H-8-PB); },
+        n=vals.length, up=vals[n-1]>=1000,
+        lc= up ? "#26a69a" : "#ef5350",
+        pts="", i;
+    for (i=0;i<n;i++){ pts += (i?"L":"M")+X(i).toFixed(1)+","+Y(vals[i]).toFixed(1); }
+    var area = pts+"L"+X(n-1).toFixed(1)+","+(H-PB)+"L"+X(0).toFixed(1)+","+(H-PB)+"Z";
+    var baseY = Y(1000).toFixed(1);
+    var iMin=0, iMax=0;
+    for (i=1;i<n;i++){ if (vals[i]<vals[iMin]) iMin=i; if (vals[i]>vals[iMax]) iMax=i; }
+    var tFmt=function(t){ try{ return new Date(t).toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"}); }catch(e){ return ""; } };
+    var lbl=function(v){ return "$"+Math.round(v).toLocaleString(); };
+    var chg=vals[n-1]-1000, chgPct=(chg/1000*100),
+        chgTxt=(chg>=0?"+":"")+money2(chg).replace("$-","-$")+" ("+(chg>=0?"+":"")+chgPct.toFixed(1)+"%)";
+    h += '<div class="bsec"><div class="beq-head"><h3>Equity curve</h3><span class="beq-delta '+(chg>=0?"up":"down")+'">'+chgTxt+'</span></div>'
+      + '<div class="beq-wrap"><svg class="beq" id="eqSvg" viewBox="0 0 '+W+' '+H+'">'
+      + '<defs><linearGradient id="eqg" x1="0" y1="0" x2="0" y2="1">'
+      + '<stop offset="0" stop-color="'+lc+'" stop-opacity="0.35"/><stop offset="1" stop-color="'+lc+'" stop-opacity="0.02"/>'
+      + '</linearGradient></defs>'
+      + '<line x1="'+P+'" y1="'+baseY+'" x2="'+(W-14)+'" y2="'+baseY+'" stroke="#5a6274" stroke-width="1" stroke-dasharray="5 4"/>'
+      + '<text x="'+(W-14)+'" y="'+(baseY-5)+'" fill="#8a93a8" font-size="10" text-anchor="end">$1,000 start</text>'
+      + '<text x="'+(P-6)+'" y="'+(Y(hi)+3)+'" fill="#8a93a8" font-size="10" text-anchor="end">'+lbl(hi)+'</text>'
+      + '<text x="'+(P-6)+'" y="'+(Y(lo)+3)+'" fill="#8a93a8" font-size="10" text-anchor="end">'+lbl(lo)+'</text>'
+      + '<path d="'+area+'" fill="url(#eqg)"/>'
+      + '<path d="'+pts+'" fill="none" stroke="'+lc+'" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>'
+      + '<circle cx="'+X(iMin).toFixed(1)+'" cy="'+Y(vals[iMin]).toFixed(1)+'" r="3.5" fill="#0f1420" stroke="'+lc+'" stroke-width="2"/>'
+      + '<text x="'+X(iMin).toFixed(1)+'" y="'+(Y(vals[iMin])+16).toFixed(1)+'" fill="#8a93a8" font-size="10" text-anchor="middle">'+lbl(vals[iMin])+'</text>'
+      + '<text x="'+X(iMax).toFixed(1)+'" y="'+(Y(vals[iMax])-8).toFixed(1)+'" fill="#8a93a8" font-size="10" text-anchor="middle">'+lbl(vals[iMax])+'</text>'
+      + '<circle cx="'+X(n-1).toFixed(1)+'" cy="'+Y(vals[n-1]).toFixed(1)+'" r="4.5" fill="'+lc+'"/>'
+      + '<text x="'+Math.min(X(n-1),W-60).toFixed(1)+'" y="'+Math.max(Y(vals[n-1])-10,14).toFixed(1)+'" fill="'+lc+'" font-size="11" font-weight="700" text-anchor="middle">'+lbl(vals[n-1])+'</text>'
+      + '<text x="'+X(0).toFixed(1)+'" y="'+(H-6)+'" fill="#8a93a8" font-size="10" text-anchor="start">'+tFmt(hist[0].t)+'</text>'
+      + '<text x="'+X(n-1).toFixed(1)+'" y="'+(H-6)+'" fill="#8a93a8" font-size="10" text-anchor="end">'+tFmt(hist[n-1].t)+'</text>'
+      + '</svg><div class="beq-tip" id="eqTip"></div></div></div>';
+    window._eqHist = hist;
   }
   // open positions
   var ocards = s.positions.map(function(o){
@@ -586,6 +614,26 @@ function renderBot(){
     var l = document.getElementById("savingsLog");
     if (l) l.style.display = (l.style.display === "none") ? "" : "none";
   });
+  // equity curve tap tooltip: nearest point -> equity + time
+  var eqSvg = document.getElementById("eqSvg"), eqTip = document.getElementById("eqTip");
+  if (eqSvg && eqTip && window._eqHist && window._eqHist.length > 1){
+    var _W=560,_H=150,_P=34,_PB=22,_n=window._eqHist.length,
+        _X=function(i){ return _P+i*(_W-_P-14)/(_n-1); };
+    var showTip=function(clientX){
+      var r=eqSvg.getBoundingClientRect();
+      var sx=(clientX-r.left)/r.width*_W;
+      var i=Math.max(0,Math.min(_n-1,Math.round((sx-_P)/(_W-_P-14)*(_n-1))));
+      var e=window._eqHist[i], d=new Date(e.t),
+          ds=isNaN(d)?"":d.toLocaleString([], {month:"short",day:"numeric",hour:"2-digit",minute:"2-digit"});
+      eqTip.innerHTML="<b>$"+Math.round(e.equity).toLocaleString()+"</b><br/><span style='color:var(--muted)'>"+esc(ds)+"</span>";
+      eqTip.style.left=(_X(i)/_W*100)+"%";
+      eqTip.style.top="18%";
+      eqTip.style.display="block";
+    };
+    eqSvg.addEventListener("pointermove", function(ev){ showTip(ev.clientX); });
+    eqSvg.addEventListener("pointerdown", function(ev){ showTip(ev.clientX); });
+    eqSvg.addEventListener("pointerleave", function(){ eqTip.style.display="none"; });
+  }
 }
 
 function renderTracker(){
