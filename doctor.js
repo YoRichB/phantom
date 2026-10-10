@@ -52,6 +52,36 @@ const note = (check, ok, detail) => findings.push({ check, ok, detail: detail ||
     const bad = Object.entries(res).filter(([, v]) => typeof v.yesWon !== 'boolean');
     note('resolutions:shape', bad.length === 0, bad.length + ' malformed');
   }
+  // 7. V2 readiness: gamma version distribution + v2 trades endpoint shape.
+  //    Data API v1 retires 2026-10-24; Protocol V2 markets go live 2026-11-02.
+  try {
+    const ctl = new AbortController();
+    const t = setTimeout(() => ctl.abort(), 20000);
+    const ms = await (await fetch('https://gamma-api.polymarket.com/markets?closed=false&active=true&limit=80&order=volume24hr&ascending=false', { signal: ctl.signal })).json();
+    clearTimeout(t);
+    const vers = {};
+    const missShape = [];
+    for (const m of ms || []) {
+      const v = m.version || 'unknown';
+      vers[v] = (vers[v] || 0) + 1;
+      if (v !== 'v1') {
+        const need = ['outcomePrices', 'bestBid', 'bestAsk', 'liquidity', 'question', 'slug', 'endDate', 'conditionId'];
+        const miss = need.filter(k => m[k] == null);
+        if (miss.length) missShape.push((m.slug || '?') + ':' + miss.join(','));
+      }
+    }
+    note('v2:gamma-versions', true, JSON.stringify(vers));
+    note('v2:gamma-v2-shape', missShape.length === 0, missShape.length ? missShape.slice(0, 3).join('; ') : 'no v2 markets in top-80 yet');
+  } catch (e) { note('v2:gamma-versions', false, e.name === 'AbortError' ? 'timeout' : e.message); }
+  try {
+    const ctl = new AbortController();
+    const t = setTimeout(() => ctl.abort(), 15000);
+    const r = await fetch('https://data-api.polymarket.com/v2/trades?limit=1', { signal: ctl.signal });
+    clearTimeout(t);
+    const j = await r.json().catch(() => null);
+    const okShape = r.ok && j && Array.isArray(j.data);
+    note('v2:data-api-trades', !!okShape, 'HTTP ' + r.status + (okShape ? ', {data,pagination} envelope ok' : ', unexpected shape'));
+  } catch (e) { note('v2:data-api-trades', false, e.name === 'AbortError' ? 'timeout' : e.message); }
   const bad = findings.filter(f => !f.ok);
   console.log(JSON.stringify({ ok: bad.length === 0, findings }, null, 1));
   process.exit(bad.length ? 1 : 0);

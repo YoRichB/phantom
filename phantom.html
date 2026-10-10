@@ -357,7 +357,7 @@ function score(markets, trades){
     if (!title) continue;
     const usd = num(t.size)*num(t.price);
     const row = by.get(title) || {buy:0,sell:0,prints:0,wallets:new Set()};
-    row.prints++; row.wallets.add(t.proxyWallet||"");
+    row.prints++; row.wallets.add(t.proxy_wallet||t.proxyWallet||"");
     if (String(t.side||"").toUpperCase()==="BUY") row.buy += usd; else row.sell += usd;
     by.set(title, row);
   }
@@ -690,7 +690,9 @@ async function scan(){
     const markets = await fetch("https://gamma-api.polymarket.com/markets?closed=false&active=true&limit=80&order=volume24hr&ascending=false").then(r => { if(!r.ok) throw new Error("markets "+r.status); return r.json(); });
     if (!Array.isArray(markets) || !markets.length) throw new Error("empty markets response");
     // basic filters first (no tape needed), then pull each candidate's own tape:
-    // the global recent-trades feed is drowned by crypto up/down noise, so per-market tape is the reliable read
+    // the global recent-trades feed is drowned by crypto up/down noise, so per-market tape is the reliable read.
+    // V2 (2026-10-24 v1 retirement): /v2/trades with `condition` filter, {data,pagination} envelope, snake_case fields.
+    // NOTE: one request per market — batched conditions share `limit` per-request and starve coverage.
     const cands = markets.filter(m => {
       let prices=[]; try { prices=JSON.parse(m.outcomePrices||"[]").map(Number);} catch(e) {}
       const bid=num(m.bestBid), ask=num(m.bestAsk);
@@ -702,19 +704,19 @@ async function scan(){
     if (!cands.length) throw new Error("no markets passed basic filters");
     meta.textContent = "reading tape ("+cands.length+" markets)…";
     const tapeRes = await Promise.all(cands.map(m =>
-      fetch("https://data-api.polymarket.com/trades?market="+encodeURIComponent(m.conditionId)+"&limit=100")
+      fetch("https://data-api.polymarket.com/v2/trades?condition="+encodeURIComponent(m.conditionId)+"&limit=100")
         .then(r => r.ok ? r.json() : [])
         .catch(() => [])
     ));
     const trades = [];
-    tapeRes.forEach(arr => { if (Array.isArray(arr)) trades.push.apply(trades, arr); });
+    tapeRes.forEach(j => { const a = Array.isArray(j) ? j : (j && Array.isArray(j.data) ? j.data : []); trades.push.apply(trades, a); });
     const board = score(markets, trades);
     const sigs = board.filter(r => r.size !== "skip");
     if (!sigs.length) throw new Error("no signals in live response");
     // live whale board from the tape: top wallets by volume, with net flow
     const wmap = new Map();
     for (const t of trades){
-      const w = t.proxyWallet || "unknown";
+      const w = t.proxy_wallet || t.proxyWallet || "unknown";
       const usd = num(t.size)*num(t.price);
       let e = wmap.get(w);
       if (!e){ e = {name:"", vol:0, net:0, prints:0}; wmap.set(w, e); }

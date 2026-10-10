@@ -7,11 +7,18 @@ async function getJSON(url){
   return r.json();
 }
 
+// v2 envelope: { data: [...], pagination } — unwrap, tolerating a bare array.
+const unwrapTrades = j => Array.isArray(j) ? j : (j && Array.isArray(j.data) ? j.data : []);
+
 // Per-market tape. The global recent-trades feed (?limit=500 with no market)
 // is dominated by crypto up/down micro-markets, so most of the top-80 volume
 // markets show zero prints and every signal degrades to "skip". Pulling each
 // candidate market's own tape is the reliable read (verified 2026-10-10:
 // 34 candidates -> 3,272 prints -> 34 signals vs 0 with the global feed).
+//
+// V2 migration (2026-10-10): Data API v1 retires 2026-10-24, so all reads use
+// the /v2/* routes: `condition` replaces the v1 `market` filter param, and
+// responses arrive in the { data, pagination } envelope with snake_case fields.
 async function fetchTape(markets){
   const cands = (markets || []).filter(m => {
     let prices = [];
@@ -22,17 +29,19 @@ async function fetchTape(markets){
     const yes = prices[0] ?? ((bid && ask) ? (bid + ask) / 2 : 0);
     return m.conditionId && liq >= 20000 && spread <= 0.04 && yes > 0.03 && yes < 0.97;
   }).slice(0, 40);
+  // NOTE: keep one request per market — a batched `condition=a,b,...` call
+  // applies `limit` per-request, starving per-market coverage (verified live).
   const res = await Promise.all(cands.map(m =>
-    getJSON('https://data-api.polymarket.com/trades?market=' + encodeURIComponent(m.conditionId) + '&limit=100')
-      .catch(() => [])
+    getJSON('https://data-api.polymarket.com/v2/trades?condition=' + encodeURIComponent(m.conditionId) + '&limit=100')
+      .then(unwrapTrades).catch(() => [])
   ));
   const trades = [];
-  for (const a of res) if (Array.isArray(a)) trades.push(...a);
+  for (const a of res) trades.push(...a);
   if (!trades.length){
     // last resort: global feed (noisy, but better than no tape at all)
     try {
-      const g = await getJSON('https://data-api.polymarket.com/trades?limit=500');
-      if (Array.isArray(g)) trades.push(...g);
+      const g = await getJSON('https://data-api.polymarket.com/v2/trades?limit=500');
+      trades.push(...unwrapTrades(g));
     } catch(e){}
   }
   return trades;
@@ -45,7 +54,7 @@ function scoreMarkets(markets, trades){
     if (!title) continue;
     const usd = num(t.size) * num(t.price);
     const row = by.get(title) || { buy:0, sell:0, prints:0, wallets:new Set() };
-    row.prints++; row.wallets.add(t.proxyWallet || '');
+    row.prints++; row.wallets.add(t.proxy_wallet || t.proxyWallet || '');
     if (String(t.side || '').toUpperCase() === 'BUY') row.buy += usd; else row.sell += usd;
     by.set(title, row);
   }

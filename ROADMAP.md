@@ -2,6 +2,12 @@
 
 Ordered by value. Checked items are done.
 
+- [x] **Polymarket Protocol V2 readiness review** — DONE 2026-10-10, user
+      accepted the "ready Phantom for the V2 switch" idea. Reviewed every
+      Polymarket data read in the scanner, Trading Agent, and app against the
+      published V2 migration (Protocol V2: new markets from 2026-11-02;
+      Data API v1 retires 2026-10-24). Findings + fixes below. Trading logic,
+      risk rules, and paper-only operation untouched — data-read layer only.
 - [x] Tape-scored scanner (liquidity / spread / prints / wallets)
 - [x] 30-minute background monitor with new-signal alerts
 - [x] Paper-trading bot on a simulated $100 wallet (BUY=YES, SELL=NO math)
@@ -60,3 +66,54 @@ Ordered by value. Checked items are done.
       producing, widen to 35-65c or revisit after 25 clean resolutions.
 ---
 - DONE 2026-10-07: one-position-per-event cap (was: $20/$30 on Spirit vs M80 via Map2+Series). Next after 30-50 graded: feed win/loss back into scoring weights.
+
+---
+
+## V2 readiness review (2026-10-10)
+
+**Context.** Polymarket announced Protocol V2 (Oct 5, 2026): all new markets
+move to V2 on 2026-11-02 (single ERC-1155 positions contract, pUSD collateral,
+canary markets Oct 5–30). Separately, **Data API v1 retires 2026-10-24** —
+that is the deadline that actually threatened Phantom, 9 days before the
+protocol cutover. Verified against the published migration details and live
+endpoint probes (not guessed).
+
+**Data-read inventory and V2 status:**
+
+| # | Read | Used by | V1 status | V2 status | Action |
+|---|------|---------|-----------|-----------|--------|
+| 1 | `data-api /trades?market=<id>` (per-market tape) | scan.js, paper.js, app SCAN | retires Oct 24 | **was broken** — v1 `market` param rejected on v2 | Migrated to `/v2/trades?condition=<id>` |
+| 2 | `data-api /trades?limit=500` (global tape, fallback) | lib.js fetchTape | retires Oct 24 | **was broken** | Migrated to `/v2/trades?limit=500` |
+| 3 | v2 trade object shape | scoreMarkets, app score(), whale board | — | **was broken** — `proxyWallet` renamed to `proxy_wallet`; `{data,pagination}` envelope | Unwrap `.data`; accept both field names |
+| 4 | `gamma-api /markets` (list, top-80 by volume24hr) | scan.js, paper.js, app SCAN | not retired | OK — live 200; already exposes `version`/`positionIds` for V2 markets | None; watch item below |
+| 5 | `gamma-api /markets?slug=` (position grading lookup) | paper.js marketState | not retired | OK — live 200 | None |
+| 6 | `gamma-api /public-search` (delisted-market fallback) | paper.js marketState | not retired | OK — live 200 | None |
+
+**Fixes applied (data-read layer only):**
+- `lib.js`: `fetchTape()` now hits `/v2/trades?condition=<id>&limit=100`
+  (one request per market — a batched `condition=a,b,…` call applies `limit`
+  per-request and starves per-market coverage, verified live), unwraps the
+  `{data,pagination}` envelope, falls back to the v2 global feed. `scoreMarkets`
+  accepts `proxy_wallet` or legacy `proxyWallet`.
+- `scan.js`, `paper.js`: use `fetchTape()` (v2). No trading-logic changes.
+- App (`phantom.html`, both copies): SCAN uses the v2 endpoint + envelope
+  unwrap; scoring and the live whale board accept both wallet field names.
+- `doctor.js`: 3 new V2 checks run every cycle — gamma `version`
+  distribution across the top-80, scoring-field shape of any non-v1 market
+  that appears, and the v2 trades endpoint/envelope shape.
+
+**Verified working after the fix (live, 2026-10-10):** scan.js via v2 tape
+found signals (e.g. LoL Cupid vs Disguised, 100 prints / 51 wallets);
+paper.js live ran clean (bankroll/equity/realized consistent, day-PnL
+accounting verified); doctor.js 17/17 green.
+
+**Watch items (not broken today):**
+- No V2-versioned markets in gamma's top-80 yet (all `version:"v1"` as of
+  2026-10-10; canary markets run through Oct 30). When V2 markets appear,
+  the doctor's `v2:gamma-v2-shape` check will flag any missing scoring
+  fields (`outcomePrices`, `bestBid`/`bestAsk`, `spread`, `liquidity`,
+  `endDate`) before the bot can mis-score them.
+- Data API v1 goes dark 2026-10-24 — all reads are already on v2, so no
+  action remains, but the doctor's `v2:data-api-trades` check guards it.
+- Protocol V2 cutover 2026-11-02 affects on-chain positions, not these
+  read APIs; the paper bot never touches contracts, so no impact expected.
