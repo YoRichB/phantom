@@ -406,12 +406,16 @@ function cardHTML(r, i){
     + '</div>';
 }
 function whaleRows(ws){
-  const rows = (ws||[]).slice().sort((a,b)=>num(b.pnl)-num(a.pnl));
+  const rows = (ws||[]).slice();
   if (!rows.length) return '<div class="empty">Whale board ships with the saved scan.<br/>Run a live scan in Safari — whales stay on the saved snapshot.</div>';
-  let h = '<div class="wtable"><div class="wrow head"><span>#</span><span>Trader</span><span style="text-align:right">P&amp;L</span><span style="text-align:right">Volume</span></div>';
+  const live = rows[0].pnl == null; // live scan: net flow per wallet; saved snapshot: lifetime P&L
+  rows.sort((a,b)=> live ? num(b.vol)-num(a.vol) : num(b.pnl)-num(a.pnl));
+  let h = '<div class="wtable"><div class="wrow head"><span>#</span><span>Trader</span><span style="text-align:right">'+(live?"Net flow":"P&amp;L")+'</span><span style="text-align:right">Volume</span></div>';
   rows.forEach((w,i)=>{
-    h += '<div class="wrow"><span class="wrank">'+(i+1)+'</span><span class="wname">'+esc(w.name)+'</span>'
-      + '<span class="wpnl">'+money(w.pnl)+'</span><span class="wvol">$'+compact(w.vol)+'</span></div>';
+    const mv = live ? num(w.net) : num(w.pnl);
+    const mvTxt = (mv>=0?"+":"")+money(mv).replace("$-","-$");
+    h += '<div class="wrow"><span class="wrank">'+(i+1)+'</span><span class="wname">'+esc(w.name)+(live?' <span style="color:var(--muted);font-weight:400">· '+num(w.prints)+' prints</span>':"")+'</span>'
+      + '<span class="wpnl '+(mv>=0?"up":"down")+'">'+mvTxt+'</span><span class="wvol">$'+compact(w.vol)+'</span></div>';
   });
   return h+'</div>';
 }
@@ -659,7 +663,22 @@ async function scan(){
     const board = score(markets, trades);
     const sigs = board.filter(r => r.size !== "skip");
     if (!sigs.length) throw new Error("no signals in live response");
-    draw({board, signals:sigs}, "live scan", true, new Date());
+    // live whale board from the tape: top wallets by volume, with net flow
+    const wmap = new Map();
+    for (const t of trades){
+      const w = t.proxyWallet || "unknown";
+      const usd = num(t.size)*num(t.price);
+      let e = wmap.get(w);
+      if (!e){ e = {name:"", vol:0, net:0, prints:0}; wmap.set(w, e); }
+      if (t.pseudonym) e.name = t.pseudonym;
+      e.vol += usd; e.prints++;
+      e.net += (String(t.side||"").toUpperCase()==="BUY" ? usd : -usd);
+    }
+    const whales = [...wmap.values()].map(e => ({
+      name: e.name || "wallet",
+      vol: Math.round(e.vol), net: Math.round(e.net), prints: e.prints
+    })).sort((a,b)=>b.vol-a.vol).slice(0,15);
+    draw({board, signals:sigs, whales, tape_prints: trades.length, tape_wallets: wmap.size}, "live scan", true, new Date());
   } catch (e) {
     errBox.style.display = "flex";
     errBox.innerHTML = "<div>⚠️ Live scan didn't return usable data ("+esc(e.message)+"). Showing the saved scan below.</div>";
