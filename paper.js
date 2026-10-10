@@ -280,6 +280,7 @@ function injectAppState(state, sum){
     bankroll: sum.bankroll, equity: sum.equity, realized_pnl: sum.realized_pnl,
     open_count: sum.open_count, open_risk: sum.open_risk,
     savings: sum.savings || 0,
+    sweep_log: (state.sweep_log || []).map(e => ({ t: e.t, amount: e.amount })),
     profit_factor: sum.profit_factor, best: sum.best, worst: sum.worst,
     positions: state.positions.map(p => ({
       market: p.market, side: p.side, stake: p.stake,

@@ -149,6 +149,8 @@
   .trackbtn:active{background:rgba(41,98,255,.28);}
   .tsum{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:10px;}
   .tstat{background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:9px 10px; min-width:0;}
+  .tstat.tappable{cursor:pointer; position:relative;}
+  .tstat.tappable:active{opacity:.85;}
   .tstat .k{font-size:10px; letter-spacing:.1em; color:var(--muted); text-transform:uppercase;}
   .tstat .v{font-size:16px; font-weight:700; margin-top:2px; white-space:nowrap;}
   .tbank{display:flex; align-items:center; font-size:16px; font-weight:700; margin-top:2px;}
@@ -522,9 +524,21 @@ function renderBot(){
   function stat(k,v,cls){ return '<div class="tstat"><div class="k">'+k+'</div><div class="v '+(cls||"")+'">'+v+'</div></div>'; }
   h += '<div class="botnote">Paper bot \u00b7 $1,000 wallet \u00b7 updated '+esc(s.as_of)+' \u00b7 paper only, never real money</div>';
   h += '<div class="botgrid">'
-    + stat("Cash", money2(s.bankroll)) + stat("Equity", money2(s.equity), g(s.equity-1000)) + stat("Realized", (s.realized_pnl>=0?"+":"")+money2(s.realized_pnl).replace("$-","-$"), g(s.realized_pnl)) + stat("Saved", money2(s.savings||0), "up")
+    + stat("Cash", money2(s.bankroll)) + stat("Equity", money2(s.equity), g(s.equity-1000)) + stat("Realized", (s.realized_pnl>=0?"+":"")+money2(s.realized_pnl).replace("$-","-$"), g(s.realized_pnl))
+    + '<div class="tstat tappable" id="savedStat" title="Tap to see savings log"><div class="k">Saved ▸</div><div class="v up">'+money2(s.savings||0)+'</div></div>'
     + stat("Open", s.open_count) + stat("Win rate", wr) + stat("Graded", s.closed.length)
     + stat("Profit factor", pf) + stat("Best", s.best==null?"\u2014":(s.best>=0?"+":"")+money2(s.best).replace("$-","-$"), s.best==null?"":g(s.best)) + stat("Worst", s.worst==null?"\u2014":(s.worst>=0?"+":"")+money2(s.worst).replace("$-","-$"), s.worst==null?"":g(s.worst))
+    + '</div>';
+  // savings log: every $100 profit sweep, running total
+  var sweeps = s.sweep_log || [], run = 0;
+  var sweepRows = sweeps.map(function(e){
+    run += e.amount;
+    var d = new Date(e.t); var ds = isNaN(d) ? esc(e.t) : d.toLocaleString();
+    return '<div class="trow"><div class="trow-top"><span class="tmarket">Profit sweep</span><b class="tpl up">+'+money2(e.amount)+'</b></div>'
+      + '<div class="trow-sub">'+esc(ds)+' · running total '+money2(run)+'</div></div>';
+  }).join("") || '<div class="empty">No profit swept yet. Every $100 of bankroll above the $1,000 base is saved here.</div>';
+  h += '<div class="bsec" id="savingsLog" style="display:none"><h3>Savings</h3>'+sweepRows
+    + (sweeps.length ? '<div class="trow-sub" style="margin-top:6px">Total saved: <b class="tpl up">'+money2(run)+'</b></div>' : '')
     + '</div>';
   // equity curve: each segment green when equity rose, red when it fell
   var hist = s.history || [];
@@ -563,6 +577,11 @@ function renderBot(){
   }).join("") || '<div class="empty">nothing graded yet</div>';
   h += '<div class="bsec"><h3>Graded</h3>'+gcards+'</div>';
   list.innerHTML = h;
+  var ss = document.getElementById("savedStat");
+  if (ss) ss.addEventListener("click", function(){
+    var l = document.getElementById("savingsLog");
+    if (l) l.style.display = (l.style.display === "none") ? "" : "none";
+  });
 }
 
 function renderTracker(){
