@@ -639,11 +639,14 @@ async function scan(){
       fetch("https://gamma-api.polymarket.com/markets?closed=false&active=true&limit=80&order=volume24hr&ascending=false").then(r => { if(!r.ok) throw new Error("markets "+r.status); return r.json(); }),
       fetch("https://data-api.polymarket.com/trades?limit=500").then(r => { if(!r.ok) throw new Error("trades "+r.status); return r.json(); })
     ]);
-    const board = score(markets, trades);
-    draw({board, signals:board.filter(r=>r.size!=="skip")}, "live scan", true, new Date());
+    if (!Array.isArray(markets) || !markets.length) throw new Error("empty markets response");
+    const board = score(markets, Array.isArray(trades) ? trades : []);
+    const sigs = board.filter(r => r.size !== "skip");
+    if (!sigs.length) throw new Error("no signals in live response");
+    draw({board, signals:sigs}, "live scan", true, new Date());
   } catch (e) {
     errBox.style.display = "flex";
-    errBox.innerHTML = "<div>⚠️ Couldn't reach Polymarket ("+esc(e.message)+"). This device blocks the request — open the file in Safari for live scans. Showing the saved scan below.</div>";
+    errBox.innerHTML = "<div>⚠️ Live scan didn't return usable data ("+esc(e.message)+"). Showing the saved scan below.</div>";
     draw(SEED, "saved scan · Oct 7, 2026 14:07 UTC", false, new Date("2026-10-07T14:07:02Z"));
   }
   btn.disabled = false; btn.textContent = "SCAN";
