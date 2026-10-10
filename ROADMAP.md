@@ -36,5 +36,27 @@ Ordered by value. Checked items are done.
     until N *clean* resolutions (suggested: 25), or proceed anyway.
     Ping-at-~40 is NOT implemented in paper.js/scan.js yet — wire it or
     retire this checkbox.
+- [x] **39-trade scoring review** — DONE 2026-10-09 ~18:45 PDT, user
+      authorized ("make any adjustments as needed"). Findings from 39
+      graded paper trades (20W/19L, PF 0.97, realized -$2.66):
+      * Entry price is the dominant factor. Prices paid 40-60c: 14 trades,
+        9W/5L, +$33.93. Every other band loses: 0-20c went 0W/5L (-$27.37),
+        20-40c -$6.90, 60-80c -$6.86, 70-100c only +$6.61 on 5 trades.
+      * Holds for both stake sizes: full stakes win +$28.81 in 40-60c and
+        lose -$12.83 outside; half stakes win +$5.12 inside, lose -$23.76
+        outside. So the earlier half-stake drag was price, not sizing.
+      * Stop-loss exits: 14 trades for -$96.94 total (avg -$6.92) — but
+        stops are spread across all bands, so they're a symptom of bad
+        entries, not a broken exit. Exit mechanics unchanged.
+      * Caveat from the 12:50 checkpoint still stands: most grades are
+        exit-mark approximations (stops, expiry-takes, delisted-at-mark),
+        not clean resolutions. The 40-60c edge leans partly on
+        delisted-settled wins (+$45.18 of the band's +$33.93) — still the
+        best available proxy, but don't overclaim it.
+      Adjustment made: `paper.js` `openPosition()` now skips any signal
+      whose actual paid price is outside 40-60c (returns 'price-window',
+      counted in `skipped`). This is an entry filter, not a scoring-weight
+      change; scoring weights still untouched. If the window stops
+      producing, widen to 35-65c or revisit after 25 clean resolutions.
 ---
 - DONE 2026-10-07: one-position-per-event cap (was: $20/$30 on Spirit vs M80 via Map2+Series). Next after 30-50 graded: feed win/loss back into scoring weights.

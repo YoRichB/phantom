@@ -43,6 +43,10 @@ function openPosition(state, sig, entryTime){
   // Honest fills: pay the ask on YES, i.e. 1 - bid on NO.
   const entryPrice = yesSide ? (sig.ask || sig.yes) : (1 - (sig.bid || sig.yes));
   if (!(entryPrice > 0 && entryPrice < 1)) return 'badprice';
+  // Price-window filter (added 2026-10-09 after 39-trade review):
+  // entries priced 40-60c are 9W/5L for +$33.93; every other band is negative
+  // (0-20c alone went 0W/5L for -$27.37). Skip anything outside the window.
+  if (entryPrice < 0.40 || entryPrice > 0.60) { state.skipped++; return 'price-window'; }
   const shares = stake / entryPrice;
   state.bankroll = r2(state.bankroll - stake);
   state.positions.push({
