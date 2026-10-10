@@ -6,24 +6,24 @@
 //
 // Semantics: a BUY signal = buy YES at the ASK (honest fill);
 // a SELL signal = buy NO at (1 - BID). Stake = wallet cash risked.
-// Sizing: full = $10, half = $5. Never open if stake > available cash.
+// Sizing: full = $100, half = $50. Never open if stake > available cash.
 // Exits: +100% partial take-profit (sell half, ride the rest),
 // -50% stop-loss, near-expiry (<30 min) profit take, stale reaper (>6h past
-// end). Daily breaker: no new opens once day P&L <= -$30. Max 10 open.
+// end). Daily breaker: no new opens once day P&L <= -$300. Max 10 open.
 const fs = require('fs');
 const path = require('path');
 const { getJSON, scoreMarkets } = require('./lib');
 const DIR = '/home/hatch/workspace/phantom-signal-monitor';
 const PAPER = path.join(DIR, 'paper.json');
 
-const START = 100;
-const STAKE = { full: 10, half: 5 };
+const START = 1000;
+const STAKE = { full: 100, half: 50 };
 const TP_AT = 1.0;          // +100% unrealized -> sell half
 const SL_AT = -0.5;         // -50% unrealized -> exit all
 const EXPIRY_TAKE_MIN = 30; // <30 min to end + green -> exit all
 const STALE_AFTER_H = 6;    // >6h past end, unresolved -> settle at mark
 const MAX_OPEN = 10;
-const MAX_DAILY_LOSS = 30;
+const MAX_DAILY_LOSS = 300;
 const r2 = n => Math.round(n * 100) / 100;
 
 function load(){

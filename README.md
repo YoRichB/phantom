@@ -2,7 +2,7 @@
 
 Phantom watches Polymarket's intraday markets, scores them against live tape
 (prints, unique wallets, buy/sell flow), and paper-trades the best signals
-against a simulated **$100 wallet**. Paper only — it never touches real money.
+against a simulated **$1,000 wallet**. Paper only — it never touches real money.
 
 ## What's here
 
@@ -22,8 +22,8 @@ Each market gets up to 3 votes: deep liquidity (≥$32k), tight spread (≤3¢),
 and real tape (≥3 prints or ≥3 wallets). A signal needs ≥2 votes plus
 confirmation, then:
 
-- **FULL** (3 votes, ≥3 wallets): stake $10
-- **HALF** (2 votes + confirmed): stake $5
+- **FULL** (3 votes, ≥3 wallets): stake $100
+- **HALF** (2 votes + confirmed): stake $50
 
 Only markets resolving within 48 hours are traded. Scan alerts fire on new
 FULL signals; the bot trades both sizes.
@@ -35,7 +35,7 @@ FULL signals; the bot trades both sizes.
   cash wallet — not a short sale).
 - Stake = wallet cash risked. Shares = stake ÷ entry price. Each share pays $1.
 - A new position opens only if the stake fits in free cash, fewer than 10
-  positions are open, and today's realized P&L is above −$30 (daily breaker).
+  positions are open, and today's realized P&L is above −$300 (daily breaker).
 
 ## Exit policy (research-backed)
 
