@@ -635,12 +635,28 @@ async function scan(){
   meta.textContent = "calling Polymarket…";
   dot.className = "dot live";
   try {
-    const [markets, trades] = await Promise.all([
-      fetch("https://gamma-api.polymarket.com/markets?closed=false&active=true&limit=80&order=volume24hr&ascending=false").then(r => { if(!r.ok) throw new Error("markets "+r.status); return r.json(); }),
-      fetch("https://data-api.polymarket.com/trades?limit=500").then(r => { if(!r.ok) throw new Error("trades "+r.status); return r.json(); })
-    ]);
+    const markets = await fetch("https://gamma-api.polymarket.com/markets?closed=false&active=true&limit=80&order=volume24hr&ascending=false").then(r => { if(!r.ok) throw new Error("markets "+r.status); return r.json(); });
     if (!Array.isArray(markets) || !markets.length) throw new Error("empty markets response");
-    const board = score(markets, Array.isArray(trades) ? trades : []);
+    // basic filters first (no tape needed), then pull each candidate's own tape:
+    // the global recent-trades feed is drowned by crypto up/down noise, so per-market tape is the reliable read
+    const cands = markets.filter(m => {
+      let prices=[]; try { prices=JSON.parse(m.outcomePrices||"[]").map(Number);} catch(e) {}
+      const bid=num(m.bestBid), ask=num(m.bestAsk);
+      const spread=num(m.spread || (ask&&bid ? ask-bid : 1));
+      const liq=num(m.liquidity);
+      const yes=prices[0] ?? ((bid&&ask)?(bid+ask)/2:0);
+      return m.conditionId && liq>=20000 && spread<=0.04 && yes>0.03 && yes<0.97;
+    }).slice(0, 40);
+    if (!cands.length) throw new Error("no markets passed basic filters");
+    meta.textContent = "reading tape ("+cands.length+" markets)…";
+    const tapeRes = await Promise.all(cands.map(m =>
+      fetch("https://data-api.polymarket.com/trades?market="+encodeURIComponent(m.conditionId)+"&limit=100")
+        .then(r => r.ok ? r.json() : [])
+        .catch(() => [])
+    ));
+    const trades = [];
+    tapeRes.forEach(arr => { if (Array.isArray(arr)) trades.push.apply(trades, arr); });
+    const board = score(markets, trades);
     const sigs = board.filter(r => r.size !== "skip");
     if (!sigs.length) throw new Error("no signals in live response");
     draw({board, signals:sigs}, "live scan", true, new Date());
