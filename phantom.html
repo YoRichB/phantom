@@ -520,9 +520,9 @@ function renderBot(){
   var wr = s.closed.length ? Math.round(wins/s.closed.length*100)+"%" : "\u2014";
   var pf = s.profit_factor==null ? "\u2014" : (s.profit_factor===Infinity ? "\u221e" : s.profit_factor.toFixed(2));
   function stat(k,v,cls){ return '<div class="tstat"><div class="k">'+k+'</div><div class="v '+(cls||"")+'">'+v+'</div></div>'; }
-  h += '<div class="botnote">Paper bot \u00b7 $100 wallet \u00b7 updated '+esc(s.as_of)+' \u00b7 paper only, never real money</div>';
+  h += '<div class="botnote">Paper bot \u00b7 $1,000 wallet \u00b7 updated '+esc(s.as_of)+' \u00b7 paper only, never real money</div>';
   h += '<div class="botgrid">'
-    + stat("Cash", money2(s.bankroll)) + stat("Equity", money2(s.equity), g(s.equity-100)) + stat("Realized", (s.realized_pnl>=0?"+":"")+money2(s.realized_pnl).replace("$-","-$"), g(s.realized_pnl))
+    + stat("Cash", money2(s.bankroll)) + stat("Equity", money2(s.equity), g(s.equity-1000)) + stat("Realized", (s.realized_pnl>=0?"+":"")+money2(s.realized_pnl).replace("$-","-$"), g(s.realized_pnl)) + stat("Saved", money2(s.savings||0), "up")
     + stat("Open", s.open_count) + stat("Win rate", wr) + stat("Graded", s.closed.length)
     + stat("Profit factor", pf) + stat("Best", s.best==null?"\u2014":(s.best>=0?"+":"")+money2(s.best).replace("$-","-$"), s.best==null?"":g(s.best)) + stat("Worst", s.worst==null?"\u2014":(s.worst>=0?"+":"")+money2(s.worst).replace("$-","-$"), s.worst==null?"":g(s.worst))
     + '</div>';
@@ -530,7 +530,7 @@ function renderBot(){
   var hist = s.history || [];
   if (hist.length > 1){
     var W=560,H=110,P=10, vals=hist.map(function(x){return x.equity;}),
-        lo=Math.min.apply(null,vals.concat([100])), hi=Math.max.apply(null,vals.concat([100])), rng=(hi-lo)||1,
+        lo=Math.min.apply(null,vals.concat([1000])), hi=Math.max.apply(null,vals.concat([1000])), rng=(hi-lo)||1,
         X=function(i){ return P+i*(W-2*P)/(vals.length-1); },
         Y=function(v){ return H-P-(v-lo)/rng*(H-2*P); },
         segs="";

@@ -66,6 +66,22 @@ function bumpDay(state, pnl){
   state.day.pnl = r2(state.day.pnl + pnl);
 }
 
+// Profit savings (user rule, 2026-10-09): whenever free bankroll sits $100+
+// above the $1,000 base, sweep the excess in $100 chunks into savings.
+// Never takes bankroll below $1,000. Runs after grading so only realized,
+// risk-free cash moves; sweeps are not trading P&L, so day.pnl is untouched.
+const SWEEP_UNIT = 100;
+function sweepProfits(state, t){
+  const excess = r2(state.bankroll - START);
+  const units = Math.floor(excess / SWEEP_UNIT);
+  if (units < 1) return 0;
+  const amount = units * SWEEP_UNIT;
+  state.bankroll = r2(state.bankroll - amount);
+  state.savings = r2((state.savings || 0) + amount);
+  (state.sweep_log = state.sweep_log || []).push({ t, amount });
+  return amount;
+}
+
 // Gate for new opens: daily loss breaker + max open positions.
 function canOpen(state){
   const d = new Date().toISOString().slice(0, 10);
@@ -220,7 +236,7 @@ async function gradeAll(state){
   return graded;
 }
 
-function summary(state, opened, graded){
+function summary(state, opened, graded, swept){
   const closed = state.closed || [];
   // Banked partial profits live on still-open positions; count them exactly once.
   // (When such a position finally closes, its closed pnl = cash_in - stake already
@@ -240,6 +256,7 @@ function summary(state, opened, graded){
     bankroll: state.bankroll, equity: r2(state.bankroll + openVal),
     realized_pnl: realized, open_count: state.positions.length,
     open_risk: openRisk, skipped: state.skipped,
+    savings: r2(state.savings || 0), swept: swept || 0,
     profit_factor: grossL > 0 ? r2(grossW / grossL) : (grossW > 0 ? Infinity : null),
     best: closed.length ? r2(Math.max(...closed.map(p => p.pnl))) : null,
     worst: closed.length ? r2(Math.min(...closed.map(p => p.pnl))) : null,
@@ -262,6 +279,7 @@ function injectAppState(state, sum){
     as_of: new Date().toISOString(),
     bankroll: sum.bankroll, equity: sum.equity, realized_pnl: sum.realized_pnl,
     open_count: sum.open_count, open_risk: sum.open_risk,
+    savings: sum.savings || 0,
     profit_factor: sum.profit_factor, best: sum.best, worst: sum.worst,
     positions: state.positions.map(p => ({
       market: p.market, side: p.side, stake: p.stake,
@@ -337,7 +355,8 @@ async function live(){
     if (res === 'opened'){ opened.push({ market: q.market, side: q.side === 'BUY' ? 'YES' : 'NO', stake: STAKE[q.size], entry_c: Math.round((q.side === 'BUY' ? (q.ask || q.yes) : 1 - (q.bid || q.yes)) * 10000) / 100 }); openEvents.add(evKey(q.market)); }
   }
   const graded = await gradeAll(state);
-  const sum = summary(state, opened, graded);
+  const swept = sweepProfits(state, t);
+  const sum = summary(state, opened, graded, swept);
   state.history = [...(state.history || []), { t: new Date().toISOString(), equity: sum.equity }].slice(-500);
   save(state);
   injectAppState(state, sum);

@@ -36,6 +36,9 @@ FULL signals; the bot trades both sizes.
 - Stake = wallet cash risked. Shares = stake ÷ entry price. Each share pays $1.
 - A new position opens only if the stake fits in free cash, fewer than 10
   positions are open, and today's realized P&L is above −$300 (daily breaker).
+- **Profit savings** — after each run, any free bankroll above the $1,000 base
+  is swept into savings in $100 chunks. The main wallet never drops below
+  $1,000 from a sweep; money still tied up in open positions is never swept.
 
 ## Exit policy (research-backed)
 
