@@ -42,6 +42,14 @@ Ordered by value. Checked items are done.
     until N *clean* resolutions (suggested: 25), or proceed anyway.
     Ping-at-~40 is NOT implemented in paper.js/scan.js yet — wire it or
     retire this checkbox.
+- [ ] **Clean-resolution counter** — supersedes the ping-at-~40 item: track
+      `clean_resolutions` in paper.json, incremented only when a trade is
+      graded by actual market resolution (closed-trade `note` null /
+      true-resolution grade — stops, expiry-takes, and delisted-at-last-mark
+      don't count). Monitor pings when it hits 25, the threshold the user
+      set on 2026-10-09 before scoring weights get touched. Add a "Clean
+      res." stat on the Trading Agent tab so the count is visible.
+      (Idea logged 2026-10-10.)
 - [x] **39-trade scoring review** — DONE 2026-10-09 ~18:45 PDT, user
       authorized ("make any adjustments as needed"). Findings from 39
       graded paper trades (20W/19L, PF 0.97, realized -$2.66):
