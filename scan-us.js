@@ -12,6 +12,26 @@ const path = require('path');
 const { getUSEvents, getUSBook, getUSHistory, scoreUSCandidate } = require('./lib-us');
 const DIR = '/home/hatch/workspace/phantom-signal-monitor';
 const SEEN = path.join(DIR, 'seen-us.json');
+const APP_PATH = '/home/hatch/workspace/your_files/phantom.html';
+
+// Write the latest scan into the app's Signals/Board tabs by replacing the
+// JSON inside <script id="us-pack">. Signals = momentum signals; Board = the
+// full candidate board with non-qualifiers marked size:'skip' so the tabs
+// stay distinct. SEED remains the offline fallback when no pack is present.
+function writeAppPack(pack){
+  try {
+    let html = fs.readFileSync(APP_PATH, 'utf8');
+    const marker = '<script id="us-pack" type="application/json">';
+    const a = html.indexOf(marker);
+    if (a < 0) return 'no-slot';
+    const openEnd = a + marker.length;
+    const b = html.indexOf('</scr' + 'ipt>', openEnd);
+    if (b < 0) return 'no-close';
+    html = html.slice(0, openEnd) + JSON.stringify(pack) + html.slice(b);
+    fs.writeFileSync(APP_PATH, html);
+    return 'ok';
+  } catch(e){ return 'err:' + e.message; }
+}
 
 // polite concurrency for per-market fan-out (public limit: 20 req/s/IP)
 async function mapLimit(items, n, fn){
@@ -79,16 +99,54 @@ async function mapLimit(items, n, fn){
   })).filter(Boolean);
 
   // Momentum scoring via 6h price history (one request per market).
-  const scored = (await mapLimit(withLiq, 8, async c => {
+  // Keep candidate alignment so the app board can show skipped rows too.
+  const scoredAll = (await mapLimit(withLiq, 8, async c => {
     try {
       const hist = await getUSHistory(c.slug);
-      return scoreUSCandidate({ ...c, hist });
-    } catch(e){ return null; }
-  })).filter(Boolean);
+      return { cand: c, sig: scoreUSCandidate({ ...c, hist }) };
+    } catch(e){ return { cand: c, sig: null }; }
+  }));
+
+  // App board: every screened candidate; non-qualifiers become size:'skip'
+  // rows so the Board tab stays distinct from the Signals tab.
+  // Signals lead so the 200-row cap never drops them.
+  const r2 = v => Math.round(v * 100) / 100;
+  const boardAll = scoredAll.map(({ cand, sig }) => {
+    if (sig) return sig;
+    const mid = (cand.bid + cand.ask) / 2;
+    const hl = cand.end ? (new Date(cand.end).getTime() - now) / 36e5 : null;
+    return {
+      market: cand.market, slug: cand.slug, eventSlug: cand.eventSlug, eventTitle: cand.eventTitle,
+      side: null, size: 'skip', yes: r2(mid), bid: cand.bid, ask: cand.ask,
+      spread: r2(cand.ask - cand.bid),
+      end: cand.end || null, hours_left: hl == null ? null : Math.round(hl * 10) / 10,
+      signal_basis: 'price-action',
+      chg_6h_c: null, chg_1h_c: null, max_adverse_c: null,
+      bid_depth_shares: cand.bidQty3 != null ? cand.bidQty3 : null,
+      ask_depth_shares: cand.askQty3 != null ? cand.askQty3 : null,
+      open_interest: null, shares_traded: null,
+      wallets: null, prints: null, net_usd: null, liquidity: null, volume24hr: null, votes: null,
+    };
+  });
+  const board = [
+    ...boardAll.filter(r => r.size !== 'skip'),
+    ...boardAll.filter(r => r.size === 'skip'),
+  ].slice(0, 200);
+  const scored = scoredAll.map(x => x.sig).filter(Boolean);
 
   const fresh = scored.filter(r => !seen[r.slug]);
   for (const r of fresh) seen[r.slug] = new Date(now).toISOString();
   fs.writeFileSync(SEEN, JSON.stringify(seen, null, 1));
+
+  // Push the live board into the app (Signals + Board tabs).
+  const packStatus = writeAppPack({
+    as_of: new Date(now).toISOString(), venue: 'polymarket-us',
+    signals: scored, board, whales: [],
+    events_scanned: events.length, candidates: cands.length,
+  });
+
   console.log(JSON.stringify({ as_of: new Date(now).toISOString(), venue: 'polymarket-us',
-    events_scanned: events.length, candidates: cands.length, new_signals: fresh }, null, 1));
+    events_scanned: events.length, candidates: cands.length,
+    signals: scored.length, board: board.length, pack: packStatus,
+    new_signals: fresh }, null, 1));
 })().catch(e => { console.error('SCAN_US_ERROR: ' + e.message); process.exit(1); });
