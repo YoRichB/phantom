@@ -1,6 +1,6 @@
 {
  "start_bankroll": 1000,
- "bankroll": 457.27,
+ "bankroll": 605.78,
  "positions": [
   {
    "id": "atc-mlb-cle-tb-2026-10-13-f5-tb@2026-10-13T03:53:21.408Z",
@@ -109,8 +109,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.585,
-   "unrealized": 6.25
+   "yes_now": 0.45,
+   "unrealized": -6.73
   },
   {
    "id": "asc-nba-gs-lal-2026-10-13-pos-3pt5@2026-10-13T12:55:28.341Z",
@@ -153,30 +153,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.605,
-   "unrealized": -2.98
-  },
-  {
-   "id": "atc-egpl-itt-gou-2026-10-13-itt@2026-10-13T13:24:33.480Z",
-   "slug": "atc-egpl-itt-gou-2026-10-13-itt",
-   "eventSlug": "egpl-itt-gou-2026-10-13",
-   "market": "Will El Ittihad SC El Iskandary win against El Gouna SC in the Egyptian Premier League match scheduled for Oct 13, 2026?",
-   "side": "YES",
-   "signal": "BUY",
-   "size": "half",
-   "entry_yes": 0.525,
-   "entry_price": 0.53,
-   "stake": 50,
-   "shares": 94.33959999999999,
-   "cash_in": 0,
-   "tp_taken": false,
-   "opened_at": "2026-10-13T13:24:33.480Z",
-   "end": "2026-10-14T03:59:00.000Z",
-   "status": "open",
-   "venue": "polymarket-us",
-   "misses": 0,
-   "yes_now": 0.905,
-   "unrealized": 35.38
+   "yes_now": 0.685,
+   "unrealized": -12.5
   },
   {
    "id": "asc-eurolg-par-pan-2026-10-13-pos-7pt5@2026-10-13T15:24:00.330Z",
@@ -197,30 +175,30 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.595,
-   "unrealized": -1.22
+   "yes_now": 0.575,
+   "unrealized": 3.66
   },
   {
-   "id": "tsc-ucl-rcl-spo-2026-10-13-sh-1pt5@2026-10-13T17:01:50.545Z",
-   "slug": "tsc-ucl-rcl-spo-2026-10-13-sh-1pt5",
-   "eventSlug": "ucl-rcl-spo-2026-10-13",
-   "market": "Will the total in RCL vs SPO be more than 1.5?",
+   "id": "tsc-ucl-atm-mnu-2026-10-13-sh-1pt5@2026-10-13T19:24:09.016Z",
+   "slug": "tsc-ucl-atm-mnu-2026-10-13-sh-1pt5",
+   "eventSlug": "ucl-atm-mnu-2026-10-13",
+   "market": "Will the total in ATM vs MNU be more than 1.5?",
    "side": "NO",
    "signal": "SELL",
    "size": "half",
-   "entry_yes": 0.525,
-   "entry_price": 0.48,
+   "entry_yes": 0.515,
+   "entry_price": 0.49,
    "stake": 50,
-   "shares": 104.1667,
+   "shares": 102.0408,
    "cash_in": 0,
    "tp_taken": false,
-   "opened_at": "2026-10-13T17:01:50.545Z",
+   "opened_at": "2026-10-13T19:24:09.016Z",
    "end": "2026-10-14T03:59:00.000Z",
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.51,
-   "unrealized": 1.04
+   "yes_now": 0.515,
+   "unrealized": -0.51
   }
  ],
  "closed": [
@@ -574,14 +552,68 @@
    "pnl": -50,
    "closed_at": "2026-10-13T16:31:09.114Z",
    "note": "settlement"
+  },
+  {
+   "id": "tsc-ucl-rcl-spo-2026-10-13-sh-1pt5@2026-10-13T17:01:50.545Z",
+   "slug": "tsc-ucl-rcl-spo-2026-10-13-sh-1pt5",
+   "eventSlug": "ucl-rcl-spo-2026-10-13",
+   "market": "Will the total in RCL vs SPO be more than 1.5?",
+   "side": "NO",
+   "signal": "SELL",
+   "size": "half",
+   "entry_yes": 0.525,
+   "entry_price": 0.48,
+   "stake": 50,
+   "shares": 104.1667,
+   "cash_in": 104.17,
+   "tp_taken": false,
+   "opened_at": "2026-10-13T17:01:50.545Z",
+   "end": "2026-10-14T03:59:00.000Z",
+   "status": "closed",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.51,
+   "unrealized": 1.04,
+   "yes_won": false,
+   "won": true,
+   "pnl": 54.17,
+   "closed_at": "2026-10-13T18:57:21.571Z",
+   "note": "settlement"
+  },
+  {
+   "id": "atc-egpl-itt-gou-2026-10-13-itt@2026-10-13T13:24:33.480Z",
+   "slug": "atc-egpl-itt-gou-2026-10-13-itt",
+   "eventSlug": "egpl-itt-gou-2026-10-13",
+   "market": "Will El Ittihad SC El Iskandary win against El Gouna SC in the Egyptian Premier League match scheduled for Oct 13, 2026?",
+   "side": "YES",
+   "signal": "BUY",
+   "size": "half",
+   "entry_yes": 0.525,
+   "entry_price": 0.53,
+   "stake": 50,
+   "shares": 94.33959999999999,
+   "cash_in": 94.34,
+   "tp_taken": false,
+   "opened_at": "2026-10-13T13:24:33.480Z",
+   "end": "2026-10-14T03:59:00.000Z",
+   "status": "closed",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.93,
+   "unrealized": 37.74,
+   "yes_won": true,
+   "won": true,
+   "pnl": 44.34,
+   "closed_at": "2026-10-13T19:30:19.585Z",
+   "note": "settlement"
   }
  ],
- "skipped": 147,
+ "skipped": 167,
  "savings": 0,
  "sweep_log": [],
  "day": {
   "date": "2026-10-13",
-  "pnl": 7.27
+  "pnl": 105.78
  },
  "history": [
   {
@@ -715,6 +747,14 @@
   {
    "t": "2026-10-13T18:31:16.815Z",
    "equity": 1028.2
+  },
+  {
+   "t": "2026-10-13T18:57:21.571Z",
+   "equity": 1059.56
+  },
+  {
+   "t": "2026-10-13T19:30:29.831Z",
+   "equity": 1072.15
   }
  ],
  "venue": "polymarket-us",
