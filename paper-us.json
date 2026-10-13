@@ -1,6 +1,6 @@
 {
  "start_bankroll": 1000,
- "bankroll": 605.78,
+ "bankroll": 662.49,
  "positions": [
   {
    "id": "atc-mlb-cle-tb-2026-10-13-f5-tb@2026-10-13T03:53:21.408Z",
@@ -109,8 +109,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.45,
-   "unrealized": -6.73
+   "yes_now": 0.795,
+   "unrealized": 26.44
   },
   {
    "id": "asc-nba-gs-lal-2026-10-13-pos-3pt5@2026-10-13T12:55:28.341Z",
@@ -152,9 +152,9 @@
    "end": "2026-10-14T03:59:00.000Z",
    "status": "open",
    "venue": "polymarket-us",
-   "misses": 0,
-   "yes_now": 0.685,
-   "unrealized": -12.5
+   "misses": 1,
+   "yes_now": 0.45,
+   "unrealized": 15.48
   },
   {
    "id": "asc-eurolg-par-pan-2026-10-13-pos-7pt5@2026-10-13T15:24:00.330Z",
@@ -167,16 +167,18 @@
    "entry_yes": 0.595,
    "entry_price": 0.41,
    "stake": 100,
-   "shares": 243.90240000000003,
-   "cash_in": 0,
-   "tp_taken": false,
+   "shares": 121.95,
+   "cash_in": 106.71,
+   "tp_taken": true,
    "opened_at": "2026-10-13T15:24:00.330Z",
    "end": "2026-10-14T03:59:00.000Z",
    "status": "open",
    "venue": "polymarket-us",
-   "misses": 0,
-   "yes_now": 0.575,
-   "unrealized": 3.66
+   "misses": 1,
+   "yes_now": 0.125,
+   "unrealized": 113.42,
+   "banked": 56.71,
+   "note": "partial-tp"
   },
   {
    "id": "tsc-ucl-atm-mnu-2026-10-13-sh-1pt5@2026-10-13T19:24:09.016Z",
@@ -197,8 +199,30 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.515,
-   "unrealized": -0.51
+   "yes_now": 0.335,
+   "unrealized": 17.86
+  },
+  {
+   "id": "asc-nba-por-sac-2026-10-13-pos-2pt5@2026-10-13T19:53:50.210Z",
+   "slug": "asc-nba-por-sac-2026-10-13-pos-2pt5",
+   "eventSlug": "nba-por-sac-2026-10-13",
+   "market": "Will the POR Trail Blazers cover 2.5 vs the SAC Kings in POR Trail Blazers vs. SAC Kings?",
+   "side": "NO",
+   "signal": "SELL",
+   "size": "half",
+   "entry_yes": 0.565,
+   "entry_price": 0.44,
+   "stake": 50,
+   "shares": 113.6364,
+   "cash_in": 0,
+   "tp_taken": false,
+   "opened_at": "2026-10-13T19:53:50.210Z",
+   "end": "2026-10-14T03:59:00.000Z",
+   "status": "open",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.625,
+   "unrealized": -7.39
   }
  ],
  "closed": [
@@ -608,12 +632,12 @@
    "note": "settlement"
   }
  ],
- "skipped": 167,
+ "skipped": 175,
  "savings": 0,
  "sweep_log": [],
  "day": {
   "date": "2026-10-13",
-  "pnl": 105.78
+  "pnl": 162.49
  },
  "history": [
   {
@@ -755,6 +779,14 @@
   {
    "t": "2026-10-13T19:30:29.831Z",
    "equity": 1072.15
+  },
+  {
+   "t": "2026-10-13T20:00:04.277Z",
+   "equity": 1231.65
+  },
+  {
+   "t": "2026-10-13T20:27:21.840Z",
+   "equity": 1254.04
   }
  ],
  "venue": "polymarket-us",
