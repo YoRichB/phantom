@@ -21,8 +21,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.49,
-   "unrealized": -3.64
+   "yes_now": 0.225,
+   "unrealized": 20.45
   },
   {
    "id": "aec-wta-anokoe-eriand-2026-10-13@2026-10-13T02:39:54.367Z",
@@ -86,9 +86,9 @@
    "end": "2026-10-13T23:59:00.000Z",
    "status": "open",
    "venue": "polymarket-us",
-   "misses": 0,
-   "yes_now": 0.53,
-   "unrealized": 3.41
+   "misses": 1,
+   "yes_now": 0.765,
+   "unrealized": -23.3
   },
   {
    "id": "aec-itfme-haiqin-dylbai-2026-10-13@2026-10-13T03:08:46.306Z",
@@ -108,7 +108,7 @@
    "end": "2026-10-13T23:59:00.000Z",
    "status": "open",
    "venue": "polymarket-us",
-   "misses": 1,
+   "misses": 3,
    "yes_now": 0.32,
    "unrealized": 15.38
   },
@@ -131,8 +131,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.415,
-   "unrealized": -1.25
+   "yes_now": 0.425,
+   "unrealized": -2.08
   },
   {
    "id": "tsc-nba-cle-orl-2026-10-13-229pt5@2026-10-13T05:52:56.871Z",
@@ -219,8 +219,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.51,
-   "unrealized": 6.25
+   "yes_now": 0.9,
+   "unrealized": 87.5
   }
  ],
  "closed": [
@@ -387,7 +387,7 @@
    "note": "settlement"
   }
  ],
- "skipped": 49,
+ "skipped": 59,
  "savings": 0,
  "sweep_log": [],
  "day": {
@@ -462,6 +462,14 @@
   {
    "t": "2026-10-13T10:30:21.446Z",
    "equity": 1034.26
+  },
+  {
+   "t": "2026-10-13T11:00:21.929Z",
+   "equity": 1048.39
+  },
+  {
+   "t": "2026-10-13T11:27:14.280Z",
+   "equity": 1112.06
   }
  ],
  "venue": "polymarket-us",
