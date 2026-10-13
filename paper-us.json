@@ -1,29 +1,7 @@
 {
  "start_bankroll": 1000,
- "bankroll": 666.17,
+ "bankroll": 607.08,
  "positions": [
-  {
-   "id": "asc-atp-gauonc-felbal-2026-10-11-gs-pos-1pt5@2026-10-13T02:39:54.367Z",
-   "slug": "asc-atp-gauonc-felbal-2026-10-11-gs-pos-1pt5",
-   "eventSlug": "atp-gauonc-felbal-2026-10-11",
-   "market": "Will the Gauthier Onclin cover 1.5 vs the Felix Balshaw in Gauthier Onclin vs. Felix Balshaw?",
-   "side": "NO",
-   "signal": "SELL",
-   "size": "half",
-   "entry_yes": 0.46,
-   "entry_price": 0.55,
-   "stake": 50,
-   "shares": 90.9091,
-   "cash_in": 0,
-   "tp_taken": false,
-   "opened_at": "2026-10-13T02:39:54.367Z",
-   "end": "2026-10-13T23:59:00.000Z",
-   "status": "open",
-   "venue": "polymarket-us",
-   "misses": 0,
-   "yes_now": 0.425,
-   "unrealized": 2.27
-  },
   {
    "id": "aec-wta-anokoe-eriand-2026-10-13@2026-10-13T02:39:54.367Z",
    "slug": "aec-wta-anokoe-eriand-2026-10-13",
@@ -43,8 +21,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.415,
-   "unrealized": -0.42
+   "yes_now": 0.445,
+   "unrealized": -2.97
   },
   {
    "id": "aec-atp-svygul-fraaga-2026-10-13@2026-10-13T02:39:54.367Z",
@@ -65,30 +43,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.585,
-   "unrealized": 1.22
-  },
-  {
-   "id": "aec-itfwo-anacve-lolgiz-2026-10-13@2026-10-13T03:08:46.306Z",
-   "slug": "aec-itfwo-anacve-lolgiz-2026-10-13",
-   "eventSlug": "itfwo-anacve-lolgiz-2026-10-13",
-   "market": "Who will win in the upcoming tennis event Anastasija Cvetkovic vs Lola Giza scheduled for October 13, 2026 at 12:00 AM UTC?",
-   "side": "NO",
-   "signal": "SELL",
-   "size": "half",
-   "entry_yes": 0.57,
-   "entry_price": 0.44,
-   "stake": 50,
-   "shares": 113.6364,
-   "cash_in": 0,
-   "tp_taken": false,
-   "opened_at": "2026-10-13T03:08:46.306Z",
-   "end": "2026-10-13T23:59:00.000Z",
-   "status": "open",
-   "venue": "polymarket-us",
-   "misses": 3,
-   "yes_now": 0.765,
-   "unrealized": -23.3
+   "yes_now": 0.565,
+   "unrealized": 6.1
   },
   {
    "id": "atc-mlb-cle-tb-2026-10-13-f5-tb@2026-10-13T03:53:21.408Z",
@@ -109,8 +65,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.425,
-   "unrealized": -2.08
+   "yes_now": 0.435,
+   "unrealized": -2.92
   },
   {
    "id": "tsc-nba-cle-orl-2026-10-13-229pt5@2026-10-13T05:52:56.871Z",
@@ -153,8 +109,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.495,
-   "unrealized": 0.5
+   "yes_now": 0.485,
+   "unrealized": 1.5
   },
   {
    "id": "tsc-nba-ind-okc-2026-10-13-228pt5@2026-10-13T08:53:57.916Z",
@@ -199,6 +155,72 @@
    "misses": 0,
    "yes_now": 0.515,
    "unrealized": -0.48
+  },
+  {
+   "id": "asc-nba-gs-lal-2026-10-13-pos-3pt5@2026-10-13T12:55:28.341Z",
+   "slug": "asc-nba-gs-lal-2026-10-13-pos-3pt5",
+   "eventSlug": "nba-gs-lal-2026-10-13",
+   "market": "Will the GS Warriors cover 3.5 vs the LA Lakers in GS Warriors vs. LA Lakers?",
+   "side": "NO",
+   "signal": "SELL",
+   "size": "half",
+   "entry_yes": 0.46,
+   "entry_price": 0.55,
+   "stake": 50,
+   "shares": 90.9091,
+   "cash_in": 0,
+   "tp_taken": false,
+   "opened_at": "2026-10-13T12:55:28.341Z",
+   "end": "2026-10-14T03:59:00.000Z",
+   "status": "open",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.46,
+   "unrealized": -0.91
+  },
+  {
+   "id": "asc-eurolg-bvg-dub-2026-10-13-pos-6pt5@2026-10-13T13:24:33.480Z",
+   "slug": "asc-eurolg-bvg-dub-2026-10-13-pos-6pt5",
+   "eventSlug": "eurolg-bvg-dub-2026-10-13",
+   "market": "Will Baskonia Vitoria-Gasteiz cover +6.5 vs Dubai Basketball?",
+   "side": "NO",
+   "signal": "SELL",
+   "size": "half",
+   "entry_yes": 0.585,
+   "entry_price": 0.42,
+   "stake": 50,
+   "shares": 119.0476,
+   "cash_in": 0,
+   "tp_taken": false,
+   "opened_at": "2026-10-13T13:24:33.480Z",
+   "end": "2026-10-14T03:59:00.000Z",
+   "status": "open",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.585,
+   "unrealized": -0.6
+  },
+  {
+   "id": "atc-egpl-itt-gou-2026-10-13-itt@2026-10-13T13:24:33.480Z",
+   "slug": "atc-egpl-itt-gou-2026-10-13-itt",
+   "eventSlug": "egpl-itt-gou-2026-10-13",
+   "market": "Will El Ittihad SC El Iskandary win against El Gouna SC in the Egyptian Premier League match scheduled for Oct 13, 2026?",
+   "side": "YES",
+   "signal": "BUY",
+   "size": "half",
+   "entry_yes": 0.525,
+   "entry_price": 0.53,
+   "stake": 50,
+   "shares": 94.33959999999999,
+   "cash_in": 0,
+   "tp_taken": false,
+   "opened_at": "2026-10-13T13:24:33.480Z",
+   "end": "2026-10-14T03:59:00.000Z",
+   "status": "open",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.525,
+   "unrealized": -0.47
   }
  ],
  "closed": [
@@ -417,14 +439,68 @@
    "pnl": 108.33,
    "closed_at": "2026-10-13T12:26:55.511Z",
    "note": "settlement"
+  },
+  {
+   "id": "asc-atp-gauonc-felbal-2026-10-11-gs-pos-1pt5@2026-10-13T02:39:54.367Z",
+   "slug": "asc-atp-gauonc-felbal-2026-10-11-gs-pos-1pt5",
+   "eventSlug": "atp-gauonc-felbal-2026-10-11",
+   "market": "Will the Gauthier Onclin cover 1.5 vs the Felix Balshaw in Gauthier Onclin vs. Felix Balshaw?",
+   "side": "NO",
+   "signal": "SELL",
+   "size": "half",
+   "entry_yes": 0.46,
+   "entry_price": 0.55,
+   "stake": 50,
+   "shares": 90.9091,
+   "cash_in": 90.91,
+   "tp_taken": false,
+   "opened_at": "2026-10-13T02:39:54.367Z",
+   "end": "2026-10-13T23:59:00.000Z",
+   "status": "closed",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.425,
+   "unrealized": 2.27,
+   "yes_won": false,
+   "won": true,
+   "pnl": 40.91,
+   "closed_at": "2026-10-13T13:01:02.517Z",
+   "note": "settlement"
+  },
+  {
+   "id": "aec-itfwo-anacve-lolgiz-2026-10-13@2026-10-13T03:08:46.306Z",
+   "slug": "aec-itfwo-anacve-lolgiz-2026-10-13",
+   "eventSlug": "itfwo-anacve-lolgiz-2026-10-13",
+   "market": "Who will win in the upcoming tennis event Anastasija Cvetkovic vs Lola Giza scheduled for October 13, 2026 at 12:00 AM UTC?",
+   "side": "NO",
+   "signal": "SELL",
+   "size": "half",
+   "entry_yes": 0.57,
+   "entry_price": 0.44,
+   "stake": 50,
+   "shares": 113.6364,
+   "cash_in": 0,
+   "tp_taken": false,
+   "opened_at": "2026-10-13T03:08:46.306Z",
+   "end": "2026-10-13T23:59:00.000Z",
+   "status": "closed",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.765,
+   "unrealized": -23.3,
+   "yes_won": true,
+   "won": false,
+   "pnl": -50,
+   "closed_at": "2026-10-13T13:01:12.136Z",
+   "note": "settlement"
   }
  ],
- "skipped": 69,
+ "skipped": 77,
  "savings": 0,
  "sweep_log": [],
  "day": {
   "date": "2026-10-13",
-  "pnl": 166.17
+  "pnl": 157.08
  },
  "history": [
   {
@@ -510,6 +586,14 @@
   {
    "t": "2026-10-13T12:27:00.394Z",
    "equity": 1142
+  },
+  {
+   "t": "2026-10-13T13:01:42.863Z",
+   "equity": 1152.06
+  },
+  {
+   "t": "2026-10-13T13:31:08.053Z",
+   "equity": 1154.45
   }
  ],
  "venue": "polymarket-us",
