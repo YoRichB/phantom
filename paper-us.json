@@ -1,6 +1,6 @@
 {
  "start_bankroll": 1000,
- "bankroll": 507.27,
+ "bankroll": 457.27,
  "positions": [
   {
    "id": "atc-mlb-cle-tb-2026-10-13-f5-tb@2026-10-13T03:53:21.408Z",
@@ -21,8 +21,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.435,
-   "unrealized": -2.92
+   "yes_now": 0.445,
+   "unrealized": -3.75
   },
   {
    "id": "tsc-nba-cle-orl-2026-10-13-229pt5@2026-10-13T05:52:56.871Z",
@@ -43,8 +43,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.485,
-   "unrealized": 3.65
+   "yes_now": 0.495,
+   "unrealized": 2.6
   },
   {
    "id": "tsc-nba-ny-tor-2026-10-13-218pt5@2026-10-13T07:23:03.788Z",
@@ -65,8 +65,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.515,
-   "unrealized": -1.5
+   "yes_now": 0.525,
+   "unrealized": -2.5
   },
   {
    "id": "tsc-nba-ind-okc-2026-10-13-228pt5@2026-10-13T08:53:57.916Z",
@@ -87,8 +87,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.505,
-   "unrealized": -2.4
+   "yes_now": 0.495,
+   "unrealized": -1.44
   },
   {
    "id": "tsc-ucl-int-bru-2026-10-13-3pt5@2026-10-13T12:20:35.246Z",
@@ -109,8 +109,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.535,
-   "unrealized": 1.44
+   "yes_now": 0.545,
+   "unrealized": 2.4
   },
   {
    "id": "asc-nba-gs-lal-2026-10-13-pos-3pt5@2026-10-13T12:55:28.341Z",
@@ -131,8 +131,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.475,
-   "unrealized": -2.27
+   "yes_now": 0.505,
+   "unrealized": -5
   },
   {
    "id": "asc-eurolg-bvg-dub-2026-10-13-pos-6pt5@2026-10-13T13:24:33.480Z",
@@ -175,8 +175,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.485,
-   "unrealized": -4.25
+   "yes_now": 0.435,
+   "unrealized": -8.96
   },
   {
    "id": "asc-eurolg-par-pan-2026-10-13-pos-7pt5@2026-10-13T15:24:00.330Z",
@@ -199,6 +199,28 @@
    "misses": 0,
    "yes_now": 0.58,
    "unrealized": 2.44
+  },
+  {
+   "id": "tsc-ucl-rcl-spo-2026-10-13-sh-1pt5@2026-10-13T17:01:50.545Z",
+   "slug": "tsc-ucl-rcl-spo-2026-10-13-sh-1pt5",
+   "eventSlug": "ucl-rcl-spo-2026-10-13",
+   "market": "Will the total in RCL vs SPO be more than 1.5?",
+   "side": "NO",
+   "signal": "SELL",
+   "size": "half",
+   "entry_yes": 0.525,
+   "entry_price": 0.48,
+   "stake": 50,
+   "shares": 104.1667,
+   "cash_in": 0,
+   "tp_taken": false,
+   "opened_at": "2026-10-13T17:01:50.545Z",
+   "end": "2026-10-14T03:59:00.000Z",
+   "status": "open",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.525,
+   "unrealized": -0.52
   }
  ],
  "closed": [
@@ -554,7 +576,7 @@
    "note": "settlement"
   }
  ],
- "skipped": 120,
+ "skipped": 127,
  "savings": 0,
  "sweep_log": [],
  "day": {
@@ -677,6 +699,14 @@
   {
    "t": "2026-10-13T16:31:14.123Z",
    "equity": 998.48
+  },
+  {
+   "t": "2026-10-13T17:09:27.347Z",
+   "equity": 993.24
+  },
+  {
+   "t": "2026-10-13T17:30:42.420Z",
+   "equity": 989.57
   }
  ],
  "venue": "polymarket-us",
