@@ -1,6 +1,6 @@
 {
  "start_bankroll": 1000,
- "bankroll": 518.23,
+ "bankroll": 468.23,
  "positions": [
   {
    "id": "asc-atp-gauonc-felbal-2026-10-11-gs-pos-1pt5@2026-10-13T02:39:54.367Z",
@@ -87,8 +87,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.595,
-   "unrealized": -2.91
+   "yes_now": 0.605,
+   "unrealized": -4.07
   },
   {
    "id": "aec-itfwo-anacve-lolgiz-2026-10-13@2026-10-13T03:08:46.306Z",
@@ -152,9 +152,9 @@
    "end": "2026-10-13T23:59:00.000Z",
    "status": "open",
    "venue": "polymarket-us",
-   "misses": 0,
-   "yes_now": 0.445,
-   "unrealized": -16.04
+   "misses": 1,
+   "yes_now": 0.32,
+   "unrealized": -39.62
   },
   {
    "id": "astatc-setkameua-volyur-hryste-2026-10-13-sw1@2026-10-13T03:22:43.030Z",
@@ -199,6 +199,28 @@
    "misses": 0,
    "yes_now": 0.425,
    "unrealized": -2.08
+  },
+  {
+   "id": "tsc-nba-cle-orl-2026-10-13-229pt5@2026-10-13T05:52:56.871Z",
+   "slug": "tsc-nba-cle-orl-2026-10-13-229pt5",
+   "eventSlug": "nba-cle-orl-2026-10-13",
+   "market": "Will the total in CLE Cavaliers vs. ORL Magic be more than 229.5?",
+   "side": "NO",
+   "signal": "SELL",
+   "size": "half",
+   "entry_yes": 0.525,
+   "entry_price": 0.48,
+   "stake": 50,
+   "shares": 104.1667,
+   "cash_in": 0,
+   "tp_taken": false,
+   "opened_at": "2026-10-13T05:52:56.871Z",
+   "end": "2026-10-13T23:59:00.000Z",
+   "status": "open",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.515,
+   "unrealized": 0.52
   }
  ],
  "closed": [
@@ -284,7 +306,7 @@
    "note": "settlement"
   }
  ],
- "skipped": 6,
+ "skipped": 18,
  "savings": 0,
  "sweep_log": [],
  "day": {
@@ -319,6 +341,14 @@
   {
    "t": "2026-10-13T05:28:24.910Z",
    "equity": 1044.29
+  },
+  {
+   "t": "2026-10-13T05:58:35.755Z",
+   "equity": 1021.02
+  },
+  {
+   "t": "2026-10-13T06:26:03.355Z",
+   "equity": 1020.07
   }
  ],
  "venue": "polymarket-us",
