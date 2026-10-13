@@ -43,8 +43,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.495,
-   "unrealized": 2.6
+   "yes_now": 0.505,
+   "unrealized": 1.56
   },
   {
    "id": "tsc-nba-ny-tor-2026-10-13-218pt5@2026-10-13T07:23:03.788Z",
@@ -87,8 +87,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.495,
-   "unrealized": -1.44
+   "yes_now": 0.505,
+   "unrealized": -2.4
   },
   {
    "id": "tsc-ucl-int-bru-2026-10-13-3pt5@2026-10-13T12:20:35.246Z",
@@ -109,8 +109,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.545,
-   "unrealized": 2.4
+   "yes_now": 0.585,
+   "unrealized": 6.25
   },
   {
    "id": "asc-nba-gs-lal-2026-10-13-pos-3pt5@2026-10-13T12:55:28.341Z",
@@ -131,8 +131,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.505,
-   "unrealized": -5
+   "yes_now": 0.565,
+   "unrealized": -10.45
   },
   {
    "id": "asc-eurolg-bvg-dub-2026-10-13-pos-6pt5@2026-10-13T13:24:33.480Z",
@@ -175,8 +175,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.435,
-   "unrealized": -8.96
+   "yes_now": 0.905,
+   "unrealized": 35.38
   },
   {
    "id": "asc-eurolg-par-pan-2026-10-13-pos-7pt5@2026-10-13T15:24:00.330Z",
@@ -197,8 +197,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.58,
-   "unrealized": 2.44
+   "yes_now": 0.595,
+   "unrealized": -1.22
   },
   {
    "id": "tsc-ucl-rcl-spo-2026-10-13-sh-1pt5@2026-10-13T17:01:50.545Z",
@@ -219,8 +219,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.525,
-   "unrealized": -0.52
+   "yes_now": 0.51,
+   "unrealized": 1.04
   }
  ],
  "closed": [
@@ -576,7 +576,7 @@
    "note": "settlement"
   }
  ],
- "skipped": 127,
+ "skipped": 147,
  "savings": 0,
  "sweep_log": [],
  "day": {
@@ -707,6 +707,14 @@
   {
    "t": "2026-10-13T17:30:42.420Z",
    "equity": 989.57
+  },
+  {
+   "t": "2026-10-13T18:01:28.104Z",
+   "equity": 984.05
+  },
+  {
+   "t": "2026-10-13T18:31:16.815Z",
+   "equity": 1028.2
   }
  ],
  "venue": "polymarket-us",
