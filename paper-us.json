@@ -1,6 +1,6 @@
 {
  "start_bankroll": 1000,
- "bankroll": 439.74,
+ "bankroll": 511.69,
  "positions": [
   {
    "id": "asc-atp-gauonc-felbal-2026-10-11-gs-pos-1pt5@2026-10-13T02:39:54.367Z",
@@ -21,8 +21,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.46,
-   "unrealized": -0.91
+   "yes_now": 0.48,
+   "unrealized": -2.73
   },
   {
    "id": "aec-wta-anokoe-eriand-2026-10-13@2026-10-13T02:39:54.367Z",
@@ -87,8 +87,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.575,
-   "unrealized": -1.7
+   "yes_now": 0.555,
+   "unrealized": 0.57
   },
   {
    "id": "aec-itfme-haiqin-dylbai-2026-10-13@2026-10-13T03:08:46.306Z",
@@ -109,30 +109,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.515,
-   "unrealized": -3.37
-  },
-  {
-   "id": "astatc-setkameua-volyur-hryste-2026-10-13-sw1@2026-10-13T03:22:43.030Z",
-   "slug": "astatc-setkameua-volyur-hryste-2026-10-13-sw1",
-   "eventSlug": "setkameua-volyur-hryste-2026-10-13",
-   "market": "Will Volkov Yurii win set 1 against Hryhorenko Stepan?",
-   "side": "NO",
-   "signal": "SELL",
-   "size": "half",
-   "entry_yes": 0.595,
-   "entry_price": 0.41,
-   "stake": 50,
-   "shares": 121.95120000000001,
-   "cash_in": 0,
-   "tp_taken": false,
-   "opened_at": "2026-10-13T03:22:43.030Z",
-   "end": "2026-10-13T23:59:00.000Z",
-   "status": "open",
-   "venue": "polymarket-us",
-   "misses": 0,
-   "yes_now": 0.595,
-   "unrealized": -0.61
+   "yes_now": 0.26,
+   "unrealized": 21.15
   },
   {
    "id": "atc-mlb-cle-tb-2026-10-13-f5-tb@2026-10-13T03:53:21.408Z",
@@ -197,8 +175,30 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.495,
-   "unrealized": 0.5
+   "yes_now": 0.475,
+   "unrealized": 2.5
+  },
+  {
+   "id": "tsc-nba-ind-okc-2026-10-13-228pt5@2026-10-13T08:53:57.916Z",
+   "slug": "tsc-nba-ind-okc-2026-10-13-228pt5",
+   "eventSlug": "nba-ind-okc-2026-10-13",
+   "market": "Will the total in IND Pacers vs. OKC Thunder be more than 228.5?",
+   "side": "NO",
+   "signal": "SELL",
+   "size": "half",
+   "entry_yes": 0.485,
+   "entry_price": 0.52,
+   "stake": 50,
+   "shares": 96.15379999999999,
+   "cash_in": 0,
+   "tp_taken": false,
+   "opened_at": "2026-10-13T08:53:57.916Z",
+   "end": "2026-10-13T23:59:00.000Z",
+   "status": "open",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.505,
+   "unrealized": -2.4
   }
  ],
  "closed": [
@@ -336,14 +336,41 @@
    "pnl": -28.49,
    "closed_at": "2026-10-13T08:26:23.866Z",
    "note": "stop-loss"
+  },
+  {
+   "id": "astatc-setkameua-volyur-hryste-2026-10-13-sw1@2026-10-13T03:22:43.030Z",
+   "slug": "astatc-setkameua-volyur-hryste-2026-10-13-sw1",
+   "eventSlug": "setkameua-volyur-hryste-2026-10-13",
+   "market": "Will Volkov Yurii win set 1 against Hryhorenko Stepan?",
+   "side": "NO",
+   "signal": "SELL",
+   "size": "half",
+   "entry_yes": 0.595,
+   "entry_price": 0.41,
+   "stake": 50,
+   "shares": 121.95120000000001,
+   "cash_in": 121.95,
+   "tp_taken": false,
+   "opened_at": "2026-10-13T03:22:43.030Z",
+   "end": "2026-10-13T23:59:00.000Z",
+   "status": "closed",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.585,
+   "unrealized": 0.61,
+   "yes_won": false,
+   "won": true,
+   "pnl": 71.95,
+   "closed_at": "2026-10-13T09:30:00.942Z",
+   "note": "settlement"
   }
  ],
- "skipped": 29,
+ "skipped": 41,
  "savings": 0,
  "sweep_log": [],
  "day": {
   "date": "2026-10-13",
-  "pnl": -60.26
+  "pnl": 11.69
  },
  "history": [
   {
@@ -397,6 +424,14 @@
   {
    "t": "2026-10-13T08:26:53.762Z",
    "equity": 933.72
+  },
+  {
+   "t": "2026-10-13T09:00:32.542Z",
+   "equity": 965.37
+  },
+  {
+   "t": "2026-10-13T09:30:21.508Z",
+   "equity": 1030.85
   }
  ],
  "venue": "polymarket-us",
