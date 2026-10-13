@@ -1,6 +1,6 @@
 {
  "start_bankroll": 1000,
- "bankroll": 607.08,
+ "bankroll": 632.69,
  "positions": [
   {
    "id": "aec-wta-anokoe-eriand-2026-10-13@2026-10-13T02:39:54.367Z",
@@ -21,30 +21,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.445,
-   "unrealized": -2.97
-  },
-  {
-   "id": "aec-atp-svygul-fraaga-2026-10-13@2026-10-13T02:39:54.367Z",
-   "slug": "aec-atp-svygul-fraaga-2026-10-13",
-   "eventSlug": "atp-svygul-fraaga-2026-10-13",
-   "market": "Who will win in the upcoming atp event Svyatoslav Gulin vs Franco Agamenone scheduled for October 13, 2026 at 8:00 AM UTC?",
-   "side": "NO",
-   "signal": "SELL",
-   "size": "full",
-   "entry_yes": 0.595,
-   "entry_price": 0.41,
-   "stake": 100,
-   "shares": 243.90240000000003,
-   "cash_in": 0,
-   "tp_taken": false,
-   "opened_at": "2026-10-13T02:39:54.367Z",
-   "end": "2026-10-13T23:59:00.000Z",
-   "status": "open",
-   "venue": "polymarket-us",
-   "misses": 0,
-   "yes_now": 0.565,
-   "unrealized": 6.1
+   "yes_now": 0.235,
+   "unrealized": 14.83
   },
   {
    "id": "atc-mlb-cle-tb-2026-10-13-f5-tb@2026-10-13T03:53:21.408Z",
@@ -87,8 +65,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.515,
-   "unrealized": 0.52
+   "yes_now": 0.495,
+   "unrealized": 2.6
   },
   {
    "id": "tsc-nba-ny-tor-2026-10-13-218pt5@2026-10-13T07:23:03.788Z",
@@ -153,8 +131,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.515,
-   "unrealized": -0.48
+   "yes_now": 0.525,
+   "unrealized": 0.48
   },
   {
    "id": "asc-nba-gs-lal-2026-10-13-pos-3pt5@2026-10-13T12:55:28.341Z",
@@ -219,8 +197,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.525,
-   "unrealized": -0.47
+   "yes_now": 0.485,
+   "unrealized": -4.25
   }
  ],
  "closed": [
@@ -493,14 +471,41 @@
    "pnl": -50,
    "closed_at": "2026-10-13T13:01:12.136Z",
    "note": "settlement"
+  },
+  {
+   "id": "aec-atp-svygul-fraaga-2026-10-13@2026-10-13T02:39:54.367Z",
+   "slug": "aec-atp-svygul-fraaga-2026-10-13",
+   "eventSlug": "atp-svygul-fraaga-2026-10-13",
+   "market": "Who will win in the upcoming atp event Svyatoslav Gulin vs Franco Agamenone scheduled for October 13, 2026 at 8:00 AM UTC?",
+   "side": "NO",
+   "signal": "SELL",
+   "size": "full",
+   "entry_yes": 0.595,
+   "entry_price": 0.41,
+   "stake": 100,
+   "shares": 243.90240000000003,
+   "cash_in": 25.61,
+   "tp_taken": false,
+   "opened_at": "2026-10-13T02:39:54.367Z",
+   "end": "2026-10-13T23:59:00.000Z",
+   "status": "closed",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.895,
+   "unrealized": -42.68,
+   "yes_won": null,
+   "won": false,
+   "pnl": -74.39,
+   "closed_at": "2026-10-13T14:30:13.105Z",
+   "note": "stop-loss"
   }
  ],
- "skipped": 77,
+ "skipped": 98,
  "savings": 0,
  "sweep_log": [],
  "day": {
   "date": "2026-10-13",
-  "pnl": 157.08
+  "pnl": 82.69
  },
  "history": [
   {
@@ -594,6 +599,14 @@
   {
    "t": "2026-10-13T13:31:08.053Z",
    "equity": 1154.45
+  },
+  {
+   "t": "2026-10-13T14:00:48.026Z",
+   "equity": 1111.51
+  },
+  {
+   "t": "2026-10-13T14:30:53.493Z",
+   "equity": 1091.04
   }
  ],
  "venue": "polymarket-us",
