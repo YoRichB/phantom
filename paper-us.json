@@ -1,6 +1,6 @@
 {
  "start_bankroll": 1000,
- "bankroll": 468.23,
+ "bankroll": 418.23,
  "positions": [
   {
    "id": "asc-atp-gauonc-felbal-2026-10-11-gs-pos-1pt5@2026-10-13T02:39:54.367Z",
@@ -87,8 +87,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.605,
-   "unrealized": -4.07
+   "yes_now": 0.59,
+   "unrealized": -2.33
   },
   {
    "id": "aec-itfwo-anacve-lolgiz-2026-10-13@2026-10-13T03:08:46.306Z",
@@ -131,30 +131,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.485,
-   "unrealized": -0.48
-  },
-  {
-   "id": "asc-wta-kimbir-katvol-2026-10-11-gs-pos-1pt5@2026-10-13T03:22:43.030Z",
-   "slug": "asc-wta-kimbir-katvol-2026-10-11-gs-pos-1pt5",
-   "eventSlug": "wta-kimbir-katvol-2026-10-11",
-   "market": "Will the Kimberly Birrell cover 1.5 vs the Katie Volynets in Kimberly Birrell vs. Katie Volynets?",
-   "side": "YES",
-   "signal": "BUY",
-   "size": "full",
-   "entry_yes": 0.525,
-   "entry_price": 0.53,
-   "stake": 100,
-   "shares": 188.67919999999998,
-   "cash_in": 0,
-   "tp_taken": false,
-   "opened_at": "2026-10-13T03:22:43.030Z",
-   "end": "2026-10-13T23:59:00.000Z",
-   "status": "open",
-   "venue": "polymarket-us",
-   "misses": 1,
-   "yes_now": 0.32,
-   "unrealized": -39.62
+   "yes_now": 0.475,
+   "unrealized": 0.48
   },
   {
    "id": "astatc-setkameua-volyur-hryste-2026-10-13-sw1@2026-10-13T03:22:43.030Z",
@@ -197,8 +175,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.425,
-   "unrealized": -2.08
+   "yes_now": 0.415,
+   "unrealized": -1.25
   },
   {
    "id": "tsc-nba-cle-orl-2026-10-13-229pt5@2026-10-13T05:52:56.871Z",
@@ -221,6 +199,28 @@
    "misses": 0,
    "yes_now": 0.515,
    "unrealized": 0.52
+  },
+  {
+   "id": "tsc-nba-ny-tor-2026-10-13-218pt5@2026-10-13T07:23:03.788Z",
+   "slug": "tsc-nba-ny-tor-2026-10-13-218pt5",
+   "eventSlug": "nba-ny-tor-2026-10-13",
+   "market": "Will the total in NY Knicks vs. TOR Raptors be more than 218.5?",
+   "side": "NO",
+   "signal": "SELL",
+   "size": "half",
+   "entry_yes": 0.505,
+   "entry_price": 0.5,
+   "stake": 50,
+   "shares": 100,
+   "cash_in": 0,
+   "tp_taken": false,
+   "opened_at": "2026-10-13T07:23:03.788Z",
+   "end": "2026-10-13T23:59:00.000Z",
+   "status": "open",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.505,
+   "unrealized": -0.5
   }
  ],
  "closed": [
@@ -304,14 +304,41 @@
    "pnl": 39.29,
    "closed_at": "2026-10-13T05:28:24.910Z",
    "note": "settlement"
+  },
+  {
+   "id": "asc-wta-kimbir-katvol-2026-10-11-gs-pos-1pt5@2026-10-13T03:22:43.030Z",
+   "slug": "asc-wta-kimbir-katvol-2026-10-11-gs-pos-1pt5",
+   "eventSlug": "wta-kimbir-katvol-2026-10-11",
+   "market": "Will the Kimberly Birrell cover 1.5 vs the Katie Volynets in Kimberly Birrell vs. Katie Volynets?",
+   "side": "YES",
+   "signal": "BUY",
+   "size": "full",
+   "entry_yes": 0.525,
+   "entry_price": 0.53,
+   "stake": 100,
+   "shares": 188.67919999999998,
+   "cash_in": 0,
+   "tp_taken": false,
+   "opened_at": "2026-10-13T03:22:43.030Z",
+   "end": "2026-10-13T23:59:00.000Z",
+   "status": "closed",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.32,
+   "unrealized": -39.62,
+   "yes_won": false,
+   "won": false,
+   "pnl": -100,
+   "closed_at": "2026-10-13T06:56:15.674Z",
+   "note": "settlement"
   }
  ],
- "skipped": 18,
+ "skipped": 23,
  "savings": 0,
  "sweep_log": [],
  "day": {
   "date": "2026-10-13",
-  "pnl": 68.23
+  "pnl": -31.77
  },
  "history": [
   {
@@ -349,6 +376,14 @@
   {
    "t": "2026-10-13T06:26:03.355Z",
    "equity": 1020.07
+  },
+  {
+   "t": "2026-10-13T06:56:30.847Z",
+   "equity": 960.52
+  },
+  {
+   "t": "2026-10-13T07:29:14.114Z",
+   "equity": 962.73
   }
  ],
  "venue": "polymarket-us",
