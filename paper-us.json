@@ -1,29 +1,7 @@
 {
  "start_bankroll": 1000,
- "bankroll": 632.69,
+ "bankroll": 507.27,
  "positions": [
-  {
-   "id": "aec-wta-anokoe-eriand-2026-10-13@2026-10-13T02:39:54.367Z",
-   "slug": "aec-wta-anokoe-eriand-2026-10-13",
-   "eventSlug": "wta-anokoe-eriand-2026-10-13",
-   "market": "Who will win in the upcoming wta event Anouk Koevermans vs Erika Andreeva scheduled for October 13, 2026 at 8:00 AM UTC?",
-   "side": "NO",
-   "signal": "SELL",
-   "size": "half",
-   "entry_yes": 0.415,
-   "entry_price": 0.59,
-   "stake": 50,
-   "shares": 84.7458,
-   "cash_in": 0,
-   "tp_taken": false,
-   "opened_at": "2026-10-13T02:39:54.367Z",
-   "end": "2026-10-13T23:59:00.000Z",
-   "status": "open",
-   "venue": "polymarket-us",
-   "misses": 0,
-   "yes_now": 0.235,
-   "unrealized": 14.83
-  },
   {
    "id": "atc-mlb-cle-tb-2026-10-13-f5-tb@2026-10-13T03:53:21.408Z",
    "slug": "atc-mlb-cle-tb-2026-10-13-f5-tb",
@@ -87,8 +65,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.485,
-   "unrealized": 1.5
+   "yes_now": 0.495,
+   "unrealized": 0.5
   },
   {
    "id": "tsc-nba-ind-okc-2026-10-13-228pt5@2026-10-13T08:53:57.916Z",
@@ -153,8 +131,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.46,
-   "unrealized": -0.91
+   "yes_now": 0.455,
+   "unrealized": -0.45
   },
   {
    "id": "asc-eurolg-bvg-dub-2026-10-13-pos-6pt5@2026-10-13T13:24:33.480Z",
@@ -175,8 +153,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.585,
-   "unrealized": -0.6
+   "yes_now": 0.61,
+   "unrealized": -3.57
   },
   {
    "id": "atc-egpl-itt-gou-2026-10-13-itt@2026-10-13T13:24:33.480Z",
@@ -199,6 +177,50 @@
    "misses": 0,
    "yes_now": 0.485,
    "unrealized": -4.25
+  },
+  {
+   "id": "atc-serca-juv-acl-2026-10-13-acl@2026-10-13T14:54:11.248Z",
+   "slug": "atc-serca-juv-acl-2026-10-13-acl",
+   "eventSlug": "serca-juv-acl-2026-10-13",
+   "market": "Will AC Lumezzane win against Juventus Next Gen in the Serie C Girone A match scheduled for Oct 13, 2026?",
+   "side": "YES",
+   "signal": "BUY",
+   "size": "half",
+   "entry_yes": 0.485,
+   "entry_price": 0.49,
+   "stake": 50,
+   "shares": 102.0408,
+   "cash_in": 0,
+   "tp_taken": false,
+   "opened_at": "2026-10-13T14:54:11.248Z",
+   "end": "2026-10-14T03:59:00.000Z",
+   "status": "open",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.465,
+   "unrealized": -2.55
+  },
+  {
+   "id": "asc-eurolg-par-pan-2026-10-13-pos-7pt5@2026-10-13T15:24:00.330Z",
+   "slug": "asc-eurolg-par-pan-2026-10-13-pos-7pt5",
+   "eventSlug": "eurolg-par-pan-2026-10-13",
+   "market": "Will KK Partizan Belgrade cover +7.5 vs Panathinaikos BC?",
+   "side": "NO",
+   "signal": "SELL",
+   "size": "full",
+   "entry_yes": 0.595,
+   "entry_price": 0.41,
+   "stake": 100,
+   "shares": 243.90240000000003,
+   "cash_in": 0,
+   "tp_taken": false,
+   "opened_at": "2026-10-13T15:24:00.330Z",
+   "end": "2026-10-14T03:59:00.000Z",
+   "status": "open",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.595,
+   "unrealized": -1.22
   }
  ],
  "closed": [
@@ -498,14 +520,41 @@
    "pnl": -74.39,
    "closed_at": "2026-10-13T14:30:13.105Z",
    "note": "stop-loss"
+  },
+  {
+   "id": "aec-wta-anokoe-eriand-2026-10-13@2026-10-13T02:39:54.367Z",
+   "slug": "aec-wta-anokoe-eriand-2026-10-13",
+   "eventSlug": "wta-anokoe-eriand-2026-10-13",
+   "market": "Who will win in the upcoming wta event Anouk Koevermans vs Erika Andreeva scheduled for October 13, 2026 at 8:00 AM UTC?",
+   "side": "NO",
+   "signal": "SELL",
+   "size": "half",
+   "entry_yes": 0.415,
+   "entry_price": 0.59,
+   "stake": 50,
+   "shares": 84.7458,
+   "cash_in": 24.58,
+   "tp_taken": false,
+   "opened_at": "2026-10-13T02:39:54.367Z",
+   "end": "2026-10-13T23:59:00.000Z",
+   "status": "closed",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.71,
+   "unrealized": 14.83,
+   "yes_won": null,
+   "won": false,
+   "pnl": -25.42,
+   "closed_at": "2026-10-13T14:59:51.647Z",
+   "note": "stop-loss"
   }
  ],
- "skipped": 98,
+ "skipped": 111,
  "savings": 0,
  "sweep_log": [],
  "day": {
   "date": "2026-10-13",
-  "pnl": 82.69
+  "pnl": 57.27
  },
  "history": [
   {
@@ -607,6 +656,14 @@
   {
    "t": "2026-10-13T14:30:53.493Z",
    "equity": 1091.04
+  },
+  {
+   "t": "2026-10-13T15:00:36.376Z",
+   "equity": 1047.32
+  },
+  {
+   "t": "2026-10-13T15:30:37.933Z",
+   "equity": 1043.49
   }
  ],
  "venue": "polymarket-us",
