@@ -31,7 +31,7 @@ const isHalted = () => fs.existsSync(HALT_FILE);
 
 // Cutover flag: the unified app's Trading Agent tab still shows the
 // international ledger until the approved cutover. Flip to true as part of it.
-const APP_INJECT_ENABLED = false;
+const APP_INJECT_ENABLED = true;
 const APP_PATH = '/home/hatch/workspace/your_files/phantom.html';
 
 function loadPending(){
