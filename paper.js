@@ -1,8 +1,16 @@
 // Phantom paper-trading bot. Simulates trading the scanner's intraday signals
-// against a $100 starting wallet. Paper only — never touches real money.
+// against a $1,000 starting wallet. Paper only — never touches real money.
 //
 //   node paper.js backfill   one-time: enter this morning's seed signals
 //   node paper.js live       every 30 min: score, open new positions, grade opens
+//   node paper.js approve [id]  open queued signals (only used when approvalMode is on)
+//
+// Kill switch: if DIR/HALT exists, live() opens NOTHING (grading and exits
+// keep running so positions can still close). Toggle with `node halt.js on|off`.
+// Approval mode: when state.approvalMode is true, candidate opens are queued
+// to pending-approvals.json instead of opening; a human opens them with
+// `node paper.js approve`. Paper default is automatic (approvalMode false);
+// live trading must run with approvalMode true (enforced in live.js).
 //
 // Semantics: a BUY signal = buy YES at the ASK (honest fill);
 // a SELL signal = buy NO at (1 - BID). Stake = wallet cash risked.
@@ -12,9 +20,18 @@
 // end). Daily breaker: no new opens once day P&L <= -$300. Max 10 open.
 const fs = require('fs');
 const path = require('path');
-const { getJSON, fetchTape, scoreMarkets } = require('./lib');
+const { getJSON, getMarkets, fetchTape, scoreMarkets } = require('./lib');
 const DIR = '/home/hatch/workspace/phantom-signal-monitor';
 const PAPER = path.join(DIR, 'paper.json');
+const HALT_FILE = path.join(DIR, 'HALT');
+const PENDING_FILE = path.join(DIR, 'pending-approvals.json');
+const isHalted = () => fs.existsSync(HALT_FILE);
+
+function loadPending(){
+  try { const p = JSON.parse(fs.readFileSync(PENDING_FILE, 'utf8')); return Array.isArray(p) ? p : []; }
+  catch(e){ return []; }
+}
+function savePending(p){ fs.mkdirSync(DIR, { recursive: true }); fs.writeFileSync(PENDING_FILE, JSON.stringify(p, null, 1)); }
 
 const START = 1000;
 const STAKE = { full: 100, half: 50 };
@@ -82,8 +99,13 @@ function sweepProfits(state, t){
   return amount;
 }
 
-// Gate for new opens: daily loss breaker + max open positions.
+// Gate for new opens: kill switch, daily loss breaker, max open positions.
+// SHOULD-HAVE (review 2026-10-12): upgrade the breaker so that when it trips
+// it also freezes ALL activity and exits open positions instead of only
+// blocking new entries. Not done: would change the -$300 semantics the user
+// approved; parked until he asks.
 function canOpen(state){
+  if (isHalted()) return 'halted';
   const d = new Date().toISOString().slice(0, 10);
   const dayPnl = (state.day && state.day.date === d) ? state.day.pnl : 0;
   if (dayPnl <= -MAX_DAILY_LOSS) return 'daily-breaker';
@@ -93,10 +115,17 @@ function canOpen(state){
 
 async function marketState(slug){
   try {
-    const ms = await getJSON('https://gamma-api.polymarket.com/markets?slug=' + encodeURIComponent(slug));
-    let m = ms && ms[0];
+    // 1) Active listing via gamma /markets/keyset (migrated 2026-10-13).
+    let m = (await getMarkets({ slug }))[0];
     if (!m) {
-      // Gamma's slug index drops delisted/resolved markets; fall back to
+      // 2) Closed/resolved markets leave the active listing — they are still
+      // queryable with closed=true, and carry the true resolution in
+      // outcomePrices (["1","0"] = YES won). This is the source of truth for
+      // resolution-based grading (2026-10-13).
+      m = (await getMarkets({ slug, closed: 'true' }))[0];
+    }
+    if (!m) {
+      // 3) Gamma's slug index can drop markets entirely; fall back to
       // public-search and exact-match the slug (verified 2026-10-07).
       try {
         const sr = await getJSON('https://gamma-api.polymarket.com/public-search?q=' + encodeURIComponent(slug));
@@ -335,7 +364,8 @@ async function backfill(){
 async function live(){
   const state = load();
   const now = Date.now();
-  const markets = await getJSON('https://gamma-api.polymarket.com/markets?closed=false&active=true&limit=80&order=volume24hr&ascending=false');
+  // Market listing via gamma /markets/keyset (migrated 2026-10-13).
+  const markets = await getMarkets({ closed: 'false', active: 'true', limit: '80', order: 'volume24hr', ascending: 'false' });
   const trades = await fetchTape(markets);
   const seen = tradedSlugs(state);
   const quals = scoreMarkets(markets, trades).filter(r => {
@@ -345,16 +375,36 @@ async function live(){
   });
   const opened = [];
   const t = new Date(now).toISOString();
+  const halted = isHalted();
+  const approvalMode = !!state.approvalMode;
+  let queued = 0;
   // One position per event: "Spirit vs M80 - Map 2" and "Spirit vs M80 (BO3)"
   // share the same match, so a second position would double the event risk.
   const evKey = s => (((s && s.market) || s) || '').split(' - ')[0].replace(/\s*\([^)]*\)/g, '').trim().toLowerCase();
   const openEvents = new Set(state.positions.filter(p => p.status === 'open').map(evKey));
-  for (const q of quals){
-    if (openEvents.has(evKey(q.market))) continue; // already exposed to this event
-    const gate = canOpen(state);
-    if (gate){ state.skipped++; continue; }
-    const res = openPosition(state, q, t);
-    if (res === 'opened'){ opened.push({ market: q.market, side: q.side === 'BUY' ? 'YES' : 'NO', stake: STAKE[q.size], entry_c: Math.round((q.side === 'BUY' ? (q.ask || q.yes) : 1 - (q.bid || q.yes)) * 10000) / 100 }); openEvents.add(evKey(q.market)); }
+  if (!halted){
+    const pending = approvalMode ? loadPending() : [];
+    const pendingSlugs = new Set(pending.map(q => q.slug));
+    for (const q of quals){
+      if (openEvents.has(evKey(q.market))) continue; // already exposed to this event
+      if (approvalMode && (pendingSlugs.has(q.slug) || tradedSlugs(state).has(q.slug))) continue;
+      const gate = canOpen(state);
+      if (gate){ state.skipped++; continue; }
+      if (approvalMode){
+        // Human-in-the-loop: queue the candidate; nothing opens until
+        // `node paper.js approve` runs. The 40-60c price filter is re-applied
+        // at approve time against the then-current price.
+        pending.push({ id: q.slug + '@' + t, slug: q.slug, market: q.market,
+          side: q.side, size: q.size, yes: q.yes, bid: q.bid, ask: q.ask,
+          end: q.end, requested_at: t });
+        pendingSlugs.add(q.slug);
+        queued++;
+        continue;
+      }
+      const res = openPosition(state, q, t);
+      if (res === 'opened'){ opened.push({ market: q.market, side: q.side === 'BUY' ? 'YES' : 'NO', stake: STAKE[q.size], entry_c: Math.round((q.side === 'BUY' ? (q.ask || q.yes) : 1 - (q.bid || q.yes)) * 10000) / 100 }); openEvents.add(evKey(q.market)); }
+    }
+    if (approvalMode) savePending(pending);
   }
   const graded = await gradeAll(state);
   const swept = sweepProfits(state, t);
@@ -362,10 +412,52 @@ async function live(){
   state.history = [...(state.history || []), { t: new Date().toISOString(), equity: sum.equity }].slice(-500);
   save(state);
   injectAppState(state, sum);
-  console.log(JSON.stringify({ mode: 'live', as_of: t, ...sum }, null, 1));
+  console.log(JSON.stringify({ mode: 'live', as_of: t, halted, approvalMode, queued, ...sum }, null, 1));
+}
+
+// Human approval: open queued signals (approvalMode only).
+// Re-prices each signal at approve time — the 40-60c entry filter in
+// openPosition runs against the CURRENT book, so a stale queue entry that
+// drifted out of band is skipped, not opened.
+async function approveCmd(id){
+  const state = load();
+  if (isHalted()){ console.log(JSON.stringify({ mode: 'approve', halted: true, approved: [] })); return; }
+  const pending = loadPending();
+  const t = new Date().toISOString();
+  const approved = [], remaining = [];
+  for (const q of pending){
+    if (id && q.id !== id && q.slug !== id){ remaining.push(q); continue; }
+    const gate = canOpen(state);
+    if (gate){ q.skip_reason = gate; remaining.push(q); continue; }
+    if (tradedSlugs(state).has(q.slug)){ continue; } // already traded, drop
+    const sig = { market: q.market, slug: q.slug, side: q.side, size: q.size,
+      yes: q.yes, bid: q.bid, ask: q.ask, end: q.end };
+    try {
+      const m = (await getMarkets({ slug: q.slug }))[0];
+      if (m){
+        let prices = [];
+        try { prices = JSON.parse(m.outcomePrices || '[]').map(Number); } catch(e){}
+        if (typeof prices[0] === 'number') sig.yes = prices[0];
+        if (m.bestBid != null) sig.bid = Number(m.bestBid);
+        if (m.bestAsk != null) sig.ask = Number(m.bestAsk);
+      }
+    } catch(e){}
+    const res = openPosition(state, sig, t);
+    if (res === 'opened'){
+      approved.push({ market: q.market, side: q.side === 'BUY' ? 'YES' : 'NO',
+        stake: STAKE[q.size], entry_c: Math.round(((q.side === 'BUY' ? (sig.ask || sig.yes) : 1 - (sig.bid || sig.yes))) * 10000) / 100 });
+    } else { q.skip_reason = res; remaining.push(q); }
+  }
+  savePending(remaining);
+  const sum = summary(state, approved, [], 0);
+  state.history = [...(state.history || []), { t: new Date().toISOString(), equity: sum.equity }].slice(-500);
+  save(state);
+  injectAppState(state, sum);
+  console.log(JSON.stringify({ mode: 'approve', approved, still_pending: remaining.length }, null, 1));
 }
 
 const mode = process.argv[2];
 if (mode === 'backfill') backfill().catch(e => { console.error('PAPER_ERROR: ' + e.message); process.exit(1); });
 else if (mode === 'live') live().catch(e => { console.error('PAPER_ERROR: ' + e.message); process.exit(1); });
-else { console.error('usage: node paper.js [backfill|live]'); process.exit(2); }
+else if (mode === 'approve') approveCmd(process.argv[3]).catch(e => { console.error('PAPER_ERROR: ' + e.message); process.exit(1); });
+else { console.error('usage: node paper.js [backfill|live|approve [id]]'); process.exit(2); }

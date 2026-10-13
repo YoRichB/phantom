@@ -4,7 +4,7 @@
 // Dedupes via seen.json (slug -> first-seen ISO); entries pruned after 7 days.
 const fs = require('fs');
 const path = require('path');
-const { getJSON, fetchTape, scoreMarkets } = require('./lib');
+const { getJSON, getMarkets, fetchTape, scoreMarkets } = require('./lib');
 const DIR = '/home/hatch/workspace/phantom-signal-monitor';
 const SEEN = path.join(DIR, 'seen.json');
 
@@ -16,7 +16,10 @@ const SEEN = path.join(DIR, 'seen.json');
   for (const k of Object.keys(seen)) {
     if (now - new Date(seen[k]).getTime() > 7 * 864e5) delete seen[k];
   }
-  const markets = await getJSON('https://gamma-api.polymarket.com/markets?closed=false&active=true&limit=80&order=volume24hr&ascending=false');
+  // Market listing via gamma /markets/keyset (migrated 2026-10-13; the
+  // offset-paginated /markets route is deprecated). Same contract as before:
+  // top-80 by 24h volume, newest-first.
+  const markets = await getMarkets({ closed: 'false', active: 'true', limit: '80', order: 'volume24hr', ascending: 'false' });
   const trades = await fetchTape(markets);
   const scored = scoreMarkets(markets, trades);
   const fresh = scored.filter(r => {

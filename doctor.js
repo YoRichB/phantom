@@ -9,7 +9,7 @@ const note = (check, ok, detail) => findings.push({ check, ok, detail: detail ||
 
 (async () => {
   // 1. scripts parse
-  for (const f of ['lib.js', 'scan.js', 'paper.js', 'doctor.js']) {
+  for (const f of ['lib.js', 'scan.js', 'paper.js', 'doctor.js', 'regrade.js', 'halt.js', 'live.js']) {
     try { execSync(`node --check ${path.join(DIR, f)}`, { stdio: 'pipe' }); note('syntax:' + f, true); }
     catch (e) { note('syntax:' + f, false, 'node --check failed'); }
   }
@@ -38,13 +38,16 @@ const note = (check, ok, detail) => findings.push({ check, ok, detail: detail ||
     const ageMin = (Date.now() - fs.statSync(dash).mtimeMs) / 60000;
     note('dashboard:fresh', ageMin < 90, Math.round(ageMin) + ' min old');
   } catch (e) { note('dashboard:fresh', false, 'missing'); }
-  // 5. API reachability (short timeout)
+  // 5. API reachability (short timeout) — gamma via /markets/keyset
+  // (migrated 2026-10-13; the offset-paginated /markets route is deprecated).
   try {
     const ctl = new AbortController();
     const t = setTimeout(() => ctl.abort(), 15000);
-    const r = await fetch('https://gamma-api.polymarket.com/markets?limit=1', { signal: ctl.signal });
+    const r = await fetch('https://gamma-api.polymarket.com/markets/keyset?limit=1', { signal: ctl.signal });
     clearTimeout(t);
-    note('api:gamma', r.ok, 'HTTP ' + r.status);
+    let okShape = false;
+    try { const j = await r.json(); okShape = r.ok && Array.isArray(j.markets); } catch(e){}
+    note('api:gamma', okShape, 'HTTP ' + r.status + (okShape ? ', keyset envelope ok' : ', unexpected shape'));
   } catch (e) { note('api:gamma', false, e.name === 'AbortError' ? 'timeout' : e.message); }
   // 6. resolutions.json shape
   const res = state['resolutions.json'];
@@ -54,11 +57,14 @@ const note = (check, ok, detail) => findings.push({ check, ok, detail: detail ||
   }
   // 7. V2 readiness: gamma version distribution + v2 trades endpoint shape.
   //    Data API v1 retires 2026-10-24; Protocol V2 markets go live 2026-11-02.
+  //    Market reads migrated to /markets/keyset 2026-10-13 (offset /markets
+  //    returns `deprecation: true` + `warning: 299 "use /markets/keyset"`).
   try {
     const ctl = new AbortController();
     const t = setTimeout(() => ctl.abort(), 20000);
-    const ms = await (await fetch('https://gamma-api.polymarket.com/markets?closed=false&active=true&limit=80&order=volume24hr&ascending=false', { signal: ctl.signal })).json();
+    const j = await (await fetch('https://gamma-api.polymarket.com/markets/keyset?closed=false&active=true&limit=80&order=volume24hr&ascending=false', { signal: ctl.signal })).json();
     clearTimeout(t);
+    const ms = Array.isArray(j) ? j : (j.markets || []);
     const vers = {};
     const missShape = [];
     for (const m of ms || []) {
@@ -73,6 +79,17 @@ const note = (check, ok, detail) => findings.push({ check, ok, detail: detail ||
     note('v2:gamma-versions', true, JSON.stringify(vers));
     note('v2:gamma-v2-shape', missShape.length === 0, missShape.length ? missShape.slice(0, 3).join('; ') : 'no v2 markets in top-80 yet');
   } catch (e) { note('v2:gamma-versions', false, e.name === 'AbortError' ? 'timeout' : e.message); }
+  // 8. Kill switch + approval queue state (informational — never a failure).
+  try {
+    const halted = fs.existsSync(path.join(DIR, 'HALT'));
+    note('ops:halt', true, halted ? 'HALT SET — new opens paused' : 'no HALT file');
+  } catch (e) { note('ops:halt', true, 'unknown'); }
+  try {
+    const pend = JSON.parse(fs.readFileSync(path.join(DIR, 'pending-approvals.json'), 'utf8'));
+    note('ops:pending-approvals', Array.isArray(pend), Array.isArray(pend) ? pend.length + ' queued' : 'bad shape');
+  } catch (e) {
+    note('ops:pending-approvals', true, 'no queue file');
+  }
   try {
     const ctl = new AbortController();
     const t = setTimeout(() => ctl.abort(), 15000);

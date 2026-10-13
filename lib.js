@@ -10,6 +10,19 @@ async function getJSON(url){
 // v2 envelope: { data: [...], pagination } — unwrap, tolerating a bare array.
 const unwrapTrades = j => Array.isArray(j) ? j : (j && Array.isArray(j.data) ? j.data : []);
 
+// Market listing via the keyset-paginated gamma endpoint (migrated 2026-10-13).
+// The offset-paginated /markets route now returns `deprecation: true` with
+// `warning: 299 "use /markets/keyset"` (sunset header present), so all market
+// reads go through /markets/keyset. Same market object shape as before;
+// the envelope is {$schema, markets, next_cursor} — unwrapped here, tolerating
+// a bare array for forward/backward compatibility.
+async function getMarkets(params){
+  const qs = new URLSearchParams(params).toString();
+  const j = await getJSON('https://gamma-api.polymarket.com/markets/keyset?' + qs);
+  if (Array.isArray(j)) return j;
+  return (j && Array.isArray(j.markets)) ? j.markets : [];
+}
+
 // Per-market tape. The global recent-trades feed (?limit=500 with no market)
 // is dominated by crypto up/down micro-markets, so most of the top-80 volume
 // markets show zero prints and every signal degrades to "skip". Pulling each
@@ -86,4 +99,4 @@ function scoreMarkets(markets, trades){
   });
 }
 
-module.exports = { num, getJSON, fetchTape, scoreMarkets };
+module.exports = { num, getJSON, getMarkets, fetchTape, scoreMarkets };
