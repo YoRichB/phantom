@@ -1,6 +1,6 @@
 {
  "start_bankroll": 1000,
- "bankroll": 901.68,
+ "bankroll": 805.01,
  "positions": [
   {
    "id": "atc-mlb-cle-tb-2026-10-13-f5-tb@2026-10-13T03:53:21.408Z",
@@ -43,8 +43,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.505,
-   "unrealized": 1.56
+   "yes_now": 0.515,
+   "unrealized": 0.52
   },
   {
    "id": "tsc-nba-ny-tor-2026-10-13-218pt5@2026-10-13T07:23:03.788Z",
@@ -65,8 +65,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.525,
-   "unrealized": -2.5
+   "yes_now": 0.535,
+   "unrealized": -3.5
   },
   {
    "id": "tsc-nba-ind-okc-2026-10-13-228pt5@2026-10-13T08:53:57.916Z",
@@ -87,8 +87,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.515,
-   "unrealized": -3.37
+   "yes_now": 0.525,
+   "unrealized": -4.33
   },
   {
    "id": "asc-nba-gs-lal-2026-10-13-pos-3pt5@2026-10-13T12:55:28.341Z",
@@ -109,8 +109,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.565,
-   "unrealized": -10.45
+   "yes_now": 0.56,
+   "unrealized": -10
   },
   {
    "id": "asc-nba-por-sac-2026-10-13-pos-2pt5@2026-10-13T19:53:50.210Z",
@@ -153,8 +153,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.41,
-   "unrealized": -0.83
+   "yes_now": 0.405,
+   "unrealized": -0.42
   },
   {
    "id": "astatc-nhl-bos-sj-2026-10-13-ast-maccel-gte1@2026-10-13T21:23:39.589Z",
@@ -179,26 +179,48 @@
    "unrealized": -0.44
   },
   {
-   "id": "aec-itfwo-clemer-sarsai-2026-10-13@2026-10-13T21:23:39.589Z",
-   "slug": "aec-itfwo-clemer-sarsai-2026-10-13",
-   "eventSlug": "itfwo-clemer-sarsai-2026-10-13",
-   "market": "Who will win in the upcoming tennis event Clemence Mercier vs Sara Saito scheduled for October 13, 2026 at 5:00 PM UTC?",
+   "id": "aec-nhl-stl-ott-2026-10-13@2026-10-13T22:23:28.603Z",
+   "slug": "aec-nhl-stl-ott-2026-10-13",
+   "eventSlug": "nhl-stl-ott-2026-10-13",
+   "market": "Who will win in the upcoming hockey event STL Blues vs OTT Senators scheduled for October 13, 2026 at 11:30 PM UTC?",
    "side": "YES",
    "signal": "BUY",
-   "size": "full",
-   "entry_yes": 0.445,
-   "entry_price": 0.45,
-   "stake": 100,
-   "shares": 222.22220000000002,
+   "size": "half",
+   "entry_yes": 0.535,
+   "entry_price": 0.54,
+   "stake": 50,
+   "shares": 92.5926,
    "cash_in": 0,
    "tp_taken": false,
-   "opened_at": "2026-10-13T21:23:39.589Z",
+   "opened_at": "2026-10-13T22:23:28.603Z",
    "end": "2026-10-14T03:59:00.000Z",
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.545,
-   "unrealized": 21.11
+   "yes_now": 0.535,
+   "unrealized": -0.46
+  },
+  {
+   "id": "aec-utr-anzlis-aririt-2026-10-13@2026-10-13T22:23:28.603Z",
+   "slug": "aec-utr-anzlis-aririt-2026-10-13",
+   "eventSlug": "utr-anzlis-aririt-2026-10-13",
+   "market": "Who will win in the upcoming tennis event Lisa Anzai vs Rito Arima scheduled for October 13, 2026 at 1:00 AM UTC?",
+   "side": "NO",
+   "signal": "SELL",
+   "size": "half",
+   "entry_yes": 0.435,
+   "entry_price": 0.57,
+   "stake": 50,
+   "shares": 87.7193,
+   "cash_in": 0,
+   "tp_taken": false,
+   "opened_at": "2026-10-13T22:23:28.603Z",
+   "end": "2026-10-15T03:59:00.000Z",
+   "status": "open",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.435,
+   "unrealized": -0.44
   }
  ],
  "closed": [
@@ -715,14 +737,41 @@
    "pnl": 52.04,
    "closed_at": "2026-10-13T21:29:11.746Z",
    "note": "settlement"
+  },
+  {
+   "id": "aec-itfwo-clemer-sarsai-2026-10-13@2026-10-13T21:23:39.589Z",
+   "slug": "aec-itfwo-clemer-sarsai-2026-10-13",
+   "eventSlug": "itfwo-clemer-sarsai-2026-10-13",
+   "market": "Who will win in the upcoming tennis event Clemence Mercier vs Sara Saito scheduled for October 13, 2026 at 5:00 PM UTC?",
+   "side": "YES",
+   "signal": "BUY",
+   "size": "full",
+   "entry_yes": 0.445,
+   "entry_price": 0.45,
+   "stake": 100,
+   "shares": 222.22220000000002,
+   "cash_in": 3.33,
+   "tp_taken": false,
+   "opened_at": "2026-10-13T21:23:39.589Z",
+   "end": "2026-10-14T03:59:00.000Z",
+   "status": "closed",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.015,
+   "unrealized": 21.11,
+   "yes_won": null,
+   "won": false,
+   "pnl": -96.67,
+   "closed_at": "2026-10-13T21:59:04.391Z",
+   "note": "stop-loss"
   }
  ],
- "skipped": 177,
+ "skipped": 180,
  "savings": 0,
  "sweep_log": [],
  "day": {
   "date": "2026-10-13",
-  "pnl": 401.68
+  "pnl": 305.01
  },
  "history": [
   {
@@ -880,6 +929,14 @@
   {
    "t": "2026-10-13T21:29:31.658Z",
    "equity": 1392.22
+  },
+  {
+   "t": "2026-10-13T21:59:04.392Z",
+   "equity": 1273.92
+  },
+  {
+   "t": "2026-10-13T22:29:08.929Z",
+   "equity": 1271.4
   }
  ],
  "venue": "polymarket-us",
