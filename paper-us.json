@@ -1,6 +1,6 @@
 {
  "start_bankroll": 1000,
- "bankroll": 411.69,
+ "bankroll": 666.17,
  "positions": [
   {
    "id": "asc-atp-gauonc-felbal-2026-10-11-gs-pos-1pt5@2026-10-13T02:39:54.367Z",
@@ -21,8 +21,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.225,
-   "unrealized": 20.45
+   "yes_now": 0.425,
+   "unrealized": 2.27
   },
   {
    "id": "aec-wta-anokoe-eriand-2026-10-13@2026-10-13T02:39:54.367Z",
@@ -86,31 +86,9 @@
    "end": "2026-10-13T23:59:00.000Z",
    "status": "open",
    "venue": "polymarket-us",
-   "misses": 1,
+   "misses": 3,
    "yes_now": 0.765,
    "unrealized": -23.3
-  },
-  {
-   "id": "aec-itfme-haiqin-dylbai-2026-10-13@2026-10-13T03:08:46.306Z",
-   "slug": "aec-itfme-haiqin-dylbai-2026-10-13",
-   "eventSlug": "itfme-haiqin-dylbai-2026-10-13",
-   "market": "Who will win in the upcoming tennis event Haiyi Qin vs Dylan Bairo scheduled for October 13, 2026 at 12:00 AM UTC?",
-   "side": "NO",
-   "signal": "SELL",
-   "size": "half",
-   "entry_yes": 0.485,
-   "entry_price": 0.52,
-   "stake": 50,
-   "shares": 96.15379999999999,
-   "cash_in": 0,
-   "tp_taken": false,
-   "opened_at": "2026-10-13T03:08:46.306Z",
-   "end": "2026-10-13T23:59:00.000Z",
-   "status": "open",
-   "venue": "polymarket-us",
-   "misses": 3,
-   "yes_now": 0.32,
-   "unrealized": 15.38
   },
   {
    "id": "atc-mlb-cle-tb-2026-10-13-f5-tb@2026-10-13T03:53:21.408Z",
@@ -175,8 +153,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.465,
-   "unrealized": 3.5
+   "yes_now": 0.495,
+   "unrealized": 0.5
   },
   {
    "id": "tsc-nba-ind-okc-2026-10-13-228pt5@2026-10-13T08:53:57.916Z",
@@ -201,26 +179,26 @@
    "unrealized": -2.4
   },
   {
-   "id": "atc-acle-poh-joh-2026-10-13-joh@2026-10-13T09:52:36.864Z",
-   "slug": "atc-acle-poh-joh-2026-10-13-joh",
-   "eventSlug": "acle-poh-joh-2026-10-13",
-   "market": "Will Johor Darul Ta'zim win against FC Pohang Steelers in the AFC Champions League Elite match scheduled for Oct 13, 2026?",
+   "id": "tsc-ucl-int-bru-2026-10-13-3pt5@2026-10-13T12:20:35.246Z",
+   "slug": "tsc-ucl-int-bru-2026-10-13-3pt5",
+   "eventSlug": "ucl-int-bru-2026-10-13",
+   "market": "Will the total in INT vs BRU be more than 3.5?",
    "side": "YES",
    "signal": "BUY",
-   "size": "full",
-   "entry_yes": 0.475,
-   "entry_price": 0.48,
-   "stake": 100,
-   "shares": 208.3333,
+   "size": "half",
+   "entry_yes": 0.515,
+   "entry_price": 0.52,
+   "stake": 50,
+   "shares": 96.15379999999999,
    "cash_in": 0,
    "tp_taken": false,
-   "opened_at": "2026-10-13T09:52:36.864Z",
+   "opened_at": "2026-10-13T12:20:35.246Z",
    "end": "2026-10-13T23:59:00.000Z",
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.9,
-   "unrealized": 87.5
+   "yes_now": 0.515,
+   "unrealized": -0.48
   }
  ],
  "closed": [
@@ -385,14 +363,68 @@
    "pnl": 71.95,
    "closed_at": "2026-10-13T09:30:00.942Z",
    "note": "settlement"
+  },
+  {
+   "id": "aec-itfme-haiqin-dylbai-2026-10-13@2026-10-13T03:08:46.306Z",
+   "slug": "aec-itfme-haiqin-dylbai-2026-10-13",
+   "eventSlug": "itfme-haiqin-dylbai-2026-10-13",
+   "market": "Who will win in the upcoming tennis event Haiyi Qin vs Dylan Bairo scheduled for October 13, 2026 at 12:00 AM UTC?",
+   "side": "NO",
+   "signal": "SELL",
+   "size": "half",
+   "entry_yes": 0.485,
+   "entry_price": 0.52,
+   "stake": 50,
+   "shares": 96.15379999999999,
+   "cash_in": 96.15,
+   "tp_taken": false,
+   "opened_at": "2026-10-13T03:08:46.306Z",
+   "end": "2026-10-13T23:59:00.000Z",
+   "status": "closed",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.32,
+   "unrealized": 15.38,
+   "yes_won": false,
+   "won": true,
+   "pnl": 46.15,
+   "closed_at": "2026-10-13T11:59:35.439Z",
+   "note": "settlement"
+  },
+  {
+   "id": "atc-acle-poh-joh-2026-10-13-joh@2026-10-13T09:52:36.864Z",
+   "slug": "atc-acle-poh-joh-2026-10-13-joh",
+   "eventSlug": "acle-poh-joh-2026-10-13",
+   "market": "Will Johor Darul Ta'zim win against FC Pohang Steelers in the AFC Champions League Elite match scheduled for Oct 13, 2026?",
+   "side": "YES",
+   "signal": "BUY",
+   "size": "full",
+   "entry_yes": 0.475,
+   "entry_price": 0.48,
+   "stake": 100,
+   "shares": 208.3333,
+   "cash_in": 208.33,
+   "tp_taken": false,
+   "opened_at": "2026-10-13T09:52:36.864Z",
+   "end": "2026-10-13T23:59:00.000Z",
+   "status": "closed",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.9,
+   "unrealized": 87.5,
+   "yes_won": true,
+   "won": true,
+   "pnl": 108.33,
+   "closed_at": "2026-10-13T12:26:55.511Z",
+   "note": "settlement"
   }
  ],
- "skipped": 59,
+ "skipped": 69,
  "savings": 0,
  "sweep_log": [],
  "day": {
   "date": "2026-10-13",
-  "pnl": 11.69
+  "pnl": 166.17
  },
  "history": [
   {
@@ -470,6 +502,14 @@
   {
    "t": "2026-10-13T11:27:14.280Z",
    "equity": 1112.06
+  },
+  {
+   "t": "2026-10-13T12:00:00.631Z",
+   "equity": 1122.19
+  },
+  {
+   "t": "2026-10-13T12:27:00.394Z",
+   "equity": 1142
   }
  ],
  "venue": "polymarket-us",
