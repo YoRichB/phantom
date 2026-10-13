@@ -713,12 +713,145 @@ function draw(pack, label, live, asof){
 function skeletons(){
   list.innerHTML = Array.from({length:4},()=>'<div class="skel"><i style="height:14px;width:38%;margin-bottom:10px"></i><i style="height:12px;width:92%;margin-bottom:8px"></i><i style="height:6px;width:100%;margin-bottom:8px"></i><i style="height:12px;width:64%"></i></div>').join("");
 }
-function scan(){
-  // In-browser scanning is retired: the venue moved to Polymarket US and the
-  // old international endpoints are dead. A server-side scan runs every
-  // 30 minutes and refreshes the board below automatically.
-  errBox.style.display = "flex";
-  errBox.innerHTML = "<div>Scans run automatically every 30 min on Polymarket US — the board below is from the latest scan.</div>";
+/* ============ in-browser live scan (Polymarket US public gateway) ============
+   Mirrors the server-side scan-us.js momentum model. Auto-runs on page load
+   (after the cached pack paints) and on SCAN tap. Guarded against double-fire. */
+let scanRunning = false;
+const USGW = "https://gateway.polymarket.us";
+async function usGetJSON(url){
+  const r = await fetch(url, {headers:{"User-Agent":"PhantomScannerUS/1.0"}});
+  if(!r.ok) throw new Error("HTTP "+r.status);
+  return r.json();
+}
+async function usMapLimit(items, n, fn){
+  const out = new Array(items.length); let i = 0;
+  await Promise.all(Array.from({length: Math.min(n, items.length)}, async ()=>{
+    while(i < items.length){ const k = i++; try{ out[k] = await fn(items[k]); }catch(e){ out[k] = null; } }
+  }));
+  return out;
+}
+function usMomentum(hist, side){
+  const px = hist.map(h=>side==="BUY"?h.long:h.short).filter(v=>Number.isFinite(v));
+  if (px.length < 60) return null;
+  const first=px[0], last=px[px.length-1], hour=px[Math.max(0,px.length-61)];
+  const chg6=last-first, chg1=last-hour;
+  let adverse=0;
+  for(const p of px){ const a=side==="BUY"?(first-p):(p-first); if(a>adverse)adverse=a; }
+  return {chg6, chg1, adverse};
+}
+function usScore(c){
+  const mid=(c.bid+c.ask)/2, spread=c.ask-c.bid;
+  if(!(mid>=0.40&&mid<=0.60))return null;
+  if(!(spread>0&&spread<=0.03))return null;
+  if(!(c.bidQty3>=500&&c.askQty3>=500))return null;
+  const hoursLeft=(new Date(c.end).getTime()-Date.now())/36e5;
+  if(!(hoursLeft>0&&hoursLeft<=48))return null;
+  let best=null;
+  for(const side of ["BUY","SELL"]){
+    const st=usMomentum(c.hist,side);
+    if(!st)continue;
+    const dirOk=side==="BUY"?st.chg6>=0.04&&st.chg1>=0.01:st.chg6<=-0.04&&st.chg1<=-0.01;
+    if(!dirOk||st.adverse>0.10)continue;
+    const votes=[Math.abs(st.chg6)>=0.06,spread<=0.02,c.bidQty3>=5000&&c.askQty3>=5000,Math.abs(st.chg1)>=0.02].filter(Boolean).length;
+    if(votes<3)continue;
+    const size=votes===4?"full":"half";
+    const sig={market:c.market,slug:c.slug,eventSlug:c.eventSlug,eventTitle:c.eventTitle,
+      side,size,yes:Math.round(mid*100)/100,bid:c.bid,ask:c.ask,spread:Math.round(spread*100)/100,
+      end:c.end,hours_left:Math.round(hoursLeft*10)/10,signal_basis:"price-action",
+      chg_6h_c:Math.round(st.chg6*10000)/100,chg_1h_c:Math.round(st.chg1*10000)/100,
+      max_adverse_c:Math.round(st.adverse*10000)/100,
+      bid_depth_shares:c.bidQty3,ask_depth_shares:c.askQty3,
+      open_interest:null,shares_traded:null,wallets:null,prints:null,net_usd:null};
+    if(!best||(size==="full"&&best.size==="half"))best=sig;
+  }
+  return best;
+}
+function paintCachedPack(){
+  try{
+    const usp=JSON.parse(document.getElementById("us-pack").textContent||"null");
+    if(usp&&Array.isArray(usp.signals)){ draw(usp,"Polymarket US scan",true,usp.as_of?new Date(usp.as_of):null); return; }
+  }catch(e){}
+  draw(SEED, "saved scan · Oct 7, 2026 14:07 UTC", false, new Date("2026-10-07T14:07:02Z"));
+}
+async function scan(){
+  if(scanRunning) return;
+  scanRunning = true;
+  const btn = $("scan");
+  try{
+    btn.disabled = true; btn.textContent = "···";
+    errBox.style.display = "none";
+    skeletons();
+    meta.textContent = "scanning Polymarket US…";
+    dot.className = "dot live";
+    const now = Date.now();
+    const endMin = new Date(now).toISOString(), endMax = new Date(now+48*36e5).toISOString();
+    let events = [], offset = 0;
+    for(;;){
+      const j = await usGetJSON(USGW+"/v1/events?active=true&closed=false&limit=100&offset="+offset+"&endDateMin="+encodeURIComponent(endMin)+"&endDateMax="+encodeURIComponent(endMax));
+      const page = (j && j.events) || [];
+      events.push(...page);
+      meta.textContent = "scanning Polymarket US… ("+events.length+" events)";
+      if(page.length<100 || offset>=1000) break;
+      offset += 100;
+    }
+    if(!events.length) throw new Error("empty events response");
+    const cands = [];
+    for(const e of events){
+      const eEnd = new Date(e.endDate).getTime();
+      if(!(eEnd>now && eEnd<=now+48*36e5)) continue;
+      for(const m of (e.markets||[])){
+        if(!m.active || m.closed) continue;
+        const bid=Number((m.bestBidQuote||{}).value), ask=Number((m.bestAskQuote||{}).value);
+        if(!(bid>0 && ask>bid)) continue;
+        const mid=(bid+ask)/2;
+        if(!(mid>=0.40 && mid<=0.60 && (ask-bid)<=0.03)) continue;
+        cands.push({market:m.question||e.title, slug:m.slug, eventSlug:e.slug, eventTitle:e.title, bid, ask, end:new Date(eEnd).toISOString()});
+      }
+    }
+    if(!cands.length) throw new Error("no markets passed screens");
+    meta.textContent = "reading books ("+cands.length+" markets)…";
+    const withLiq = (await usMapLimit(cands, 6, async c=>{
+      const j = await usGetJSON(USGW+"/v1/markets/"+encodeURIComponent(c.slug)+"/book");
+      const md=(j&&j.marketData)||{}, bids=md.bids||[], offers=md.offers||[];
+      const qv=q=>{const n=Number(q&&q.value);return Number.isFinite(n)?n:0;};
+      const bpx=bids.length?qv(bids[0].px):0, apx=offers.length?qv(offers[0].px):0;
+      if(!(bpx>0 && apx>bpx)) return null;
+      let bq=0, aq=0;
+      for(const b of bids){ if(qv(b.px)>=bpx-0.03) bq+=Number(b.qty)||0; }
+      for(const a of offers){ if(qv(a.px)<=apx+0.03) aq+=Number(a.qty)||0; }
+      return Object.assign({}, c, {bid:bpx, ask:apx, bidQty3:Math.round(bq), askQty3:Math.round(aq)});
+    })).filter(Boolean);
+    meta.textContent = "scoring momentum ("+withLiq.length+" markets)…";
+    const scored = await usMapLimit(withLiq, 6, async c=>{
+      const j = await usGetJSON(USGW+"/v1/price-history?symbol="+encodeURIComponent(c.slug)+"&fixedInterval=INTERVAL_6H&fidelity=1");
+      const hist=((j&&j.history)||[]).map(p=>({long:Number(p.longPrice), short:Number(p.shortPrice)}));
+      return {c:c, sig:usScore(Object.assign({}, c, {hist:hist}))};
+    });
+    const signals = scored.map(x=>x&&x.sig).filter(Boolean);
+    const r2=v=>Math.round(v*100)/100;
+    const boardAll = scored.map(x=>{
+      const cand=x.c, sig=x.sig;
+      if(sig) return sig;
+      const mid=(cand.bid+cand.ask)/2, hl=(new Date(cand.end).getTime()-now)/36e5;
+      return {market:cand.market,slug:cand.slug,eventSlug:cand.eventSlug,eventTitle:cand.eventTitle,
+        side:null,size:"skip",yes:r2(mid),bid:cand.bid,ask:cand.ask,spread:r2(cand.ask-cand.bid),
+        end:cand.end,hours_left:Math.round(hl*10)/10,signal_basis:"price-action",
+        chg_6h_c:null,chg_1h_c:null,max_adverse_c:null,
+        bid_depth_shares:cand.bidQty3,ask_depth_shares:cand.askQty3,
+        open_interest:null,shares_traded:null,wallets:null,prints:null,net_usd:null,
+        liquidity:null,volume24hr:null,votes:null};
+    });
+    const board=[...boardAll.filter(r=>r.size!=="skip"),...boardAll.filter(r=>r.size==="skip")].slice(0,200);
+    if(!signals.length) throw new Error("no signals in live response");
+    draw({venue:"polymarket-us", as_of:new Date().toISOString(), signals:signals, board:board, whales:[]}, "live scan", true, new Date());
+  }catch(e){
+    errBox.style.display = "flex";
+    errBox.innerHTML = "<div>Live scan didn’t go through ("+esc(e.message)+") — showing the latest saved scan.</div>";
+    paintCachedPack();
+  }finally{
+    scanRunning = false;
+    btn.disabled = false; btn.textContent = "SCAN";
+  }
 }
 
 /* ================= wire up ================= */
@@ -827,13 +960,12 @@ $("shSave").addEventListener("click", ()=>{
 });
 
 (function(){
-  let usp = null;
-  try { usp = JSON.parse(document.getElementById("us-pack").textContent || "null"); } catch(e){}
-  if (usp && Array.isArray(usp.signals)) {
-    draw(usp, "Polymarket US scan", true, usp.as_of ? new Date(usp.as_of) : null);
-  } else {
-    draw(SEED, "saved scan · Oct 7, 2026 14:07 UTC", false, new Date("2026-10-07T14:07:02Z"));
-  }
+  // Instant first paint: the latest US pack injected by the server scanner,
+  // falling back to the stale international SEED only when offline at build.
+  paintCachedPack();
+  // Then a live scan starts on its own — no tap needed. SCAN stays as a
+  // manual refresh; the scanRunning guard keeps the two from racing.
+  setTimeout(scan, 60);
 })();
 </script>
 </body>
