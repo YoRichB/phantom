@@ -1,6 +1,6 @@
 {
  "start_bankroll": 1000,
- "bankroll": 418.23,
+ "bankroll": 439.74,
  "positions": [
   {
    "id": "asc-atp-gauonc-felbal-2026-10-11-gs-pos-1pt5@2026-10-13T02:39:54.367Z",
@@ -69,28 +69,6 @@
    "unrealized": 1.22
   },
   {
-   "id": "aec-itfme-vukrad-felrom-2026-10-13@2026-10-13T02:39:54.367Z",
-   "slug": "aec-itfme-vukrad-felrom-2026-10-13",
-   "eventSlug": "itfme-vukrad-felrom-2026-10-13",
-   "market": "Who will win in the upcoming tennis event Vuk Radjenovic vs Felix Romeo scheduled for October 13, 2026 at 7:30 AM UTC?",
-   "side": "NO",
-   "signal": "SELL",
-   "size": "half",
-   "entry_yes": 0.575,
-   "entry_price": 0.43,
-   "stake": 50,
-   "shares": 116.2791,
-   "cash_in": 0,
-   "tp_taken": false,
-   "opened_at": "2026-10-13T02:39:54.367Z",
-   "end": "2026-10-13T23:59:00.000Z",
-   "status": "open",
-   "venue": "polymarket-us",
-   "misses": 0,
-   "yes_now": 0.59,
-   "unrealized": -2.33
-  },
-  {
    "id": "aec-itfwo-anacve-lolgiz-2026-10-13@2026-10-13T03:08:46.306Z",
    "slug": "aec-itfwo-anacve-lolgiz-2026-10-13",
    "eventSlug": "itfwo-anacve-lolgiz-2026-10-13",
@@ -131,8 +109,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.475,
-   "unrealized": 0.48
+   "yes_now": 0.515,
+   "unrealized": -3.37
   },
   {
    "id": "astatc-setkameua-volyur-hryste-2026-10-13-sw1@2026-10-13T03:22:43.030Z",
@@ -219,8 +197,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.505,
-   "unrealized": -0.5
+   "yes_now": 0.495,
+   "unrealized": 0.5
   }
  ],
  "closed": [
@@ -331,14 +309,41 @@
    "pnl": -100,
    "closed_at": "2026-10-13T06:56:15.674Z",
    "note": "settlement"
+  },
+  {
+   "id": "aec-itfme-vukrad-felrom-2026-10-13@2026-10-13T02:39:54.367Z",
+   "slug": "aec-itfme-vukrad-felrom-2026-10-13",
+   "eventSlug": "itfme-vukrad-felrom-2026-10-13",
+   "market": "Who will win in the upcoming tennis event Vuk Radjenovic vs Felix Romeo scheduled for October 13, 2026 at 7:30 AM UTC?",
+   "side": "NO",
+   "signal": "SELL",
+   "size": "half",
+   "entry_yes": 0.575,
+   "entry_price": 0.43,
+   "stake": 50,
+   "shares": 116.2791,
+   "cash_in": 21.51,
+   "tp_taken": false,
+   "opened_at": "2026-10-13T02:39:54.367Z",
+   "end": "2026-10-13T23:59:00.000Z",
+   "status": "closed",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.815,
+   "unrealized": -16.86,
+   "yes_won": null,
+   "won": false,
+   "pnl": -28.49,
+   "closed_at": "2026-10-13T08:26:23.866Z",
+   "note": "stop-loss"
   }
  ],
- "skipped": 23,
+ "skipped": 29,
  "savings": 0,
  "sweep_log": [],
  "day": {
   "date": "2026-10-13",
-  "pnl": -31.77
+  "pnl": -60.26
  },
  "history": [
   {
@@ -384,6 +389,14 @@
   {
    "t": "2026-10-13T07:29:14.114Z",
    "equity": 962.73
+  },
+  {
+   "t": "2026-10-13T07:56:52.210Z",
+   "equity": 950.16
+  },
+  {
+   "t": "2026-10-13T08:26:53.762Z",
+   "equity": 933.72
   }
  ],
  "venue": "polymarket-us",
