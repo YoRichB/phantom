@@ -8,36 +8,61 @@ const checks = [];
 const check = (name, ok, detail) => checks.push({ name, ok: !!ok, ...(detail ? { detail } : {}) });
 
 (async () => {
-  // 1. Gateway reachable: events listing
+  // 1. Gateway reachable: events listing (also yields a live probe slug)
+  let probeSlug = null;
   try {
-    const evs = await getUSEvents({ active: 'true', closed: 'false', limit: '1' });
+    const evs = await getUSEvents({ active: 'true', closed: 'false', limit: '5' });
     check('gw:events', evs.length >= 1, evs.length + ' event(s)');
+    const mk = evs.length && evs[0].markets && evs[0].markets.find(m => m.slug);
+    if (mk) probeSlug = mk.slug;
   } catch(e){ check('gw:events', false, e.message); }
 
-  // 2. BBO endpoint
+  // 2. BBO endpoint (live market slug; skip if no live market found)
   try {
-    const b = await getUSBBO('tec-mlb-nlchamp-2026-09-27-mil');
-    check('gw:bbo', b.bid > 0 && b.ask > b.bid, 'bid=' + b.bid + ' ask=' + b.ask);
+    if (!probeSlug) { check('gw:bbo', false, 'no live market slug'); }
+    else {
+      const b = await getUSBBO(probeSlug);
+      check('gw:bbo', b.bid > 0 && b.ask > b.bid, probeSlug + ' bid=' + b.bid + ' ask=' + b.ask);
+    }
   } catch(e){ check('gw:bbo', false, e.message); }
 
   // 3. Price history endpoint (momentum engine fuel)
   try {
-    const h = await getUSHistory('tec-mlb-nlchamp-2026-09-27-mil');
-    check('gw:price-history', h.length >= 60, h.length + ' points');
+    if (!probeSlug) { check('gw:price-history', false, 'no live market slug'); }
+    else {
+      const h = await getUSHistory(probeSlug);
+      check('gw:price-history', h.length >= 60, probeSlug + ' ' + h.length + ' points');
+    }
   } catch(e){ check('gw:price-history', false, e.message); }
 
-  // 4. Settlement endpoint: known resolved YES + known resolved NO
+  // 4. Settlement endpoint: find one settled-YES and one settled-NO among recently closed events
   try {
-    const y = await getUSSettlement('aec-nfl-car-gb-2025-11-02');   // Panthers won -> YES
-    const n = await getUSSettlement('aec-nfl-atl-ne-2025-11-02');   // Falcons lost -> NO
-    check('gw:settlement', y.resolved && y.yesWon === true && n.resolved && n.yesWon === false,
-      'yes=' + JSON.stringify(y) + ' no=' + JSON.stringify(n));
+    const closed = await getUSEvents({ active: 'false', closed: 'true', limit: '25' });
+    let y = null, n = null;
+    for (const ev of closed) {
+      if (y && n) break;
+      const slugs = [];
+      if (ev.slug) slugs.push(ev.slug);
+      (ev.markets || []).forEach(m => { if (m.slug) slugs.push(m.slug); });
+      for (const s of slugs) {
+        if (y && n) break;
+        try {
+          const r = await getUSSettlement(s);
+          if (r.resolved && r.yesWon === true && !y) y = s;
+          if (r.resolved && r.yesWon === false && !n) n = s;
+        } catch(e2){}
+      }
+    }
+    check('gw:settlement', !!(y && n), 'yes=' + y + ' no=' + n);
   } catch(e){ check('gw:settlement', false, e.message); }
 
   // 5. Settlement on an UNRESOLVED market must report resolved:false (not throw)
   try {
-    const u = await getUSSettlement('tec-mlb-nlchamp-2026-09-27-mil');
-    check('gw:settlement-unresolved', u.resolved === false, JSON.stringify(u));
+    if (!probeSlug) { check('gw:settlement-unresolved', false, 'no live market slug'); }
+    else {
+      const u = await getUSSettlement(probeSlug);
+      check('gw:settlement-unresolved', u.resolved === false, JSON.stringify(u));
+    }
   } catch(e){ check('gw:settlement-unresolved', false, e.message); }
 
   // 6. US ledger valid

@@ -25,10 +25,24 @@
 const num = v => { const n = Number(v); return Number.isFinite(n) ? n : 0; };
 const GW = 'https://gateway.polymarket.us';
 
-async function getJSON(url){
-  const r = await fetch(url, { headers: { 'User-Agent': 'PhantomScannerUS/1.0' } });
-  if (!r.ok) throw new Error('HTTP ' + r.status + ' ' + url);
-  return r.json();
+async function getJSON(url, tries){
+  tries = tries || 3;
+  let last = null;
+  for (let i = 0; i < tries; i++) {
+    try {
+      const r = await fetch(url, { headers: { 'User-Agent': 'PhantomScannerUS/1.0' } });
+      if (!r.ok) throw new Error('HTTP ' + r.status + ' ' + url);
+      return r.json();
+    } catch(e) {
+      last = e;
+      // Retry transient network drops and rate-limit/server errors; not 4xx (e.g. 404 = unsettled).
+      const m = /^HTTP (\d+)/.exec(String(e && e.message));
+      const retriable = !m || m[1] === '429' || m[1][0] === '5';
+      if (!retriable || i === tries - 1) throw e;
+      await new Promise(res => setTimeout(res, 1000 * (i + 1)));
+    }
+  }
+  throw last;
 }
 
 async function getUSEvents(params){
