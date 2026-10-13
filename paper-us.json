@@ -1,6 +1,6 @@
 {
  "start_bankroll": 1000,
- "bankroll": 360.87,
+ "bankroll": 428.94,
  "positions": [
   {
    "id": "asc-atp-gauonc-felbal-2026-10-11-gs-pos-1pt5@2026-10-13T02:39:54.367Z",
@@ -91,28 +91,6 @@
    "unrealized": -0.58
   },
   {
-   "id": "aec-nfl-buf-lar-2026-10-12@2026-10-13T03:08:46.306Z",
-   "slug": "aec-nfl-buf-lar-2026-10-12",
-   "eventSlug": "nfl-buf-lar-2026-10-12",
-   "market": "Who will win in the upcoming football event Buffalo Bills vs Los Angeles Rams scheduled for October 13, 2026 at 12:15 AM UTC?",
-   "side": "YES",
-   "signal": "BUY",
-   "size": "full",
-   "entry_yes": 0.59375,
-   "entry_price": 0.595,
-   "stake": 100,
-   "shares": 168.0672,
-   "cash_in": 0,
-   "tp_taken": false,
-   "opened_at": "2026-10-13T03:08:46.306Z",
-   "end": "2026-10-13T23:59:00.000Z",
-   "status": "open",
-   "venue": "polymarket-us",
-   "misses": 0,
-   "yes_now": 0.40125,
-   "unrealized": -32.56
-  },
-  {
    "id": "aec-itfwo-anacve-lolgiz-2026-10-13@2026-10-13T03:08:46.306Z",
    "slug": "aec-itfwo-anacve-lolgiz-2026-10-13",
    "eventSlug": "itfwo-anacve-lolgiz-2026-10-13",
@@ -153,8 +131,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.48,
-   "unrealized": 0
+   "yes_now": 0.485,
+   "unrealized": -0.48
   },
   {
    "id": "asc-wta-kimbir-katvol-2026-10-11-gs-pos-1pt5@2026-10-13T03:22:43.030Z",
@@ -175,8 +153,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.45,
-   "unrealized": -15.09
+   "yes_now": 0.555,
+   "unrealized": 4.72
   },
   {
    "id": "astatc-setkameua-volyur-hryste-2026-10-13-sw1@2026-10-13T03:22:43.030Z",
@@ -199,6 +177,50 @@
    "misses": 0,
    "yes_now": 0.595,
    "unrealized": -0.61
+  },
+  {
+   "id": "atc-mlb-cle-tb-2026-10-13-f5-tb@2026-10-13T03:53:21.408Z",
+   "slug": "atc-mlb-cle-tb-2026-10-13-f5-tb",
+   "eventSlug": "mlb-cle-tb-2026-10-13",
+   "market": "Will the Tampa Bay Rays win the first 5 innings vs the Cleveland Guardians?",
+   "side": "NO",
+   "signal": "SELL",
+   "size": "half",
+   "entry_yes": 0.41,
+   "entry_price": 0.6,
+   "stake": 50,
+   "shares": 83.3333,
+   "cash_in": 0,
+   "tp_taken": false,
+   "opened_at": "2026-10-13T03:53:21.408Z",
+   "end": "2026-10-13T23:59:00.000Z",
+   "status": "open",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.42,
+   "unrealized": -1.67
+  },
+  {
+   "id": "tsc-wta-dayyas-cribuc-2026-10-11-tg-27pt5@2026-10-13T04:26:13.248Z",
+   "slug": "tsc-wta-dayyas-cribuc-2026-10-11-tg-27pt5",
+   "eventSlug": "wta-dayyas-cribuc-2026-10-11",
+   "market": "Will the total in Dayana Yastremska vs. Cristina Bucsa be more than 27.5?",
+   "side": "YES",
+   "signal": "BUY",
+   "size": "half",
+   "entry_yes": 0.55,
+   "entry_price": 0.56,
+   "stake": 50,
+   "shares": 89.28569999999999,
+   "cash_in": 0,
+   "tp_taken": false,
+   "opened_at": "2026-10-13T04:26:13.248Z",
+   "end": "2026-10-13T23:59:00.000Z",
+   "status": "open",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.39,
+   "unrealized": -15.18
   }
  ],
  "closed": [
@@ -228,14 +250,41 @@
    "pnl": -39.13,
    "closed_at": "2026-10-13T03:27:53.703Z",
    "note": "stop-loss"
+  },
+  {
+   "id": "aec-nfl-buf-lar-2026-10-12@2026-10-13T03:08:46.306Z",
+   "slug": "aec-nfl-buf-lar-2026-10-12",
+   "eventSlug": "nfl-buf-lar-2026-10-12",
+   "market": "Who will win in the upcoming football event Buffalo Bills vs Los Angeles Rams scheduled for October 13, 2026 at 12:15 AM UTC?",
+   "side": "YES",
+   "signal": "BUY",
+   "size": "full",
+   "entry_yes": 0.59375,
+   "entry_price": 0.595,
+   "stake": 100,
+   "shares": 168.0672,
+   "cash_in": 168.07,
+   "tp_taken": false,
+   "opened_at": "2026-10-13T03:08:46.306Z",
+   "end": "2026-10-13T23:59:00.000Z",
+   "status": "closed",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.40125,
+   "unrealized": -32.56,
+   "yes_won": true,
+   "won": true,
+   "pnl": 68.07,
+   "closed_at": "2026-10-13T03:58:27.827Z",
+   "note": "settlement"
   }
  ],
- "skipped": 0,
+ "skipped": 3,
  "savings": 0,
  "sweep_log": [],
  "day": {
   "date": "2026-10-13",
-  "pnl": -39.13
+  "pnl": 28.94
  },
  "history": [
   {
@@ -249,6 +298,14 @@
   {
    "t": "2026-10-13T03:28:35.727Z",
    "equity": 910.2
+  },
+  {
+   "t": "2026-10-13T03:58:53.582Z",
+   "equity": 1026.09
+  },
+  {
+   "t": "2026-10-13T04:31:17.741Z",
+   "equity": 1013.32
   }
  ],
  "venue": "polymarket-us",
