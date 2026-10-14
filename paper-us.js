@@ -10,7 +10,7 @@
 // unresolved markets error there, so the exit ladder runs on BBO marks.
 //
 // Risk config (identical to the international bot):
-//   $1,000 wallet; stakes full=$100 / half=$50; 40-60c entry band;
+//   $1,000 wallet; stakes full=$100 / half=$50; 40-60c entry band; totals-only entries (2026-10-14 review).
 //   exits: +100% partial take-profit, -50% stop-loss, <30min expiry take,
 //   >6h stale reaper; daily breaker -$300 (blocks new opens); max 10 open;
 //   one position per event (eventSlug); savings sweeps $100 chunks above $1,000.
@@ -73,6 +73,9 @@ function openPosition(state, sig, entryTime){
   const entryPrice = yesSide ? (sig.ask || sig.yes) : (1 - (sig.bid || sig.yes));
   if (!(entryPrice > 0 && entryPrice < 1)) return 'badprice';
   if (entryPrice < 0.40 || entryPrice > 0.60) { state.skipped++; return 'price-window'; }
+  // 2026-10-14 35-trade review: totals (over/under) 7W/10 +$256.83; covers 3W/8 -$31.50; winners 8W/17 -$4.80. Totals only going forward.
+  const t = sig.market || '';
+  if (/cover/i.test(t) || !(/total/i.test(t) || /more than/i.test(t))) { state.skipped++; return 'totals-only'; }
   const shares = stake / entryPrice;
   state.bankroll = r2(state.bankroll - stake);
   state.positions.push({
