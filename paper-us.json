@@ -21,8 +21,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.565,
-   "unrealized": -5.61
+   "yes_now": 0.525,
+   "unrealized": -1.53
   },
   {
    "id": "tsc-nhl-dal-col-2026-10-14-tt-dal-2pt5@2026-10-14T02:20:05.508Z",
@@ -87,8 +87,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.545,
-   "unrealized": -0.45
+   "yes_now": 0.535,
+   "unrealized": -1.36
   },
   {
    "id": "aec-nba-no-dal-2026-10-14@2026-10-14T03:21:56.689Z",
@@ -175,8 +175,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.465,
-   "unrealized": 2.45
+   "yes_now": 0.485,
+   "unrealized": 0.49
   },
   {
    "id": "tsc-nba-det-min-2026-10-14-226pt5@2026-10-14T05:22:33.617Z",
@@ -219,8 +219,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.555,
-   "unrealized": -0.56
+   "yes_now": 0.54,
+   "unrealized": 1.11
   }
  ],
  "closed": [
@@ -1171,7 +1171,7 @@
    "note": "settlement"
   }
  ],
- "skipped": 261,
+ "skipped": 272,
  "savings": 0,
  "sweep_log": [],
  "day": {
@@ -1398,6 +1398,14 @@
   {
    "t": "2026-10-14T05:28:47.305Z",
    "equity": 1206.12
+  },
+  {
+   "t": "2026-10-14T06:00:02.635Z",
+   "equity": 1212.86
+  },
+  {
+   "t": "2026-10-14T06:29:53.888Z",
+   "equity": 1209
   }
  ],
  "venue": "polymarket-us",
