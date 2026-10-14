@@ -21,8 +21,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.52,
-   "unrealized": -1.02
+   "yes_now": 0.5,
+   "unrealized": 1.02
   },
   {
    "id": "tsc-nhl-dal-col-2026-10-14-tt-dal-2pt5@2026-10-14T02:20:05.508Z",
@@ -219,8 +219,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.53,
-   "unrealized": 2.22
+   "yes_now": 0.525,
+   "unrealized": 2.78
   }
  ],
  "closed": [
@@ -1171,7 +1171,7 @@
    "note": "settlement"
   }
  ],
- "skipped": 293,
+ "skipped": 296,
  "savings": 0,
  "sweep_log": [],
  "day": {
@@ -1442,6 +1442,10 @@
   {
    "t": "2026-10-14T10:59:58.247Z",
    "equity": 1217.32
+  },
+  {
+   "t": "2026-10-14T11:30:21.538Z",
+   "equity": 1219.92
   }
  ],
  "venue": "polymarket-us",
