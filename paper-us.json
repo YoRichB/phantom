@@ -1,6 +1,6 @@
 {
  "start_bankroll": 1000,
- "bankroll": 683.57,
+ "bankroll": 583.57,
  "positions": [
   {
    "id": "cpc-btc-updown-1d-2026-10-13-2100z@2026-10-14T00:22:33.964Z",
@@ -43,8 +43,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.555,
-   "unrealized": 0.57
+   "yes_now": 0.565,
+   "unrealized": -0.57
   },
   {
    "id": "astatc-mlb-mil-lad-2026-10-14-er-blasne-gte2@2026-10-14T02:20:05.508Z",
@@ -65,8 +65,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.395,
-   "unrealized": 5
+   "yes_now": 0.415,
+   "unrealized": 3.18
   },
   {
    "id": "aec-nba-chi-mil-2026-10-14@2026-10-14T02:50:39.884Z",
@@ -131,8 +131,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.565,
-   "unrealized": -2.72
+   "yes_now": 0.575,
+   "unrealized": -3.8
   },
   {
    "id": "tsc-nba-cha-bos-2026-10-14-225pt5@2026-10-14T04:53:35.137Z",
@@ -153,8 +153,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.495,
-   "unrealized": -0.49
+   "yes_now": 0.48,
+   "unrealized": 0.98
   },
   {
    "id": "tsc-nba-det-min-2026-10-14-226pt5@2026-10-14T05:22:33.617Z",
@@ -175,8 +175,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.515,
-   "unrealized": 0.52
+   "yes_now": 0.51,
+   "unrealized": 1.04
   },
   {
    "id": "asc-nba-pho-sa-2026-10-14-pos-10pt5@2026-10-14T05:22:33.617Z",
@@ -197,8 +197,30 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.565,
-   "unrealized": -1.67
+   "yes_now": 0.555,
+   "unrealized": -0.56
+  },
+  {
+   "id": "tsc-nhl-buf-tor-2026-10-15-6pt5@2026-10-14T17:59:41.639Z",
+   "slug": "tsc-nhl-buf-tor-2026-10-15-6pt5",
+   "eventSlug": "nhl-buf-tor-2026-10-15",
+   "market": "Will the total in BUF vs TOR be more than 6.5?",
+   "side": "NO",
+   "signal": "SELL",
+   "size": "full",
+   "entry_yes": 0.525,
+   "entry_price": 0.48,
+   "stake": 100,
+   "shares": 208.3333,
+   "cash_in": 0,
+   "tp_taken": false,
+   "opened_at": "2026-10-14T17:59:41.639Z",
+   "end": "2026-10-16T03:59:00.000Z",
+   "status": "open",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.525,
+   "unrealized": -1.04
   }
  ],
  "closed": [
@@ -1176,7 +1198,7 @@
    "note": "stop-loss"
   }
  ],
- "skipped": 354,
+ "skipped": 355,
  "savings": 0,
  "sweep_log": [],
  "day": {
@@ -1499,6 +1521,10 @@
   {
    "t": "2026-10-14T17:29:18.861Z",
    "equity": 1216.87
+  },
+  {
+   "t": "2026-10-14T18:05:15.665Z",
+   "equity": 1214.89
   }
  ],
  "venue": "polymarket-us",
