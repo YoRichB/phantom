@@ -1,6 +1,6 @@
 {
  "start_bankroll": 1000,
- "bankroll": 670.53,
+ "bankroll": 683.57,
  "positions": [
   {
    "id": "cpc-btc-updown-1d-2026-10-13-2100z@2026-10-14T00:22:33.964Z",
@@ -43,8 +43,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.56,
-   "unrealized": 0
+   "yes_now": 0.555,
+   "unrealized": 0.57
   },
   {
    "id": "astatc-mlb-mil-lad-2026-10-14-er-blasne-gte2@2026-10-14T02:20:05.508Z",
@@ -109,30 +109,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.505,
-   "unrealized": -13.16
-  },
-  {
-   "id": "asc-eurolg-hta-bjk-2026-10-14-neg-6pt5@2026-10-14T03:52:11.738Z",
-   "slug": "asc-eurolg-hta-bjk-2026-10-14-neg-6pt5",
-   "eventSlug": "eurolg-hta-bjk-2026-10-14",
-   "market": "Will Hapoel Tel-Aviv cover -6.5 vs Besiktas JK?",
-   "side": "NO",
-   "signal": "SELL",
-   "size": "half",
-   "entry_yes": 0.545,
-   "entry_price": 0.46,
-   "stake": 50,
-   "shares": 108.6957,
-   "cash_in": 0,
-   "tp_taken": false,
-   "opened_at": "2026-10-14T03:52:11.738Z",
-   "end": "2026-10-15T03:59:00.000Z",
-   "status": "open",
-   "venue": "polymarket-us",
-   "misses": 0,
-   "yes_now": 0.55,
-   "unrealized": -1.09
+   "yes_now": 0.515,
+   "unrealized": -14.91
   },
   {
    "id": "asc-nba-bkn-mia-2026-10-14-pos-8pt5@2026-10-14T04:53:35.137Z",
@@ -153,8 +131,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.545,
-   "unrealized": -0.54
+   "yes_now": 0.565,
+   "unrealized": -2.72
   },
   {
    "id": "tsc-nba-cha-bos-2026-10-14-225pt5@2026-10-14T04:53:35.137Z",
@@ -219,8 +197,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.585,
-   "unrealized": -3.89
+   "yes_now": 0.565,
+   "unrealized": -1.67
   }
  ],
  "closed": [
@@ -1169,14 +1147,41 @@
    "pnl": 69.05,
    "closed_at": "2026-10-14T04:59:33.952Z",
    "note": "settlement"
+  },
+  {
+   "id": "asc-eurolg-hta-bjk-2026-10-14-neg-6pt5@2026-10-14T03:52:11.738Z",
+   "slug": "asc-eurolg-hta-bjk-2026-10-14-neg-6pt5",
+   "eventSlug": "eurolg-hta-bjk-2026-10-14",
+   "market": "Will Hapoel Tel-Aviv cover -6.5 vs Besiktas JK?",
+   "side": "NO",
+   "signal": "SELL",
+   "size": "half",
+   "entry_yes": 0.545,
+   "entry_price": 0.46,
+   "stake": 50,
+   "shares": 108.6957,
+   "cash_in": 13.04,
+   "tp_taken": false,
+   "opened_at": "2026-10-14T03:52:11.738Z",
+   "end": "2026-10-15T03:59:00.000Z",
+   "status": "closed",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.88,
+   "unrealized": 2.17,
+   "yes_won": null,
+   "won": false,
+   "pnl": -36.96,
+   "closed_at": "2026-10-14T17:28:58.213Z",
+   "note": "stop-loss"
   }
  ],
- "skipped": 346,
+ "skipped": 354,
  "savings": 0,
  "sweep_log": [],
  "day": {
   "date": "2026-10-14",
-  "pnl": -49.98
+  "pnl": -86.94
  },
  "history": [
   {
@@ -1486,6 +1491,14 @@
   {
    "t": "2026-10-14T16:36:00.905Z",
    "equity": 1253.88
+  },
+  {
+   "t": "2026-10-14T17:00:18.745Z",
+   "equity": 1256.1
+  },
+  {
+   "t": "2026-10-14T17:29:18.861Z",
+   "equity": 1216.87
   }
  ],
  "venue": "polymarket-us",
