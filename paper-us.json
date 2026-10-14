@@ -1,31 +1,7 @@
 {
  "start_bankroll": 1000,
- "bankroll": 633.82,
+ "bankroll": 684.84,
  "positions": [
-  {
-   "id": "cpc-btc-updown-1d-2026-10-13-2100z@2026-10-14T00:22:33.964Z",
-   "slug": "cpc-btc-updown-1d-2026-10-13-2100z",
-   "eventSlug": "btc-updown-1d-2026-10-13-2100z",
-   "market": "BTC Up or Down Daily",
-   "side": "NO",
-   "signal": "SELL",
-   "size": "half",
-   "entry_yes": 0.52,
-   "entry_price": 0.49,
-   "stake": 50,
-   "shares": 51.02,
-   "cash_in": 50.25,
-   "tp_taken": true,
-   "opened_at": "2026-10-14T00:22:33.964Z",
-   "end": "2026-10-14T21:00:00.000Z",
-   "status": "open",
-   "venue": "polymarket-us",
-   "misses": 1,
-   "yes_now": 0.015,
-   "unrealized": 50.5,
-   "banked": 25.25,
-   "note": "partial-tp"
-  },
   {
    "id": "tsc-nhl-dal-col-2026-10-14-tt-dal-2pt5@2026-10-14T02:20:05.508Z",
    "slug": "tsc-nhl-dal-col-2026-10-14-tt-dal-2pt5",
@@ -67,8 +43,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.395,
-   "unrealized": 5
+   "yes_now": 0.385,
+   "unrealized": 5.91
   },
   {
    "id": "aec-nba-chi-mil-2026-10-14@2026-10-14T02:50:39.884Z",
@@ -133,8 +109,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.575,
-   "unrealized": -3.8
+   "yes_now": 0.605,
+   "unrealized": -7.07
   },
   {
    "id": "tsc-nba-cha-bos-2026-10-14-225pt5@2026-10-14T04:53:35.137Z",
@@ -155,8 +131,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.45,
-   "unrealized": 3.92
+   "yes_now": 0.465,
+   "unrealized": 2.45
   },
   {
    "id": "tsc-nba-det-min-2026-10-14-226pt5@2026-10-14T05:22:33.617Z",
@@ -177,8 +153,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.515,
-   "unrealized": 0.52
+   "yes_now": 0.525,
+   "unrealized": -0.52
   },
   {
    "id": "asc-nba-pho-sa-2026-10-14-pos-10pt5@2026-10-14T05:22:33.617Z",
@@ -199,8 +175,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.545,
-   "unrealized": 0.56
+   "yes_now": 0.515,
+   "unrealized": 3.89
   },
   {
    "id": "tsc-nhl-buf-tor-2026-10-15-6pt5@2026-10-14T17:59:41.639Z",
@@ -221,8 +197,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.525,
-   "unrealized": -1.04
+   "yes_now": 0.53,
+   "unrealized": -2.08
   }
  ],
  "closed": [
@@ -1198,14 +1174,42 @@
    "pnl": -36.96,
    "closed_at": "2026-10-14T17:28:58.213Z",
    "note": "stop-loss"
+  },
+  {
+   "id": "cpc-btc-updown-1d-2026-10-13-2100z@2026-10-14T00:22:33.964Z",
+   "slug": "cpc-btc-updown-1d-2026-10-13-2100z",
+   "eventSlug": "btc-updown-1d-2026-10-13-2100z",
+   "market": "BTC Up or Down Daily",
+   "side": "NO",
+   "signal": "SELL",
+   "size": "half",
+   "entry_yes": 0.52,
+   "entry_price": 0.49,
+   "stake": 50,
+   "shares": 51.02,
+   "cash_in": 101.27,
+   "tp_taken": true,
+   "opened_at": "2026-10-14T00:22:33.964Z",
+   "end": "2026-10-14T21:00:00.000Z",
+   "status": "closed",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.015,
+   "unrealized": 50.5,
+   "banked": 25.25,
+   "note": "settlement",
+   "yes_won": false,
+   "won": true,
+   "pnl": 51.27,
+   "closed_at": "2026-10-14T21:38:54.317Z"
   }
  ],
- "skipped": 394,
+ "skipped": 399,
  "savings": 0,
  "sweep_log": [],
  "day": {
   "date": "2026-10-14",
-  "pnl": -61.69
+  "pnl": -35.67
  },
  "history": [
   {
@@ -1547,6 +1551,14 @@
   {
    "t": "2026-10-14T20:27:03.150Z",
    "equity": 1216.22
+  },
+  {
+   "t": "2026-10-14T20:56:45.604Z",
+   "equity": 1218.41
+  },
+  {
+   "t": "2026-10-14T21:39:40.804Z",
+   "equity": 1214.42
   }
  ],
  "venue": "polymarket-us",
