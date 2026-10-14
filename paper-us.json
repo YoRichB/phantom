@@ -1,6 +1,6 @@
 {
  "start_bankroll": 1000,
- "bankroll": 729.52,
+ "bankroll": 751.48,
  "positions": [
   {
    "id": "asc-nba-gs-lal-2026-10-13-pos-3pt5@2026-10-13T12:55:28.341Z",
@@ -20,31 +20,9 @@
    "end": "2026-10-14T03:59:00.000Z",
    "status": "open",
    "venue": "polymarket-us",
-   "misses": 0,
-   "yes_now": 0.33,
-   "unrealized": 10.91
-  },
-  {
-   "id": "astatc-nhl-bos-sj-2026-10-13-ast-maccel-gte1@2026-10-13T21:23:39.589Z",
-   "slug": "astatc-nhl-bos-sj-2026-10-13-ast-maccel-gte1",
-   "eventSlug": "nhl-bos-sj-2026-10-13",
-   "market": "Will Macklin Celebrini record at least 1 assists in BOS vs SJS?",
-   "side": "YES",
-   "signal": "BUY",
-   "size": "half",
-   "entry_yes": 0.565,
-   "entry_price": 0.57,
-   "stake": 50,
-   "shares": 87.7193,
-   "cash_in": 0,
-   "tp_taken": false,
-   "opened_at": "2026-10-13T21:23:39.589Z",
-   "end": "2026-10-14T03:59:00.000Z",
-   "status": "open",
-   "venue": "polymarket-us",
-   "misses": 0,
-   "yes_now": 0.495,
-   "unrealized": -6.58
+   "misses": 1,
+   "yes_now": 0.53,
+   "unrealized": -7.27
   },
   {
    "id": "cpc-btc-updown-1d-2026-10-13-2100z@2026-10-14T00:22:33.964Z",
@@ -65,8 +43,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.595,
-   "unrealized": -8.67
+   "yes_now": 0.59,
+   "unrealized": -8.16
   },
   {
    "id": "tsc-nhl-dal-col-2026-10-14-tt-dal-2pt5@2026-10-14T02:20:05.508Z",
@@ -87,8 +65,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.57,
-   "unrealized": -1.14
+   "yes_now": 0.555,
+   "unrealized": 0.57
   },
   {
    "id": "astatc-mlb-mil-lad-2026-10-14-er-blasne-gte2@2026-10-14T02:20:05.508Z",
@@ -131,8 +109,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.535,
-   "unrealized": -1.36
+   "yes_now": 0.545,
+   "unrealized": -0.45
   },
   {
    "id": "aec-nba-no-dal-2026-10-14@2026-10-14T03:21:56.689Z",
@@ -153,30 +131,52 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.435,
-   "unrealized": -0.88
+   "yes_now": 0.485,
+   "unrealized": -9.65
   },
   {
-   "id": "asc-nhl-edm-la-2026-10-13-neg-3pt5@2026-10-14T03:21:56.689Z",
-   "slug": "asc-nhl-edm-la-2026-10-13-neg-3pt5",
-   "eventSlug": "nhl-edm-la-2026-10-13",
-   "market": "Will the EDM Oilers cover -3.5 vs the LAK Kings in EDM vs LAK?",
-   "side": "YES",
-   "signal": "BUY",
-   "size": "full",
-   "entry_yes": 0.445,
-   "entry_price": 0.45,
-   "stake": 100,
-   "shares": 222.22220000000002,
+   "id": "asc-eurolg-hta-bjk-2026-10-14-neg-6pt5@2026-10-14T03:52:11.738Z",
+   "slug": "asc-eurolg-hta-bjk-2026-10-14-neg-6pt5",
+   "eventSlug": "eurolg-hta-bjk-2026-10-14",
+   "market": "Will Hapoel Tel-Aviv cover -6.5 vs Besiktas JK?",
+   "side": "NO",
+   "signal": "SELL",
+   "size": "half",
+   "entry_yes": 0.545,
+   "entry_price": 0.46,
+   "stake": 50,
+   "shares": 108.6957,
    "cash_in": 0,
    "tp_taken": false,
-   "opened_at": "2026-10-14T03:21:56.689Z",
-   "end": "2026-10-14T03:59:00.000Z",
+   "opened_at": "2026-10-14T03:52:11.738Z",
+   "end": "2026-10-15T03:59:00.000Z",
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.445,
-   "unrealized": -1.11
+   "yes_now": 0.545,
+   "unrealized": -0.54
+  },
+  {
+   "id": "tsc-atp-liadra-jamduc-2026-10-13-tg-22pt5@2026-10-14T03:52:11.738Z",
+   "slug": "tsc-atp-liadra-jamduc-2026-10-13-tg-22pt5",
+   "eventSlug": "atp-liadra-jamduc-2026-10-13",
+   "market": "Will the total in Liam Draxl vs. James Duckworth be more than 22.5?",
+   "side": "NO",
+   "signal": "SELL",
+   "size": "half",
+   "entry_yes": 0.585,
+   "entry_price": 0.42,
+   "stake": 50,
+   "shares": 119.0476,
+   "cash_in": 0,
+   "tp_taken": false,
+   "opened_at": "2026-10-14T03:52:11.738Z",
+   "end": "2026-10-15T03:59:00.000Z",
+   "status": "open",
+   "venue": "polymarket-us",
+   "misses": 1,
+   "yes_now": 0.47,
+   "unrealized": 13.1
   }
  ],
  "closed": [
@@ -1017,14 +1017,68 @@
    "pnl": -27.84,
    "closed_at": "2026-10-14T03:26:13.950Z",
    "note": "stop-loss"
+  },
+  {
+   "id": "astatc-nhl-bos-sj-2026-10-13-ast-maccel-gte1@2026-10-13T21:23:39.589Z",
+   "slug": "astatc-nhl-bos-sj-2026-10-13-ast-maccel-gte1",
+   "eventSlug": "nhl-bos-sj-2026-10-13",
+   "market": "Will Macklin Celebrini record at least 1 assists in BOS vs SJS?",
+   "side": "YES",
+   "signal": "BUY",
+   "size": "half",
+   "entry_yes": 0.565,
+   "entry_price": 0.57,
+   "stake": 50,
+   "shares": 87.7193,
+   "cash_in": 86.4,
+   "tp_taken": false,
+   "opened_at": "2026-10-13T21:23:39.589Z",
+   "end": "2026-10-14T03:59:00.000Z",
+   "status": "closed",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.985,
+   "unrealized": -4.82,
+   "yes_won": null,
+   "won": true,
+   "pnl": 36.4,
+   "closed_at": "2026-10-14T04:28:17.002Z",
+   "note": "expiry-take"
+  },
+  {
+   "id": "asc-nhl-edm-la-2026-10-13-neg-3pt5@2026-10-14T03:21:56.689Z",
+   "slug": "asc-nhl-edm-la-2026-10-13-neg-3pt5",
+   "eventSlug": "nhl-edm-la-2026-10-13",
+   "market": "Will the EDM Oilers cover -3.5 vs the LAK Kings in EDM vs LAK?",
+   "side": "YES",
+   "signal": "BUY",
+   "size": "full",
+   "entry_yes": 0.445,
+   "entry_price": 0.45,
+   "stake": 100,
+   "shares": 222.22220000000002,
+   "cash_in": 35.56,
+   "tp_taken": false,
+   "opened_at": "2026-10-14T03:21:56.689Z",
+   "end": "2026-10-14T03:59:00.000Z",
+   "status": "closed",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.16,
+   "unrealized": -3.33,
+   "yes_won": null,
+   "won": false,
+   "pnl": -64.44,
+   "closed_at": "2026-10-14T04:28:47.762Z",
+   "note": "stop-loss"
   }
  ],
- "skipped": 243,
+ "skipped": 245,
  "savings": 0,
  "sweep_log": [],
  "day": {
   "date": "2026-10-14",
-  "pnl": -40.99
+  "pnl": -69.03
  },
  "history": [
   {
@@ -1230,6 +1284,14 @@
   {
    "t": "2026-10-14T03:26:28.911Z",
    "equity": 1221.14
+  },
+  {
+   "t": "2026-10-14T03:56:31.448Z",
+   "equity": 1207.61
+  },
+  {
+   "t": "2026-10-14T04:28:58.183Z",
+   "equity": 1189.51
   }
  ],
  "venue": "polymarket-us",
