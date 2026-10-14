@@ -1,6 +1,6 @@
 {
  "start_bankroll": 1000,
- "bankroll": 805.01,
+ "bankroll": 790.82,
  "positions": [
   {
    "id": "atc-mlb-cle-tb-2026-10-13-f5-tb@2026-10-13T03:53:21.408Z",
@@ -21,52 +21,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.445,
-   "unrealized": -3.75
-  },
-  {
-   "id": "tsc-nba-cle-orl-2026-10-13-229pt5@2026-10-13T05:52:56.871Z",
-   "slug": "tsc-nba-cle-orl-2026-10-13-229pt5",
-   "eventSlug": "nba-cle-orl-2026-10-13",
-   "market": "Will the total in CLE Cavaliers vs. ORL Magic be more than 229.5?",
-   "side": "NO",
-   "signal": "SELL",
-   "size": "half",
-   "entry_yes": 0.525,
-   "entry_price": 0.48,
-   "stake": 50,
-   "shares": 104.1667,
-   "cash_in": 0,
-   "tp_taken": false,
-   "opened_at": "2026-10-13T05:52:56.871Z",
-   "end": "2026-10-13T23:59:00.000Z",
-   "status": "open",
-   "venue": "polymarket-us",
-   "misses": 0,
-   "yes_now": 0.575,
-   "unrealized": -5.73
-  },
-  {
-   "id": "tsc-nba-ny-tor-2026-10-13-218pt5@2026-10-13T07:23:03.788Z",
-   "slug": "tsc-nba-ny-tor-2026-10-13-218pt5",
-   "eventSlug": "nba-ny-tor-2026-10-13",
-   "market": "Will the total in NY Knicks vs. TOR Raptors be more than 218.5?",
-   "side": "NO",
-   "signal": "SELL",
-   "size": "half",
-   "entry_yes": 0.505,
-   "entry_price": 0.5,
-   "stake": 50,
-   "shares": 100,
-   "cash_in": 0,
-   "tp_taken": false,
-   "opened_at": "2026-10-13T07:23:03.788Z",
-   "end": "2026-10-13T23:59:00.000Z",
-   "status": "open",
-   "venue": "polymarket-us",
-   "misses": 0,
-   "yes_now": 0.585,
-   "unrealized": -8.5
+   "yes_now": 0.425,
+   "unrealized": -2.08
   },
   {
    "id": "tsc-nba-ind-okc-2026-10-13-228pt5@2026-10-13T08:53:57.916Z",
@@ -87,8 +43,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.535,
-   "unrealized": -5.29
+   "yes_now": 0.625,
+   "unrealized": -13.94
   },
   {
    "id": "asc-nba-gs-lal-2026-10-13-pos-3pt5@2026-10-13T12:55:28.341Z",
@@ -153,8 +109,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.405,
-   "unrealized": -0.42
+   "yes_now": 0.415,
+   "unrealized": -1.25
   },
   {
    "id": "astatc-nhl-bos-sj-2026-10-13-ast-maccel-gte1@2026-10-13T21:23:39.589Z",
@@ -197,8 +153,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.535,
-   "unrealized": -0.46
+   "yes_now": 0.715,
+   "unrealized": 16.2
   },
   {
    "id": "aec-utr-anzlis-aririt-2026-10-13@2026-10-13T22:23:28.603Z",
@@ -219,8 +175,30 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.435,
-   "unrealized": -0.44
+   "yes_now": 0.41,
+   "unrealized": 1.75
+  },
+  {
+   "id": "cpc-btc-updown-1d-2026-10-13-2100z@2026-10-14T00:22:33.964Z",
+   "slug": "cpc-btc-updown-1d-2026-10-13-2100z",
+   "eventSlug": "btc-updown-1d-2026-10-13-2100z",
+   "market": "BTC Up or Down Daily",
+   "side": "NO",
+   "signal": "SELL",
+   "size": "half",
+   "entry_yes": 0.52,
+   "entry_price": 0.49,
+   "stake": 50,
+   "shares": 102.0408,
+   "cash_in": 0,
+   "tp_taken": false,
+   "opened_at": "2026-10-14T00:22:33.964Z",
+   "end": "2026-10-14T21:00:00.000Z",
+   "status": "open",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.52,
+   "unrealized": -1.02
   }
  ],
  "closed": [
@@ -764,14 +742,68 @@
    "pnl": -96.67,
    "closed_at": "2026-10-13T21:59:04.391Z",
    "note": "stop-loss"
+  },
+  {
+   "id": "tsc-nba-ny-tor-2026-10-13-218pt5@2026-10-13T07:23:03.788Z",
+   "slug": "tsc-nba-ny-tor-2026-10-13-218pt5",
+   "eventSlug": "nba-ny-tor-2026-10-13",
+   "market": "Will the total in NY Knicks vs. TOR Raptors be more than 218.5?",
+   "side": "NO",
+   "signal": "SELL",
+   "size": "half",
+   "entry_yes": 0.505,
+   "entry_price": 0.5,
+   "stake": 50,
+   "shares": 100,
+   "cash_in": 15.5,
+   "tp_taken": false,
+   "opened_at": "2026-10-13T07:23:03.788Z",
+   "end": "2026-10-13T23:59:00.000Z",
+   "status": "closed",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.845,
+   "unrealized": -8.5,
+   "yes_won": null,
+   "won": false,
+   "pnl": -34.5,
+   "closed_at": "2026-10-13T23:58:01.494Z",
+   "note": "stop-loss"
+  },
+  {
+   "id": "tsc-nba-cle-orl-2026-10-13-229pt5@2026-10-13T05:52:56.871Z",
+   "slug": "tsc-nba-cle-orl-2026-10-13-229pt5",
+   "eventSlug": "nba-cle-orl-2026-10-13",
+   "market": "Will the total in CLE Cavaliers vs. ORL Magic be more than 229.5?",
+   "side": "NO",
+   "signal": "SELL",
+   "size": "half",
+   "entry_yes": 0.525,
+   "entry_price": 0.48,
+   "stake": 50,
+   "shares": 104.1667,
+   "cash_in": 20.31,
+   "tp_taken": false,
+   "opened_at": "2026-10-13T05:52:56.871Z",
+   "end": "2026-10-13T23:59:00.000Z",
+   "status": "closed",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.805,
+   "unrealized": -23.96,
+   "yes_won": null,
+   "won": false,
+   "pnl": -29.69,
+   "closed_at": "2026-10-14T00:26:34.455Z",
+   "note": "stop-loss"
   }
  ],
- "skipped": 212,
+ "skipped": 219,
  "savings": 0,
  "sweep_log": [],
  "day": {
-  "date": "2026-10-13",
-  "pnl": 305.01
+  "date": "2026-10-14",
+  "pnl": -29.69
  },
  "history": [
   {
@@ -945,6 +977,14 @@
   {
    "t": "2026-10-13T23:28:53.850Z",
    "equity": 1257.86
+  },
+  {
+   "t": "2026-10-13T23:58:37.171Z",
+   "equity": 1209.12
+  },
+  {
+   "t": "2026-10-14T00:27:14.976Z",
+   "equity": 1217.92
   }
  ],
  "venue": "polymarket-us",
