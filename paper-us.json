@@ -1,6 +1,6 @@
 {
  "start_bankroll": 1000,
- "bankroll": 584.84,
+ "bankroll": 612.03,
  "positions": [
   {
    "id": "tsc-nhl-dal-col-2026-10-14-tt-dal-2pt5@2026-10-14T02:20:05.508Z",
@@ -21,8 +21,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.54,
-   "unrealized": 2.27
+   "yes_now": 0.31,
+   "unrealized": 28.41
   },
   {
    "id": "astatc-mlb-mil-lad-2026-10-14-er-blasne-gte2@2026-10-14T02:20:05.508Z",
@@ -43,8 +43,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.585,
-   "unrealized": -12.27
+   "yes_now": 0.345,
+   "unrealized": 9.55
   },
   {
    "id": "aec-nba-chi-mil-2026-10-14@2026-10-14T02:50:39.884Z",
@@ -65,30 +65,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.675,
-   "unrealized": 11.36
-  },
-  {
-   "id": "aec-nba-no-dal-2026-10-14@2026-10-14T03:21:56.689Z",
-   "slug": "aec-nba-no-dal-2026-10-14",
-   "eventSlug": "nba-no-dal-2026-10-14",
-   "market": "Who will win in the upcoming basketball event NO Pelicans vs DAL Mavericks scheduled for October 15, 2026 at 12:00 AM UTC?",
-   "side": "NO",
-   "signal": "SELL",
-   "size": "full",
-   "entry_yes": 0.435,
-   "entry_price": 0.57,
-   "stake": 100,
-   "shares": 175.4386,
-   "cash_in": 0,
-   "tp_taken": false,
-   "opened_at": "2026-10-14T03:21:56.689Z",
-   "end": "2026-10-15T03:59:00.000Z",
-   "status": "open",
-   "venue": "polymarket-us",
-   "misses": 0,
-   "yes_now": 0.585,
-   "unrealized": -27.19
+   "yes_now": 0.975,
+   "unrealized": 38.64
   },
   {
    "id": "asc-nba-bkn-mia-2026-10-14-pos-8pt5@2026-10-14T04:53:35.137Z",
@@ -109,8 +87,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.465,
-   "unrealized": 8.15
+   "yes_now": 0.5,
+   "unrealized": 4.35
   },
   {
    "id": "tsc-nba-cha-bos-2026-10-14-225pt5@2026-10-14T04:53:35.137Z",
@@ -131,8 +109,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.195,
-   "unrealized": 28.92
+   "yes_now": 0.24,
+   "unrealized": 24.51
   },
   {
    "id": "tsc-nba-det-min-2026-10-14-226pt5@2026-10-14T05:22:33.617Z",
@@ -153,8 +131,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.76,
-   "unrealized": -25
+   "yes_now": 0.71,
+   "unrealized": -19.79
   },
   {
    "id": "asc-nba-pho-sa-2026-10-14-pos-10pt5@2026-10-14T05:22:33.617Z",
@@ -175,8 +153,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.53,
-   "unrealized": 2.22
+   "yes_now": 0.395,
+   "unrealized": 17.22
   },
   {
    "id": "tsc-nhl-buf-tor-2026-10-15-6pt5@2026-10-14T17:59:41.639Z",
@@ -1224,14 +1202,41 @@
    "won": true,
    "pnl": 51.27,
    "closed_at": "2026-10-14T21:38:54.317Z"
+  },
+  {
+   "id": "aec-nba-no-dal-2026-10-14@2026-10-14T03:21:56.689Z",
+   "slug": "aec-nba-no-dal-2026-10-14",
+   "eventSlug": "nba-no-dal-2026-10-14",
+   "market": "Who will win in the upcoming basketball event NO Pelicans vs DAL Mavericks scheduled for October 15, 2026 at 12:00 AM UTC?",
+   "side": "NO",
+   "signal": "SELL",
+   "size": "full",
+   "entry_yes": 0.435,
+   "entry_price": 0.57,
+   "stake": 100,
+   "shares": 175.4386,
+   "cash_in": 27.19,
+   "tp_taken": false,
+   "opened_at": "2026-10-14T03:21:56.689Z",
+   "end": "2026-10-15T03:59:00.000Z",
+   "status": "closed",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.845,
+   "unrealized": -50,
+   "yes_won": null,
+   "won": false,
+   "pnl": -72.81,
+   "closed_at": "2026-10-15T01:27:56.501Z",
+   "note": "stop-loss"
   }
  ],
- "skipped": 472,
+ "skipped": 491,
  "savings": 0,
  "sweep_log": [],
  "day": {
-  "date": "2026-10-14",
-  "pnl": -35.67
+  "date": "2026-10-15",
+  "pnl": -72.81
  },
  "history": [
   {
@@ -1605,6 +1610,14 @@
   {
    "t": "2026-10-15T00:28:59.951Z",
    "equity": 1221.24
+  },
+  {
+   "t": "2026-10-15T01:00:33.441Z",
+   "equity": 1194.61
+  },
+  {
+   "t": "2026-10-15T01:28:27.447Z",
+   "equity": 1262.85
   }
  ],
  "venue": "polymarket-us",
