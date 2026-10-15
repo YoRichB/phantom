@@ -1,6 +1,6 @@
 {
  "start_bankroll": 1000,
- "bankroll": 813.18,
+ "bankroll": 909.33,
  "positions": [
   {
    "id": "tsc-nhl-buf-tor-2026-10-15-6pt5@2026-10-14T17:59:41.639Z",
@@ -23,28 +23,6 @@
    "misses": 0,
    "yes_now": 0.545,
    "unrealized": -5.21
-  },
-  {
-   "id": "tsc-uel-ben-cge-2026-10-15-3pt5@2026-10-15T04:53:56.143Z",
-   "slug": "tsc-uel-ben-cge-2026-10-15-3pt5",
-   "eventSlug": "uel-ben-cge-2026-10-15",
-   "market": "Will the total in BEN vs CGE be more than 3.5?",
-   "side": "YES",
-   "signal": "BUY",
-   "size": "half",
-   "entry_yes": 0.51,
-   "entry_price": 0.52,
-   "stake": 50,
-   "shares": 96.15379999999999,
-   "cash_in": 0,
-   "tp_taken": false,
-   "opened_at": "2026-10-15T04:53:56.143Z",
-   "end": "2026-10-16T03:59:00.000Z",
-   "status": "open",
-   "venue": "polymarket-us",
-   "misses": 1,
-   "yes_now": 0.915,
-   "unrealized": 37.98
   },
   {
    "id": "tsc-mlb-mil-lad-2026-10-15-8pt5@2026-10-15T04:53:56.143Z",
@@ -87,8 +65,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.535,
-   "unrealized": -3.5
+   "yes_now": 0.53,
+   "unrealized": -3
   },
   {
    "id": "tsc-nba-okc-hou-2026-10-15-222pt5@2026-10-15T06:23:46.136Z",
@@ -109,8 +87,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.585,
-   "unrealized": -5.85
+   "yes_now": 0.6,
+   "unrealized": -7.45
   },
   {
    "id": "tsc-cfb-ecar-uab-2026-10-15-1h-24pt5@2026-10-15T19:20:45.979Z",
@@ -133,28 +111,6 @@
    "misses": 0,
    "yes_now": 0.475,
    "unrealized": -0.47
-  },
-  {
-   "id": "tsc-uel-rcdv-jtu-2026-10-15-2pt5@2026-10-15T19:20:45.979Z",
-   "slug": "tsc-uel-rcdv-jtu-2026-10-15-2pt5",
-   "eventSlug": "uel-rcdv-jtu-2026-10-15",
-   "market": "Will the total in RCDV vs JTU be more than 2.5?",
-   "side": "NO",
-   "signal": "SELL",
-   "size": "full",
-   "entry_yes": 0.595,
-   "entry_price": 0.41,
-   "stake": 100,
-   "shares": 243.90240000000003,
-   "cash_in": 0,
-   "tp_taken": false,
-   "opened_at": "2026-10-15T19:20:45.979Z",
-   "end": "2026-10-16T03:59:00.000Z",
-   "status": "open",
-   "venue": "polymarket-us",
-   "misses": 0,
-   "yes_now": 0.62,
-   "unrealized": -7.32
   },
   {
    "id": "tsc-eurolg-czv-prs-2026-10-16-169pt5@2026-10-15T19:53:56.196Z",
@@ -1668,14 +1624,68 @@
    "won": true,
    "pnl": 117.61,
    "closed_at": "2026-10-15T19:59:26.237Z"
+  },
+  {
+   "id": "tsc-uel-ben-cge-2026-10-15-3pt5@2026-10-15T04:53:56.143Z",
+   "slug": "tsc-uel-ben-cge-2026-10-15-3pt5",
+   "eventSlug": "uel-ben-cge-2026-10-15",
+   "market": "Will the total in BEN vs CGE be more than 3.5?",
+   "side": "YES",
+   "signal": "BUY",
+   "size": "half",
+   "entry_yes": 0.51,
+   "entry_price": 0.52,
+   "stake": 50,
+   "shares": 96.15379999999999,
+   "cash_in": 96.15,
+   "tp_taken": false,
+   "opened_at": "2026-10-15T04:53:56.143Z",
+   "end": "2026-10-16T03:59:00.000Z",
+   "status": "closed",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.915,
+   "unrealized": 37.98,
+   "yes_won": true,
+   "won": true,
+   "pnl": 46.15,
+   "closed_at": "2026-10-15T20:50:51.171Z",
+   "note": "settlement"
+  },
+  {
+   "id": "tsc-uel-rcdv-jtu-2026-10-15-2pt5@2026-10-15T19:20:45.979Z",
+   "slug": "tsc-uel-rcdv-jtu-2026-10-15-2pt5",
+   "eventSlug": "uel-rcdv-jtu-2026-10-15",
+   "market": "Will the total in RCDV vs JTU be more than 2.5?",
+   "side": "NO",
+   "signal": "SELL",
+   "size": "full",
+   "entry_yes": 0.595,
+   "entry_price": 0.41,
+   "stake": 100,
+   "shares": 243.90240000000003,
+   "cash_in": 0,
+   "tp_taken": false,
+   "opened_at": "2026-10-15T19:20:45.979Z",
+   "end": "2026-10-16T03:59:00.000Z",
+   "status": "closed",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.62,
+   "unrealized": -7.32,
+   "yes_won": true,
+   "won": false,
+   "pnl": -100,
+   "closed_at": "2026-10-15T21:21:32.452Z",
+   "note": "settlement"
   }
  ],
- "skipped": 725,
+ "skipped": 728,
  "savings": 0,
  "sweep_log": [],
  "day": {
   "date": "2026-10-15",
-  "pnl": 128.34
+  "pnl": 74.49
  },
  "history": [
   {
@@ -2209,6 +2219,14 @@
   {
    "t": "2026-10-15T20:21:44.436Z",
    "equity": 1375.42
+  },
+  {
+   "t": "2026-10-15T20:51:21.437Z",
+   "equity": 1382.52
+  },
+  {
+   "t": "2026-10-15T21:21:37.447Z",
+   "equity": 1289.81
   }
  ],
  "venue": "polymarket-us",
