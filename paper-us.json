@@ -1,6 +1,6 @@
 {
  "start_bankroll": 1000,
- "bankroll": 1022.52,
+ "bankroll": 872.52,
  "positions": [
   {
    "id": "tsc-nhl-buf-tor-2026-10-15-6pt5@2026-10-14T17:59:41.639Z",
@@ -47,26 +47,48 @@
    "unrealized": -1.02
   },
   {
-   "id": "tsc-nba-den-lac-2026-10-14-227pt5@2026-10-15T02:23:20.711Z",
-   "slug": "tsc-nba-den-lac-2026-10-14-227pt5",
-   "eventSlug": "nba-den-lac-2026-10-14",
-   "market": "Will the total in DEN Nuggets vs. LA Clippers be more than 227.5?",
-   "side": "NO",
-   "signal": "SELL",
+   "id": "tsc-uel-ben-cge-2026-10-15-3pt5@2026-10-15T04:53:56.143Z",
+   "slug": "tsc-uel-ben-cge-2026-10-15-3pt5",
+   "eventSlug": "uel-ben-cge-2026-10-15",
+   "market": "Will the total in BEN vs CGE be more than 3.5?",
+   "side": "YES",
+   "signal": "BUY",
    "size": "half",
-   "entry_yes": 0.495,
-   "entry_price": 0.51,
+   "entry_yes": 0.51,
+   "entry_price": 0.52,
    "stake": 50,
-   "shares": 98.0392,
+   "shares": 96.15379999999999,
    "cash_in": 0,
    "tp_taken": false,
-   "opened_at": "2026-10-15T02:23:20.711Z",
-   "end": "2026-10-15T03:59:00.000Z",
+   "opened_at": "2026-10-15T04:53:56.143Z",
+   "end": "2026-10-16T03:59:00.000Z",
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.605,
-   "unrealized": -11.27
+   "yes_now": 0.505,
+   "unrealized": -1.44
+  },
+  {
+   "id": "tsc-mlb-mil-lad-2026-10-15-8pt5@2026-10-15T04:53:56.143Z",
+   "slug": "tsc-mlb-mil-lad-2026-10-15-8pt5",
+   "eventSlug": "mlb-mil-lad-2026-10-15",
+   "market": "Will the total in Game 4: MIL Brewers vs. LA Dodgers be more than 8.5?",
+   "side": "NO",
+   "signal": "SELL",
+   "size": "full",
+   "entry_yes": 0.4275,
+   "entry_price": 0.575,
+   "stake": 100,
+   "shares": 173.91299999999998,
+   "cash_in": 0,
+   "tp_taken": false,
+   "opened_at": "2026-10-15T04:53:56.143Z",
+   "end": "2026-10-16T03:59:00.000Z",
+   "status": "open",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.4275,
+   "unrealized": -0.43
   }
  ],
  "closed": [
@@ -1314,14 +1336,41 @@
    "pnl": 44.34,
    "closed_at": "2026-10-15T03:27:39.795Z",
    "note": "settlement"
+  },
+  {
+   "id": "tsc-nba-den-lac-2026-10-14-227pt5@2026-10-15T02:23:20.711Z",
+   "slug": "tsc-nba-den-lac-2026-10-14-227pt5",
+   "eventSlug": "nba-den-lac-2026-10-14",
+   "market": "Will the total in DEN Nuggets vs. LA Clippers be more than 227.5?",
+   "side": "NO",
+   "signal": "SELL",
+   "size": "half",
+   "entry_yes": 0.495,
+   "entry_price": 0.51,
+   "stake": 50,
+   "shares": 98.0392,
+   "cash_in": 0,
+   "tp_taken": false,
+   "opened_at": "2026-10-15T02:23:20.711Z",
+   "end": "2026-10-15T03:59:00.000Z",
+   "status": "closed",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.605,
+   "unrealized": -11.27,
+   "yes_won": true,
+   "won": false,
+   "pnl": -50,
+   "closed_at": "2026-10-15T05:29:26.533Z",
+   "note": "settlement"
   }
  ],
- "skipped": 516,
+ "skipped": 522,
  "savings": 0,
  "sweep_log": [],
  "day": {
   "date": "2026-10-15",
-  "pnl": 37.68
+  "pnl": -12.32
  },
  "history": [
   {
@@ -1727,6 +1776,14 @@
   {
    "t": "2026-10-15T04:29:05.643Z",
    "equity": 1259.18
+  },
+  {
+   "t": "2026-10-15T05:00:20.312Z",
+   "equity": 1257.79
+  },
+  {
+   "t": "2026-10-15T05:29:36.649Z",
+   "equity": 1218.58
   }
  ],
  "venue": "polymarket-us",
