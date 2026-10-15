@@ -1,6 +1,6 @@
 {
  "start_bankroll": 1000,
- "bankroll": 679.25,
+ "bankroll": 578.75,
  "positions": [
   {
    "id": "tsc-nhl-buf-tor-2026-10-15-6pt5@2026-10-14T17:59:41.639Z",
@@ -21,8 +21,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.525,
-   "unrealized": -1.04
+   "yes_now": 0.535,
+   "unrealized": -3.13
   },
   {
    "id": "tsc-eurolg-olm-dub-2026-10-15-167pt5@2026-10-14T21:55:48.678Z",
@@ -43,8 +43,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.515,
-   "unrealized": -1.02
+   "yes_now": 0.55,
+   "unrealized": -8.16
   },
   {
    "id": "tsc-uel-ben-cge-2026-10-15-3pt5@2026-10-15T04:53:56.143Z",
@@ -65,8 +65,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.515,
-   "unrealized": -0.48
+   "yes_now": 0.525,
+   "unrealized": 0.48
   },
   {
    "id": "tsc-mlb-mil-lad-2026-10-15-8pt5@2026-10-15T04:53:56.143Z",
@@ -87,8 +87,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.4,
-   "unrealized": 4.35
+   "yes_now": 0.4275,
+   "unrealized": -0.43
   },
   {
    "id": "tsc-nba-tor-ny-2026-10-15-225pt5@2026-10-15T06:23:46.136Z",
@@ -109,8 +109,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.505,
-   "unrealized": -0.5
+   "yes_now": 0.525,
+   "unrealized": -2.5
   },
   {
    "id": "tsc-nba-okc-hou-2026-10-15-222pt5@2026-10-15T06:23:46.136Z",
@@ -131,52 +131,52 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.495,
-   "unrealized": 3.72
+   "yes_now": 0.53,
+   "unrealized": 0
   },
   {
-   "id": "tsc-atp-felbal-matbob-2026-10-15-tg-22pt5@2026-10-15T09:23:53.028Z",
-   "slug": "tsc-atp-felbal-matbob-2026-10-15-tg-22pt5",
-   "eventSlug": "atp-felbal-matbob-2026-10-15",
-   "market": "Will the total in Felix Balshaw vs. Matisse Bobichon be more than 22.5?",
-   "side": "YES",
-   "signal": "BUY",
+   "id": "astatc-mlb-tb-cle-2026-10-15-tb-chadel-gte2@2026-10-15T11:50:36.187Z",
+   "slug": "astatc-mlb-tb-cle-2026-10-15-tb-chadel-gte2",
+   "eventSlug": "mlb-tb-cle-2026-10-15",
+   "market": "Will Chase DeLauter record at least 2 total bases in Game 3: TB Rays vs. CLE Guardians?",
+   "side": "NO",
+   "signal": "SELL",
    "size": "half",
-   "entry_yes": 0.475,
-   "entry_price": 0.48,
+   "entry_yes": 0.405,
+   "entry_price": 0.6,
    "stake": 50,
-   "shares": 104.1667,
+   "shares": 83.3333,
    "cash_in": 0,
    "tp_taken": false,
-   "opened_at": "2026-10-15T09:23:53.028Z",
+   "opened_at": "2026-10-15T11:50:36.187Z",
    "end": "2026-10-16T03:59:00.000Z",
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.34,
-   "unrealized": -14.58
+   "yes_now": 0.345,
+   "unrealized": 4.58
   },
   {
-   "id": "tsc-atp-makkas-stetra-2026-10-15-tg-22pt5@2026-10-15T09:23:53.028Z",
-   "slug": "tsc-atp-makkas-stetra-2026-10-15-tg-22pt5",
-   "eventSlug": "atp-makkas-stetra-2026-10-15",
-   "market": "Will the total in Maks Kasnikowski vs. Stefano Travaglia be more than 22.5?",
+   "id": "tsc-eurolg-fen-par-2026-10-15-160pt5@2026-10-15T12:21:47.497Z",
+   "slug": "tsc-eurolg-fen-par-2026-10-15-160pt5",
+   "eventSlug": "eurolg-fen-par-2026-10-15",
+   "market": "Will the total in Fenerbahce Istanbul vs. KK Partizan Belgrade be more than 160.5?",
    "side": "NO",
    "signal": "SELL",
-   "size": "half",
-   "entry_yes": 0.505,
-   "entry_price": 0.5,
-   "stake": 50,
-   "shares": 100,
+   "size": "full",
+   "entry_yes": 0.57,
+   "entry_price": 0.44,
+   "stake": 100,
+   "shares": 227.27270000000001,
    "cash_in": 0,
    "tp_taken": false,
-   "opened_at": "2026-10-15T09:23:53.028Z",
-   "end": "2026-10-17T03:59:00.000Z",
+   "opened_at": "2026-10-15T12:21:47.497Z",
+   "end": "2026-10-16T03:59:00.000Z",
    "status": "open",
    "venue": "polymarket-us",
-   "misses": 3,
-   "yes_now": 0.505,
-   "unrealized": -0.5
+   "misses": 0,
+   "yes_now": 0.57,
+   "unrealized": -2.27
   }
  ],
  "closed": [
@@ -1478,14 +1478,68 @@
    "pnl": 6.73,
    "closed_at": "2026-10-15T11:19:08.839Z",
    "note": "delisted_settled_at_last_mark"
+  },
+  {
+   "id": "tsc-atp-felbal-matbob-2026-10-15-tg-22pt5@2026-10-15T09:23:53.028Z",
+   "slug": "tsc-atp-felbal-matbob-2026-10-15-tg-22pt5",
+   "eventSlug": "atp-felbal-matbob-2026-10-15",
+   "market": "Will the total in Felix Balshaw vs. Matisse Bobichon be more than 22.5?",
+   "side": "YES",
+   "signal": "BUY",
+   "size": "half",
+   "entry_yes": 0.475,
+   "entry_price": 0.48,
+   "stake": 50,
+   "shares": 104.1667,
+   "cash_in": 0,
+   "tp_taken": false,
+   "opened_at": "2026-10-15T09:23:53.028Z",
+   "end": "2026-10-16T03:59:00.000Z",
+   "status": "closed",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.34,
+   "unrealized": -14.58,
+   "yes_won": false,
+   "won": false,
+   "pnl": -50,
+   "closed_at": "2026-10-15T11:53:14.384Z",
+   "note": "settlement"
+  },
+  {
+   "id": "tsc-atp-makkas-stetra-2026-10-15-tg-22pt5@2026-10-15T09:23:53.028Z",
+   "slug": "tsc-atp-makkas-stetra-2026-10-15-tg-22pt5",
+   "eventSlug": "atp-makkas-stetra-2026-10-15",
+   "market": "Will the total in Maks Kasnikowski vs. Stefano Travaglia be more than 22.5?",
+   "side": "NO",
+   "signal": "SELL",
+   "size": "half",
+   "entry_yes": 0.505,
+   "entry_price": 0.5,
+   "stake": 50,
+   "shares": 100,
+   "cash_in": 49.5,
+   "tp_taken": false,
+   "opened_at": "2026-10-15T09:23:53.028Z",
+   "end": "2026-10-17T03:59:00.000Z",
+   "status": "closed",
+   "venue": "polymarket-us",
+   "misses": 4,
+   "yes_now": 0.505,
+   "unrealized": -0.5,
+   "yes_won": null,
+   "won": false,
+   "pnl": -0.5,
+   "closed_at": "2026-10-15T11:53:19.428Z",
+   "note": "delisted_settled_at_last_mark"
   }
  ],
- "skipped": 542,
+ "skipped": 545,
  "savings": 0,
  "sweep_log": [],
  "day": {
   "date": "2026-10-15",
-  "pnl": -5.59
+  "pnl": -56.09
  },
  "history": [
   {
@@ -1947,6 +2001,14 @@
   {
    "t": "2026-10-15T11:19:19.282Z",
    "equity": 1219.19
+  },
+  {
+   "t": "2026-10-15T11:53:24.328Z",
+   "equity": 1187.36
+  },
+  {
+   "t": "2026-10-15T12:25:42.835Z",
+   "equity": 1167.32
   }
  ],
  "venue": "polymarket-us",
