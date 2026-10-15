@@ -1,29 +1,7 @@
 {
  "start_bankroll": 1000,
- "bankroll": 909.33,
+ "bankroll": 951,
  "positions": [
-  {
-   "id": "tsc-nhl-buf-tor-2026-10-15-6pt5@2026-10-14T17:59:41.639Z",
-   "slug": "tsc-nhl-buf-tor-2026-10-15-6pt5",
-   "eventSlug": "nhl-buf-tor-2026-10-15",
-   "market": "Will the total in BUF vs TOR be more than 6.5?",
-   "side": "NO",
-   "signal": "SELL",
-   "size": "full",
-   "entry_yes": 0.525,
-   "entry_price": 0.48,
-   "stake": 100,
-   "shares": 208.3333,
-   "cash_in": 0,
-   "tp_taken": false,
-   "opened_at": "2026-10-14T17:59:41.639Z",
-   "end": "2026-10-16T03:59:00.000Z",
-   "status": "open",
-   "venue": "polymarket-us",
-   "misses": 0,
-   "yes_now": 0.545,
-   "unrealized": -5.21
-  },
   {
    "id": "tsc-mlb-mil-lad-2026-10-15-8pt5@2026-10-15T04:53:56.143Z",
    "slug": "tsc-mlb-mil-lad-2026-10-15-8pt5",
@@ -65,8 +43,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.525,
-   "unrealized": -2.5
+   "yes_now": 0.555,
+   "unrealized": -5.5
   },
   {
    "id": "tsc-nba-okc-hou-2026-10-15-222pt5@2026-10-15T06:23:46.136Z",
@@ -87,8 +65,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.605,
-   "unrealized": -7.98
+   "yes_now": 0.6,
+   "unrealized": -7.45
   },
   {
    "id": "tsc-cfb-ecar-uab-2026-10-15-1h-24pt5@2026-10-15T19:20:45.979Z",
@@ -131,8 +109,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.59,
-   "unrealized": 0
+   "yes_now": 0.74,
+   "unrealized": -18.29
   }
  ],
  "closed": [
@@ -1678,14 +1656,41 @@
    "pnl": -100,
    "closed_at": "2026-10-15T21:21:32.452Z",
    "note": "settlement"
+  },
+  {
+   "id": "tsc-nhl-buf-tor-2026-10-15-6pt5@2026-10-14T17:59:41.639Z",
+   "slug": "tsc-nhl-buf-tor-2026-10-15-6pt5",
+   "eventSlug": "nhl-buf-tor-2026-10-15",
+   "market": "Will the total in BUF vs TOR be more than 6.5?",
+   "side": "NO",
+   "signal": "SELL",
+   "size": "full",
+   "entry_yes": 0.525,
+   "entry_price": 0.48,
+   "stake": 100,
+   "shares": 208.3333,
+   "cash_in": 41.67,
+   "tp_taken": false,
+   "opened_at": "2026-10-14T17:59:41.639Z",
+   "end": "2026-10-16T03:59:00.000Z",
+   "status": "closed",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.8,
+   "unrealized": -5.21,
+   "yes_won": null,
+   "won": false,
+   "pnl": -58.33,
+   "closed_at": "2026-10-15T23:21:08.338Z",
+   "note": "stop-loss"
   }
  ],
- "skipped": 734,
+ "skipped": 744,
  "savings": 0,
  "sweep_log": [],
  "day": {
   "date": "2026-10-15",
-  "pnl": 74.49
+  "pnl": 16.16
  },
  "history": [
   {
@@ -2235,6 +2240,14 @@
   {
    "t": "2026-10-15T22:21:30.242Z",
    "equity": 1291.94
+  },
+  {
+   "t": "2026-10-15T22:51:10.764Z",
+   "equity": 1290.47
+  },
+  {
+   "t": "2026-10-15T23:21:33.698Z",
+   "equity": 1218.06
   }
  ],
  "venue": "polymarket-us",
