@@ -1,6 +1,6 @@
 {
  "start_bankroll": 1000,
- "bankroll": 772.52,
+ "bankroll": 572.52,
  "positions": [
   {
    "id": "tsc-nhl-buf-tor-2026-10-15-6pt5@2026-10-14T17:59:41.639Z",
@@ -43,8 +43,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.54,
-   "unrealized": -6.12
+   "yes_now": 0.535,
+   "unrealized": -5.1
   },
   {
    "id": "tsc-uel-ben-cge-2026-10-15-3pt5@2026-10-15T04:53:56.143Z",
@@ -131,8 +131,74 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
+   "yes_now": 0.53,
+   "unrealized": 0
+  },
+  {
+   "id": "tsc-wta-andgar-nurbra-2026-10-14-tg-22pt5@2026-10-15T08:53:29.435Z",
+   "slug": "tsc-wta-andgar-nurbra-2026-10-14-tg-22pt5",
+   "eventSlug": "wta-andgar-nurbra-2026-10-14",
+   "market": "Will the total in Andrea Lazaro Garcia vs. Nuria Brancaccio be more than 22.5?",
+   "side": "YES",
+   "signal": "BUY",
+   "size": "full",
+   "entry_yes": 0.515,
+   "entry_price": 0.52,
+   "stake": 100,
+   "shares": 192.3077,
+   "cash_in": 0,
+   "tp_taken": false,
+   "opened_at": "2026-10-15T08:53:29.435Z",
+   "end": "2026-10-16T03:59:00.000Z",
+   "status": "open",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.555,
+   "unrealized": 6.73
+  },
+  {
+   "id": "tsc-atp-felbal-matbob-2026-10-15-tg-22pt5@2026-10-15T09:23:53.028Z",
+   "slug": "tsc-atp-felbal-matbob-2026-10-15-tg-22pt5",
+   "eventSlug": "atp-felbal-matbob-2026-10-15",
+   "market": "Will the total in Felix Balshaw vs. Matisse Bobichon be more than 22.5?",
+   "side": "YES",
+   "signal": "BUY",
+   "size": "half",
+   "entry_yes": 0.475,
+   "entry_price": 0.48,
+   "stake": 50,
+   "shares": 104.1667,
+   "cash_in": 0,
+   "tp_taken": false,
+   "opened_at": "2026-10-15T09:23:53.028Z",
+   "end": "2026-10-16T03:59:00.000Z",
+   "status": "open",
+   "venue": "polymarket-us",
+   "misses": 0,
    "yes_now": 0.535,
-   "unrealized": -0.53
+   "unrealized": 5.73
+  },
+  {
+   "id": "tsc-atp-makkas-stetra-2026-10-15-tg-22pt5@2026-10-15T09:23:53.028Z",
+   "slug": "tsc-atp-makkas-stetra-2026-10-15-tg-22pt5",
+   "eventSlug": "atp-makkas-stetra-2026-10-15",
+   "market": "Will the total in Maks Kasnikowski vs. Stefano Travaglia be more than 22.5?",
+   "side": "NO",
+   "signal": "SELL",
+   "size": "half",
+   "entry_yes": 0.505,
+   "entry_price": 0.5,
+   "stake": 50,
+   "shares": 100,
+   "cash_in": 0,
+   "tp_taken": false,
+   "opened_at": "2026-10-15T09:23:53.028Z",
+   "end": "2026-10-17T03:59:00.000Z",
+   "status": "open",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.505,
+   "unrealized": -0.5
   }
  ],
  "closed": [
@@ -1409,7 +1475,7 @@
    "note": "settlement"
   }
  ],
- "skipped": 537,
+ "skipped": 541,
  "savings": 0,
  "sweep_log": [],
  "day": {
@@ -1852,6 +1918,14 @@
   {
    "t": "2026-10-15T08:29:09.673Z",
    "equity": 1217.39
+  },
+  {
+   "t": "2026-10-15T08:59:12.079Z",
+   "equity": 1216.96
+  },
+  {
+   "t": "2026-10-15T09:29:56.225Z",
+   "equity": 1230.9
   }
  ],
  "venue": "polymarket-us",
