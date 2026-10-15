@@ -21,8 +21,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.55,
-   "unrealized": 1.14
+   "yes_now": 0.54,
+   "unrealized": 2.27
   },
   {
    "id": "astatc-mlb-mil-lad-2026-10-14-er-blasne-gte2@2026-10-14T02:20:05.508Z",
@@ -43,8 +43,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.395,
-   "unrealized": 5
+   "yes_now": 0.585,
+   "unrealized": -12.27
   },
   {
    "id": "aec-nba-chi-mil-2026-10-14@2026-10-14T02:50:39.884Z",
@@ -65,8 +65,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.635,
-   "unrealized": 7.73
+   "yes_now": 0.675,
+   "unrealized": 11.36
   },
   {
    "id": "aec-nba-no-dal-2026-10-14@2026-10-14T03:21:56.689Z",
@@ -87,8 +87,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.615,
-   "unrealized": -32.46
+   "yes_now": 0.585,
+   "unrealized": -27.19
   },
   {
    "id": "asc-nba-bkn-mia-2026-10-14-pos-8pt5@2026-10-14T04:53:35.137Z",
@@ -109,8 +109,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.64,
-   "unrealized": -10.87
+   "yes_now": 0.465,
+   "unrealized": 8.15
   },
   {
    "id": "tsc-nba-cha-bos-2026-10-14-225pt5@2026-10-14T04:53:35.137Z",
@@ -131,8 +131,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.5,
-   "unrealized": -0.98
+   "yes_now": 0.195,
+   "unrealized": 28.92
   },
   {
    "id": "tsc-nba-det-min-2026-10-14-226pt5@2026-10-14T05:22:33.617Z",
@@ -153,8 +153,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.52,
-   "unrealized": 0
+   "yes_now": 0.76,
+   "unrealized": -25
   },
   {
    "id": "asc-nba-pho-sa-2026-10-14-pos-10pt5@2026-10-14T05:22:33.617Z",
@@ -175,8 +175,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.455,
-   "unrealized": 10.56
+   "yes_now": 0.53,
+   "unrealized": 2.22
   },
   {
    "id": "tsc-nhl-buf-tor-2026-10-15-6pt5@2026-10-14T17:59:41.639Z",
@@ -1226,7 +1226,7 @@
    "closed_at": "2026-10-14T21:38:54.317Z"
   }
  ],
- "skipped": 451,
+ "skipped": 472,
  "savings": 0,
  "sweep_log": [],
  "day": {
@@ -1597,6 +1597,14 @@
   {
    "t": "2026-10-14T23:30:18.335Z",
    "equity": 1212.89
+  },
+  {
+   "t": "2026-10-14T23:55:23.542Z",
+   "equity": 1248.92
+  },
+  {
+   "t": "2026-10-15T00:28:59.951Z",
+   "equity": 1221.24
   }
  ],
  "venue": "polymarket-us",
