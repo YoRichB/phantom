@@ -21,8 +21,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.53,
-   "unrealized": -2.08
+   "yes_now": 0.525,
+   "unrealized": -1.04
   },
   {
    "id": "tsc-eurolg-olm-dub-2026-10-15-167pt5@2026-10-14T21:55:48.678Z",
@@ -65,8 +65,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.42,
-   "unrealized": 6.86
+   "yes_now": 0.605,
+   "unrealized": -11.27
   }
  ],
  "closed": [
@@ -1316,7 +1316,7 @@
    "note": "settlement"
   }
  ],
- "skipped": 510,
+ "skipped": 516,
  "savings": 0,
  "sweep_log": [],
  "day": {
@@ -1719,6 +1719,14 @@
   {
    "t": "2026-10-15T03:27:39.816Z",
    "equity": 1276.28
+  },
+  {
+   "t": "2026-10-15T03:59:45.948Z",
+   "equity": 1261.08
+  },
+  {
+   "t": "2026-10-15T04:29:05.643Z",
+   "equity": 1259.18
   }
  ],
  "venue": "polymarket-us",
