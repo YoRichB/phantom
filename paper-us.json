@@ -87,8 +87,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.415,
-   "unrealized": 1.74
+   "yes_now": 0.4075,
+   "unrealized": 3.04
   },
   {
    "id": "tsc-nba-tor-ny-2026-10-15-225pt5@2026-10-15T06:23:46.136Z",
@@ -131,8 +131,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.535,
-   "unrealized": -0.53
+   "yes_now": 0.53,
+   "unrealized": 0
   }
  ],
  "closed": [
@@ -1409,7 +1409,7 @@
    "note": "settlement"
   }
  ],
- "skipped": 529,
+ "skipped": 534,
  "savings": 0,
  "sweep_log": [],
  "day": {
@@ -1836,6 +1836,14 @@
   {
    "t": "2026-10-15T06:29:46.968Z",
    "equity": 1217.74
+  },
+  {
+   "t": "2026-10-15T06:59:55.555Z",
+   "equity": 1219.11
+  },
+  {
+   "t": "2026-10-15T07:32:13.954Z",
+   "equity": 1219.58
   }
  ],
  "venue": "polymarket-us",
