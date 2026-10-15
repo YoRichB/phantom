@@ -1,6 +1,6 @@
 {
  "start_bankroll": 1000,
- "bankroll": 578.75,
+ "bankroll": 478.75,
  "positions": [
   {
    "id": "tsc-nhl-buf-tor-2026-10-15-6pt5@2026-10-14T17:59:41.639Z",
@@ -43,8 +43,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.55,
-   "unrealized": -8.16
+   "yes_now": 0.545,
+   "unrealized": -7.14
   },
   {
    "id": "tsc-uel-ben-cge-2026-10-15-3pt5@2026-10-15T04:53:56.143Z",
@@ -65,8 +65,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.525,
-   "unrealized": 0.48
+   "yes_now": 0.535,
+   "unrealized": 1.44
   },
   {
    "id": "tsc-mlb-mil-lad-2026-10-15-8pt5@2026-10-15T04:53:56.143Z",
@@ -87,8 +87,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.4275,
-   "unrealized": -0.43
+   "yes_now": 0.4225,
+   "unrealized": 0.43
   },
   {
    "id": "tsc-nba-tor-ny-2026-10-15-225pt5@2026-10-15T06:23:46.136Z",
@@ -109,8 +109,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.525,
-   "unrealized": -2.5
+   "yes_now": 0.545,
+   "unrealized": -4.5
   },
   {
    "id": "tsc-nba-okc-hou-2026-10-15-222pt5@2026-10-15T06:23:46.136Z",
@@ -131,8 +131,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.53,
-   "unrealized": 0
+   "yes_now": 0.54,
+   "unrealized": -1.06
   },
   {
    "id": "astatc-mlb-tb-cle-2026-10-15-tb-chadel-gte2@2026-10-15T11:50:36.187Z",
@@ -153,8 +153,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.345,
-   "unrealized": 4.58
+   "yes_now": 0.365,
+   "unrealized": 2.92
   },
   {
    "id": "tsc-eurolg-fen-par-2026-10-15-160pt5@2026-10-15T12:21:47.497Z",
@@ -177,6 +177,50 @@
    "misses": 0,
    "yes_now": 0.57,
    "unrealized": -2.27
+  },
+  {
+   "id": "tsc-uel-lep-bla-2026-10-15-3pt5@2026-10-15T12:52:46.188Z",
+   "slug": "tsc-uel-lep-bla-2026-10-15-3pt5",
+   "eventSlug": "uel-lep-bla-2026-10-15",
+   "market": "Will the total in LEP vs BLA be more than 3.5?",
+   "side": "YES",
+   "signal": "BUY",
+   "size": "half",
+   "entry_yes": 0.505,
+   "entry_price": 0.51,
+   "stake": 50,
+   "shares": 98.0392,
+   "cash_in": 0,
+   "tp_taken": false,
+   "opened_at": "2026-10-15T12:52:46.188Z",
+   "end": "2026-10-16T03:59:00.000Z",
+   "status": "open",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.515,
+   "unrealized": 0.49
+  },
+  {
+   "id": "tsc-uel-spp-lms-2026-10-15-3pt5@2026-10-15T13:23:20.229Z",
+   "slug": "tsc-uel-spp-lms-2026-10-15-3pt5",
+   "eventSlug": "uel-spp-lms-2026-10-15",
+   "market": "Will the total in SPP vs LMS be more than 3.5?",
+   "side": "NO",
+   "signal": "SELL",
+   "size": "half",
+   "entry_yes": 0.465,
+   "entry_price": 0.54,
+   "stake": 50,
+   "shares": 92.5926,
+   "cash_in": 0,
+   "tp_taken": false,
+   "opened_at": "2026-10-15T13:23:20.229Z",
+   "end": "2026-10-16T03:59:00.000Z",
+   "status": "open",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.485,
+   "unrealized": -2.31
   }
  ],
  "closed": [
@@ -1534,7 +1578,7 @@
    "note": "delisted_settled_at_last_mark"
   }
  ],
- "skipped": 545,
+ "skipped": 554,
  "savings": 0,
  "sweep_log": [],
  "day": {
@@ -2009,6 +2053,14 @@
   {
    "t": "2026-10-15T12:25:42.835Z",
    "equity": 1167.32
+  },
+  {
+   "t": "2026-10-15T12:57:35.073Z",
+   "equity": 1175.78
+  },
+  {
+   "t": "2026-10-15T13:28:48.089Z",
+   "equity": 1163.61
   }
  ],
  "venue": "polymarket-us",
