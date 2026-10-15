@@ -109,8 +109,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.55,
-   "unrealized": -5
+   "yes_now": 0.545,
+   "unrealized": -4.5
   },
   {
    "id": "tsc-nba-okc-hou-2026-10-15-222pt5@2026-10-15T06:23:46.136Z",
@@ -131,8 +131,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.54,
-   "unrealized": -1.06
+   "yes_now": 0.55,
+   "unrealized": -2.13
   },
   {
    "id": "astatc-mlb-tb-cle-2026-10-15-tb-chadel-gte2@2026-10-15T11:50:36.187Z",
@@ -1578,7 +1578,7 @@
    "note": "delisted_settled_at_last_mark"
   }
  ],
- "skipped": 560,
+ "skipped": 574,
  "savings": 0,
  "sweep_log": [],
  "day": {
@@ -2069,6 +2069,14 @@
   {
    "t": "2026-10-15T14:30:30.571Z",
    "equity": 1162.55
+  },
+  {
+   "t": "2026-10-15T15:00:22.206Z",
+   "equity": 1164.07
+  },
+  {
+   "t": "2026-10-15T15:30:07.157Z",
+   "equity": 1161.99
   }
  ],
  "venue": "polymarket-us",
