@@ -1,6 +1,6 @@
 {
  "start_bankroll": 1000,
- "bankroll": 572.52,
+ "bankroll": 679.25,
  "positions": [
   {
    "id": "tsc-nhl-buf-tor-2026-10-15-6pt5@2026-10-14T17:59:41.639Z",
@@ -135,28 +135,6 @@
    "unrealized": 3.72
   },
   {
-   "id": "tsc-wta-andgar-nurbra-2026-10-14-tg-22pt5@2026-10-15T08:53:29.435Z",
-   "slug": "tsc-wta-andgar-nurbra-2026-10-14-tg-22pt5",
-   "eventSlug": "wta-andgar-nurbra-2026-10-14",
-   "market": "Will the total in Andrea Lazaro Garcia vs. Nuria Brancaccio be more than 22.5?",
-   "side": "YES",
-   "signal": "BUY",
-   "size": "full",
-   "entry_yes": 0.515,
-   "entry_price": 0.52,
-   "stake": 100,
-   "shares": 192.3077,
-   "cash_in": 0,
-   "tp_taken": false,
-   "opened_at": "2026-10-15T08:53:29.435Z",
-   "end": "2026-10-16T03:59:00.000Z",
-   "status": "open",
-   "venue": "polymarket-us",
-   "misses": 2,
-   "yes_now": 0.555,
-   "unrealized": 6.73
-  },
-  {
    "id": "tsc-atp-felbal-matbob-2026-10-15-tg-22pt5@2026-10-15T09:23:53.028Z",
    "slug": "tsc-atp-felbal-matbob-2026-10-15-tg-22pt5",
    "eventSlug": "atp-felbal-matbob-2026-10-15",
@@ -196,7 +174,7 @@
    "end": "2026-10-17T03:59:00.000Z",
    "status": "open",
    "venue": "polymarket-us",
-   "misses": 1,
+   "misses": 3,
    "yes_now": 0.505,
    "unrealized": -0.5
   }
@@ -1473,6 +1451,33 @@
    "pnl": -50,
    "closed_at": "2026-10-15T05:29:26.533Z",
    "note": "settlement"
+  },
+  {
+   "id": "tsc-wta-andgar-nurbra-2026-10-14-tg-22pt5@2026-10-15T08:53:29.435Z",
+   "slug": "tsc-wta-andgar-nurbra-2026-10-14-tg-22pt5",
+   "eventSlug": "wta-andgar-nurbra-2026-10-14",
+   "market": "Will the total in Andrea Lazaro Garcia vs. Nuria Brancaccio be more than 22.5?",
+   "side": "YES",
+   "signal": "BUY",
+   "size": "full",
+   "entry_yes": 0.515,
+   "entry_price": 0.52,
+   "stake": 100,
+   "shares": 192.3077,
+   "cash_in": 106.73,
+   "tp_taken": false,
+   "opened_at": "2026-10-15T08:53:29.435Z",
+   "end": "2026-10-16T03:59:00.000Z",
+   "status": "closed",
+   "venue": "polymarket-us",
+   "misses": 4,
+   "yes_now": 0.555,
+   "unrealized": 6.73,
+   "yes_won": null,
+   "won": true,
+   "pnl": 6.73,
+   "closed_at": "2026-10-15T11:19:08.839Z",
+   "note": "delisted_settled_at_last_mark"
   }
  ],
  "skipped": 542,
@@ -1480,7 +1485,7 @@
  "sweep_log": [],
  "day": {
   "date": "2026-10-15",
-  "pnl": -12.32
+  "pnl": -5.59
  },
  "history": [
   {
@@ -1934,6 +1939,14 @@
   {
    "t": "2026-10-15T10:24:22.397Z",
    "equity": 1219.2
+  },
+  {
+   "t": "2026-10-15T10:49:22.701Z",
+   "equity": 1219.2
+  },
+  {
+   "t": "2026-10-15T11:19:19.282Z",
+   "equity": 1219.19
   }
  ],
  "venue": "polymarket-us",
