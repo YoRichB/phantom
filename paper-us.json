@@ -1,6 +1,6 @@
 {
  "start_bankroll": 1000,
- "bankroll": 872.52,
+ "bankroll": 772.52,
  "positions": [
   {
    "id": "tsc-nhl-buf-tor-2026-10-15-6pt5@2026-10-14T17:59:41.639Z",
@@ -43,8 +43,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.515,
-   "unrealized": -1.02
+   "yes_now": 0.52,
+   "unrealized": -2.04
   },
   {
    "id": "tsc-uel-ben-cge-2026-10-15-3pt5@2026-10-15T04:53:56.143Z",
@@ -65,8 +65,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.505,
-   "unrealized": -1.44
+   "yes_now": 0.495,
+   "unrealized": -2.4
   },
   {
    "id": "tsc-mlb-mil-lad-2026-10-15-8pt5@2026-10-15T04:53:56.143Z",
@@ -87,8 +87,52 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.4275,
-   "unrealized": -0.43
+   "yes_now": 0.415,
+   "unrealized": 1.74
+  },
+  {
+   "id": "tsc-nba-tor-ny-2026-10-15-225pt5@2026-10-15T06:23:46.136Z",
+   "slug": "tsc-nba-tor-ny-2026-10-15-225pt5",
+   "eventSlug": "nba-tor-ny-2026-10-15",
+   "market": "Will the total in TOR Raptors vs. NY Knicks be more than 225.5?",
+   "side": "NO",
+   "signal": "SELL",
+   "size": "half",
+   "entry_yes": 0.505,
+   "entry_price": 0.5,
+   "stake": 50,
+   "shares": 100,
+   "cash_in": 0,
+   "tp_taken": false,
+   "opened_at": "2026-10-15T06:23:46.136Z",
+   "end": "2026-10-16T03:59:00.000Z",
+   "status": "open",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.505,
+   "unrealized": -0.5
+  },
+  {
+   "id": "tsc-nba-okc-hou-2026-10-15-222pt5@2026-10-15T06:23:46.136Z",
+   "slug": "tsc-nba-okc-hou-2026-10-15-222pt5",
+   "eventSlug": "nba-okc-hou-2026-10-15",
+   "market": "Will the total in OKC Thunder vs. HOU Rockets be more than 222.5?",
+   "side": "NO",
+   "signal": "SELL",
+   "size": "half",
+   "entry_yes": 0.535,
+   "entry_price": 0.47,
+   "stake": 50,
+   "shares": 106.383,
+   "cash_in": 0,
+   "tp_taken": false,
+   "opened_at": "2026-10-15T06:23:46.136Z",
+   "end": "2026-10-16T03:59:00.000Z",
+   "status": "open",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.535,
+   "unrealized": -0.53
   }
  ],
  "closed": [
@@ -1365,7 +1409,7 @@
    "note": "settlement"
   }
  ],
- "skipped": 522,
+ "skipped": 529,
  "savings": 0,
  "sweep_log": [],
  "day": {
@@ -1784,6 +1828,14 @@
   {
    "t": "2026-10-15T05:29:36.649Z",
    "equity": 1218.58
+  },
+  {
+   "t": "2026-10-15T05:59:18.131Z",
+   "equity": 1217.62
+  },
+  {
+   "t": "2026-10-15T06:29:46.968Z",
+   "equity": 1217.74
   }
  ],
  "venue": "polymarket-us",
