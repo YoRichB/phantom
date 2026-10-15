@@ -43,8 +43,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.535,
-   "unrealized": -5.1
+   "yes_now": 0.515,
+   "unrealized": -1.02
   },
   {
    "id": "tsc-uel-ben-cge-2026-10-15-3pt5@2026-10-15T04:53:56.143Z",
@@ -87,8 +87,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.4075,
-   "unrealized": 3.04
+   "yes_now": 0.4,
+   "unrealized": 4.35
   },
   {
    "id": "tsc-nba-tor-ny-2026-10-15-225pt5@2026-10-15T06:23:46.136Z",
@@ -109,8 +109,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.5,
-   "unrealized": 0
+   "yes_now": 0.505,
+   "unrealized": -0.5
   },
   {
    "id": "tsc-nba-okc-hou-2026-10-15-222pt5@2026-10-15T06:23:46.136Z",
@@ -131,8 +131,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.53,
-   "unrealized": 0
+   "yes_now": 0.495,
+   "unrealized": 3.72
   },
   {
    "id": "tsc-wta-andgar-nurbra-2026-10-14-tg-22pt5@2026-10-15T08:53:29.435Z",
@@ -152,7 +152,7 @@
    "end": "2026-10-16T03:59:00.000Z",
    "status": "open",
    "venue": "polymarket-us",
-   "misses": 0,
+   "misses": 2,
    "yes_now": 0.555,
    "unrealized": 6.73
   },
@@ -175,8 +175,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.535,
-   "unrealized": 5.73
+   "yes_now": 0.34,
+   "unrealized": -14.58
   },
   {
    "id": "tsc-atp-makkas-stetra-2026-10-15-tg-22pt5@2026-10-15T09:23:53.028Z",
@@ -196,7 +196,7 @@
    "end": "2026-10-17T03:59:00.000Z",
    "status": "open",
    "venue": "polymarket-us",
-   "misses": 0,
+   "misses": 1,
    "yes_now": 0.505,
    "unrealized": -0.5
   }
@@ -1475,7 +1475,7 @@
    "note": "settlement"
   }
  ],
- "skipped": 541,
+ "skipped": 542,
  "savings": 0,
  "sweep_log": [],
  "day": {
@@ -1926,6 +1926,14 @@
   {
    "t": "2026-10-15T09:29:56.225Z",
    "equity": 1230.9
+  },
+  {
+   "t": "2026-10-15T09:56:22.388Z",
+   "equity": 1230.83
+  },
+  {
+   "t": "2026-10-15T10:24:22.397Z",
+   "equity": 1219.2
   }
  ],
  "venue": "polymarket-us",
