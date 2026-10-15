@@ -65,8 +65,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.53,
-   "unrealized": -3
+   "yes_now": 0.525,
+   "unrealized": -2.5
   },
   {
    "id": "tsc-nba-okc-hou-2026-10-15-222pt5@2026-10-15T06:23:46.136Z",
@@ -87,8 +87,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.6,
-   "unrealized": -7.45
+   "yes_now": 0.605,
+   "unrealized": -7.98
   },
   {
    "id": "tsc-cfb-ecar-uab-2026-10-15-1h-24pt5@2026-10-15T19:20:45.979Z",
@@ -109,8 +109,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.475,
-   "unrealized": -0.47
+   "yes_now": 0.465,
+   "unrealized": 0.47
   },
   {
    "id": "tsc-eurolg-czv-prs-2026-10-16-169pt5@2026-10-15T19:53:56.196Z",
@@ -131,8 +131,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.6,
-   "unrealized": -1.22
+   "yes_now": 0.59,
+   "unrealized": 0
   }
  ],
  "closed": [
@@ -1680,7 +1680,7 @@
    "note": "settlement"
   }
  ],
- "skipped": 728,
+ "skipped": 734,
  "savings": 0,
  "sweep_log": [],
  "day": {
@@ -2227,6 +2227,14 @@
   {
    "t": "2026-10-15T21:21:37.447Z",
    "equity": 1289.81
+  },
+  {
+   "t": "2026-10-15T21:51:27.408Z",
+   "equity": 1290.25
+  },
+  {
+   "t": "2026-10-15T22:21:30.242Z",
+   "equity": 1291.94
   }
  ],
  "venue": "polymarket-us",
