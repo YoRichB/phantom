@@ -1,6 +1,6 @@
 {
  "start_bankroll": 1000,
- "bankroll": 1010.34,
+ "bankroll": 1060.87,
  "positions": [
   {
    "id": "tsc-nba-okc-hou-2026-10-15-222pt5@2026-10-15T06:23:46.136Z",
@@ -13,16 +13,18 @@
    "entry_yes": 0.535,
    "entry_price": 0.47,
    "stake": 50,
-   "shares": 106.383,
-   "cash_in": 0,
-   "tp_taken": false,
+   "shares": 53.19,
+   "cash_in": 50.53,
+   "tp_taken": true,
    "opened_at": "2026-10-15T06:23:46.136Z",
    "end": "2026-10-16T03:59:00.000Z",
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.145,
-   "unrealized": 40.96
+   "yes_now": 0.05,
+   "unrealized": 51.06,
+   "banked": 25.53,
+   "note": "partial-tp"
   },
   {
    "id": "tsc-eurolg-czv-prs-2026-10-16-169pt5@2026-10-15T19:53:56.196Z",
@@ -1700,7 +1702,7 @@
    "note": "settlement"
   }
  ],
- "skipped": 756,
+ "skipped": 757,
  "savings": 100,
  "sweep_log": [
   {
@@ -1710,7 +1712,7 @@
  ],
  "day": {
   "date": "2026-10-16",
-  "pnl": -15.66
+  "pnl": 9.87
  },
  "history": [
   {
@@ -2284,6 +2286,14 @@
   {
    "t": "2026-10-16T01:21:11.000Z",
    "equity": 1150.69
+  },
+  {
+   "t": "2026-10-16T01:50:58.604Z",
+   "equity": 1144.84
+  },
+  {
+   "t": "2026-10-16T02:20:57.680Z",
+   "equity": 1160.79
   }
  ],
  "venue": "polymarket-us",
