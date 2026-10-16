@@ -268,7 +268,7 @@ function injectAppState(state, sum){
       market: p.market, side: p.side, stake: p.stake,
       entry_c: r2(p.entry_price * 100), unrealized: p.unrealized ?? null
     })),
-    closed: closed.map(p => ({
+    closed: closed.slice(-300).map(p => ({
       market: p.market, side: p.side, stake: p.stake,
       won: !!p.won, pnl: p.pnl, note: p.note || 'resolved'
     })),

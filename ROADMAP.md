@@ -42,6 +42,15 @@ Ordered by value. Checked items are done.
     until N *clean* resolutions (suggested: 25), or proceed anyway.
     Ping-at-~40 is NOT implemented in paper.js/scan.js yet — wire it or
     retire this checkbox.
+- [ ] **PWA hosting (native path)** — user chose PWA-first on 2026-10-12
+      (then Android wrapper; iOS out). Prep landed 2026-10-15: iOS meta tags
+      + `manifest.webmanifest` + `pwa/` icons in the repo, and the hourly
+      GitHub sync now versions the live injected `phantom.html`. Next steps
+      when he gives the go: enable GitHub Pages on the repo (serves
+      `phantom.html` + manifest + icons over HTTPS), then add a minimal
+      service worker so the installed app opens offline with the cached pack.
+      Do not add the service worker before hosting — a SW on a file/chat
+      attachment can't register and would be dead weight.
 - [ ] **Clean-resolution counter** — supersedes the ping-at-~40 item: track
       `clean_resolutions` in paper.json, incremented only when a trade is
       graded by actual market resolution (closed-trade `note` null /
