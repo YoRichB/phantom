@@ -8,13 +8,20 @@ const checks = [];
 const check = (name, ok, detail) => checks.push({ name, ok: !!ok, ...(detail ? { detail } : {}) });
 
 (async () => {
-  // 1. Gateway reachable: events listing (also yields a live probe slug)
+  // 1. Gateway reachable: events listing (also yields a live probe slug).
+  // Probe = first market with a live bid/ask quote; the gateway sometimes
+  // returns stale/delisted events first, and those fail the BBO check.
   let probeSlug = null;
   try {
-    const evs = await getUSEvents({ active: 'true', closed: 'false', limit: '5' });
+    const evs = await getUSEvents({ active: 'true', closed: 'false', limit: '10' });
     check('gw:events', evs.length >= 1, evs.length + ' event(s)');
-    const mk = evs.length && evs[0].markets && evs[0].markets.find(m => m.slug);
-    if (mk) probeSlug = mk.slug;
+    for (const e of evs) {
+      for (const m of (e.markets || [])) {
+        const bid = Number((m.bestBidQuote || {}).value), ask = Number((m.bestAskQuote || {}).value);
+        if (m.slug && bid > 0 && ask > bid) { probeSlug = m.slug; break; }
+      }
+      if (probeSlug) break;
+    }
   } catch(e){ check('gw:events', false, e.message); }
 
   // 2. BBO endpoint (live market slug; skip if no live market found)
