@@ -1,31 +1,7 @@
 {
  "start_bankroll": 1000,
- "bankroll": 1060.87,
+ "bankroll": 1014.06,
  "positions": [
-  {
-   "id": "tsc-nba-okc-hou-2026-10-15-222pt5@2026-10-15T06:23:46.136Z",
-   "slug": "tsc-nba-okc-hou-2026-10-15-222pt5",
-   "eventSlug": "nba-okc-hou-2026-10-15",
-   "market": "Will the total in OKC Thunder vs. HOU Rockets be more than 222.5?",
-   "side": "NO",
-   "signal": "SELL",
-   "size": "half",
-   "entry_yes": 0.535,
-   "entry_price": 0.47,
-   "stake": 50,
-   "shares": 53.19,
-   "cash_in": 50.53,
-   "tp_taken": true,
-   "opened_at": "2026-10-15T06:23:46.136Z",
-   "end": "2026-10-16T03:59:00.000Z",
-   "status": "open",
-   "venue": "polymarket-us",
-   "misses": 0,
-   "yes_now": 0.05,
-   "unrealized": 51.06,
-   "banked": 25.53,
-   "note": "partial-tp"
-  },
   {
    "id": "tsc-eurolg-czv-prs-2026-10-16-169pt5@2026-10-15T19:53:56.196Z",
    "slug": "tsc-eurolg-czv-prs-2026-10-16-169pt5",
@@ -1700,19 +1676,51 @@
    "pnl": 44.34,
    "closed_at": "2026-10-16T01:21:05.980Z",
    "note": "settlement"
+  },
+  {
+   "id": "tsc-nba-okc-hou-2026-10-15-222pt5@2026-10-15T06:23:46.136Z",
+   "slug": "tsc-nba-okc-hou-2026-10-15-222pt5",
+   "eventSlug": "nba-okc-hou-2026-10-15",
+   "market": "Will the total in OKC Thunder vs. HOU Rockets be more than 222.5?",
+   "side": "NO",
+   "signal": "SELL",
+   "size": "half",
+   "entry_yes": 0.535,
+   "entry_price": 0.47,
+   "stake": 50,
+   "shares": 53.19,
+   "cash_in": 103.72,
+   "tp_taken": true,
+   "opened_at": "2026-10-15T06:23:46.136Z",
+   "end": "2026-10-16T03:59:00.000Z",
+   "status": "closed",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.05,
+   "unrealized": 51.06,
+   "banked": 25.53,
+   "note": "settlement",
+   "yes_won": false,
+   "won": true,
+   "pnl": 53.72,
+   "closed_at": "2026-10-16T02:50:52.055Z"
   }
  ],
- "skipped": 757,
- "savings": 100,
+ "skipped": 758,
+ "savings": 200,
  "sweep_log": [
   {
    "t": "2026-10-16T01:19:45.146Z",
+   "amount": 100
+  },
+  {
+   "t": "2026-10-16T02:49:40.933Z",
    "amount": 100
   }
  ],
  "day": {
   "date": "2026-10-16",
-  "pnl": 9.87
+  "pnl": 38.06
  },
  "history": [
   {
@@ -2294,6 +2302,14 @@
   {
    "t": "2026-10-16T02:20:57.680Z",
    "equity": 1160.79
+  },
+  {
+   "t": "2026-10-16T02:50:57.214Z",
+   "equity": 1063.45
+  },
+  {
+   "t": "2026-10-16T03:21:18.255Z",
+   "equity": 1063.45
   }
  ],
  "venue": "polymarket-us",
