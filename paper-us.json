@@ -1,30 +1,7 @@
 {
  "start_bankroll": 1000,
  "bankroll": 1014.06,
- "positions": [
-  {
-   "id": "tsc-eurolg-czv-prs-2026-10-16-169pt5@2026-10-15T19:53:56.196Z",
-   "slug": "tsc-eurolg-czv-prs-2026-10-16-169pt5",
-   "eventSlug": "eurolg-czv-prs-2026-10-16",
-   "market": "Will the total in KK Crvena zvezda Belgrade vs. Paris Basketball be more than 169.5?",
-   "side": "NO",
-   "signal": "SELL",
-   "size": "half",
-   "entry_yes": 0.6,
-   "entry_price": 0.41,
-   "stake": 50,
-   "shares": 121.95120000000001,
-   "cash_in": 0,
-   "tp_taken": false,
-   "opened_at": "2026-10-15T19:53:56.196Z",
-   "end": "2026-10-17T03:59:00.000Z",
-   "status": "open",
-   "venue": "polymarket-us",
-   "misses": 0,
-   "yes_now": 0.665,
-   "unrealized": -9.15
-  }
- ],
+ "positions": [],
  "closed": [
   {
    "id": "aec-itfme-maxshi-yustak-2026-10-13@2026-10-13T02:39:54.367Z",
@@ -1704,9 +1681,36 @@
    "won": true,
    "pnl": 53.72,
    "closed_at": "2026-10-16T02:50:52.055Z"
+  },
+  {
+   "id": "tsc-eurolg-czv-prs-2026-10-16-169pt5@2026-10-15T19:53:56.196Z",
+   "slug": "tsc-eurolg-czv-prs-2026-10-16-169pt5",
+   "eventSlug": "eurolg-czv-prs-2026-10-16",
+   "market": "Will the total in KK Crvena zvezda Belgrade vs. Paris Basketball be more than 169.5?",
+   "side": "NO",
+   "signal": "SELL",
+   "size": "half",
+   "entry_yes": 0.6,
+   "entry_price": 0.41,
+   "stake": 50,
+   "shares": 121.95120000000001,
+   "cash_in": 0,
+   "tp_taken": false,
+   "opened_at": "2026-10-15T19:53:56.196Z",
+   "end": "2026-10-17T03:59:00.000Z",
+   "status": "closed",
+   "venue": "polymarket-us",
+   "misses": 0,
+   "yes_now": 0.635,
+   "unrealized": -5.49,
+   "yes_won": true,
+   "won": false,
+   "pnl": -50,
+   "closed_at": "2026-10-16T20:22:20.103Z",
+   "note": "settlement"
   }
  ],
- "skipped": 905,
+ "skipped": 908,
  "savings": 200,
  "sweep_log": [
   {
@@ -1720,7 +1724,7 @@
  ],
  "day": {
   "date": "2026-10-16",
-  "pnl": 38.06
+  "pnl": -11.94
  },
  "history": [
   {
@@ -2438,6 +2442,14 @@
   {
    "t": "2026-10-16T19:22:35.425Z",
    "equity": 1054.91
+  },
+  {
+   "t": "2026-10-16T19:52:38.903Z",
+   "equity": 1058.57
+  },
+  {
+   "t": "2026-10-16T20:22:20.103Z",
+   "equity": 1014.06
   }
  ],
  "venue": "polymarket-us",
