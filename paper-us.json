@@ -21,8 +21,8 @@
    "status": "open",
    "venue": "polymarket-us",
    "misses": 0,
-   "yes_now": 0.655,
-   "unrealized": -7.93
+   "yes_now": 0.645,
+   "unrealized": -6.71
   }
  ],
  "closed": [
@@ -1706,7 +1706,7 @@
    "closed_at": "2026-10-16T02:50:52.055Z"
   }
  ],
- "skipped": 852,
+ "skipped": 867,
  "savings": 200,
  "sweep_log": [
   {
@@ -2406,6 +2406,14 @@
   {
    "t": "2026-10-16T15:23:15.780Z",
    "equity": 1056.13
+  },
+  {
+   "t": "2026-10-16T15:53:10.227Z",
+   "equity": 1056.13
+  },
+  {
+   "t": "2026-10-16T16:25:19.716Z",
+   "equity": 1057.35
   }
  ],
  "venue": "polymarket-us",
