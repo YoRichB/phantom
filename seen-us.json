@@ -1,16 +1,4 @@
 {
- "asc-eurolg-val-opi-2026-10-13-pos-4pt5": "2026-10-13T15:48:26.398Z",
- "asc-eurolg-val-opi-2026-10-13-pos-1pt5": "2026-10-13T15:48:26.398Z",
- "astatc-mlb-cle-tb-2026-10-13-ha-parmes-gte5": "2026-10-13T15:48:26.398Z",
- "aec-itfme-yankel-piebai-2026-10-13": "2026-10-13T15:48:26.398Z",
- "asc-atp-flobro-milkar-2026-10-13-gs-pos-1pt5": "2026-10-13T15:48:26.398Z",
- "aec-atp-flobro-milkar-2026-10-13": "2026-10-13T15:48:26.398Z",
- "aec-setkameua-tebyar-slomyk-2026-10-13": "2026-10-13T15:48:26.398Z",
- "astatc-setkamemd-schser-chevic-2026-10-13-sw3": "2026-10-13T15:48:26.398Z",
- "astatc-setkamecz-sempet-rejste-2026-10-13-sw3": "2026-10-13T15:48:26.398Z",
- "atc-ebfwcb-por-ger-2026-10-13-dh4-por": "2026-10-13T15:48:26.398Z",
- "atc-ebfwcb-net-bel-2026-10-13-dh7-net": "2026-10-13T15:48:26.398Z",
- "aec-wta-marrib-fracur-2026-10-14": "2026-10-13T15:48:26.398Z",
  "astatc-nhl-edm-la-2026-10-13-goals-conmcd-gte1": "2026-10-13T16:18:43.352Z",
  "aec-setkameua-vorvol-hraand-2026-10-13": "2026-10-13T16:18:43.352Z",
  "astatc-setkamemd-rotale-chevic-2026-10-13-sw3": "2026-10-13T16:18:43.352Z",
@@ -1235,5 +1223,11 @@
  "atc-efl1-blp-mkd-2026-10-20-blp": "2026-10-20T14:48:27.365Z",
  "aec-cs2-bca-nem-2026-10-20": "2026-10-20T14:48:27.365Z",
  "aec-setkameua-selole-vorvol-2026-10-20": "2026-10-20T14:48:27.365Z",
- "aec-itfme-jakeva-tobmar-2026-10-20": "2026-10-20T15:18:27.842Z"
+ "aec-itfme-jakeva-tobmar-2026-10-20": "2026-10-20T15:18:27.842Z",
+ "aec-eurocup-bbo-lip-2026-10-20": "2026-10-20T15:48:25.065Z",
+ "atc-efl1-noc-shw-2026-10-20-shw": "2026-10-20T16:18:32.128Z",
+ "aec-atp-cosrav-ozabar-2026-10-19": "2026-10-20T16:18:32.128Z",
+ "aec-kbl-thu-egi-2026-10-21": "2026-10-20T16:18:32.128Z",
+ "aec-itfwo-diamar-vikhru-2026-10-20": "2026-10-20T16:18:32.128Z",
+ "aec-itfme-dreord-orevas-2026-10-20": "2026-10-20T16:18:32.128Z"
 }
