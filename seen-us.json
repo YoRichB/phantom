@@ -1,11 +1,4 @@
 {
- "tsc-cfb-del-mtnst-2026-10-13-tt-mtnst-23pt5": "2026-10-13T18:48:29.864Z",
- "tsc-eurolg-prs-vib-2026-10-14-175pt5": "2026-10-13T18:48:29.864Z",
- "asc-eurolg-prs-vib-2026-10-14-neg-3pt5": "2026-10-13T18:48:29.864Z",
- "tsc-eurolg-prs-vib-2026-10-14-178pt5": "2026-10-13T18:48:29.864Z",
- "asc-eurolg-prs-vib-2026-10-14-neg-6pt5": "2026-10-13T18:48:29.864Z",
- "astatc-setkameua-hreiur-pohole-2026-10-14-sw1": "2026-10-13T18:48:29.864Z",
- "aec-atp-filjia-zdekol-2026-10-14": "2026-10-13T18:48:29.864Z",
  "tsc-ucl-ars-lil-2026-10-13-sh-1pt5": "2026-10-13T19:18:30.198Z",
  "tsc-ucl-atm-mnu-2026-10-13-sh-1pt5": "2026-10-13T19:18:30.198Z",
  "tsc-ucl-atm-mnu-2026-10-13-3pt5": "2026-10-13T19:18:30.198Z",
@@ -1212,5 +1205,12 @@
  "atc-egpl-wad-nbe-2026-10-20-wad": "2026-10-20T18:18:40.277Z",
  "atc-ebfpl-mca-che-2026-10-20-che": "2026-10-20T18:18:40.277Z",
  "atc-ebfsa-bol-sas-2026-10-20-dh6-bol": "2026-10-20T18:18:40.277Z",
- "aec-atp-marnav-talgri-2026-10-21": "2026-10-20T18:18:40.277Z"
+ "aec-atp-marnav-talgri-2026-10-21": "2026-10-20T18:18:40.277Z",
+ "aec-setkamemd-coviur-beldan-2026-10-20": "2026-10-20T18:48:26.109Z",
+ "atc-ucl-psg-fcb-2026-10-20-psg": "2026-10-20T19:18:25.486Z",
+ "aec-acw-zapvas-konvor-2026-10-20-98a37aad": "2026-10-20T19:18:25.486Z",
+ "atc-ebfpl-mca-liv-2026-10-20-dh1-liv": "2026-10-20T19:18:25.486Z",
+ "atc-ebfpl-liv-che-2026-10-20-dh1-che": "2026-10-20T19:18:25.486Z",
+ "atc-ebfpl-che-mca-2026-10-20-dh1-che": "2026-10-20T19:18:25.486Z",
+ "atc-ebfsa-nap-roma-2026-10-20-dh7-nap": "2026-10-20T19:18:25.486Z"
 }
