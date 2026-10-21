@@ -1,19 +1,4 @@
 {
- "tsc-cfb-del-mtnst-2026-10-13-total-48pt5": "2026-10-13T23:48:29.287Z",
- "tsc-cfb-del-mtnst-2026-10-13-total-49pt5": "2026-10-13T23:48:29.287Z",
- "tsc-cfb-del-mtnst-2026-10-13-total-50pt5": "2026-10-13T23:48:29.287Z",
- "tsc-cfb-del-mtnst-2026-10-13-total-51pt5": "2026-10-13T23:48:29.287Z",
- "tsc-cfb-del-mtnst-2026-10-13-total-52pt5": "2026-10-13T23:48:29.287Z",
- "tsc-nba-ind-okc-2026-10-13-231pt5": "2026-10-13T23:48:29.287Z",
- "tsc-nhl-nj-det-2026-10-13-9pt5": "2026-10-13T23:48:29.287Z",
- "asc-nhl-sea-phi-2026-10-13-neg-1pt5": "2026-10-13T23:48:29.287Z",
- "atc-brb-ath-lon-2026-10-13-draw": "2026-10-13T23:48:29.287Z",
- "asc-atp-lukmik-sumnag-2026-10-14-gs-neg-4pt5": "2026-10-13T23:48:29.287Z",
- "tsc-cfb-flint-jaxst-2026-10-13-total-47pt5": "2026-10-14T00:18:26.038Z",
- "tsc-nba-cle-orl-2026-10-13-239pt5": "2026-10-14T00:18:26.038Z",
- "aec-nba-ind-okc-2026-10-13": "2026-10-14T00:18:26.038Z",
- "asc-nhl-stl-ott-2026-10-13-neg-1pt5": "2026-10-14T00:18:26.038Z",
- "astatc-mlb-cle-tb-2026-10-13-k-freper-gte5": "2026-10-14T00:18:26.038Z",
  "tsc-cfb-flint-jaxst-2026-10-13-total-55pt5": "2026-10-14T00:48:31.904Z",
  "tsc-cfb-flint-jaxst-2026-10-13-tt-flint-23pt5": "2026-10-14T00:48:31.904Z",
  "tsc-cfb-flint-jaxst-2026-10-13-total-59pt5": "2026-10-14T00:48:31.904Z",
@@ -1175,5 +1160,8 @@
  "cpc-btc-updown-1d-2026-10-20-2100z": "2026-10-20T22:48:33.401Z",
  "aec-atp-ksh-andila-2026-10-20": "2026-10-20T22:48:33.401Z",
  "aec-atp-zhizha-yizho-2026-10-20": "2026-10-20T23:18:28.685Z",
- "aec-itfme-jirciz-michop-2026-10-21": "2026-10-20T23:18:28.685Z"
+ "aec-itfme-jirciz-michop-2026-10-21": "2026-10-20T23:18:28.685Z",
+ "aec-itfwo-beltho-iwan-2026-10-20": "2026-10-20T23:48:26.292Z",
+ "aec-nhl-bos-dal-2026-10-20": "2026-10-21T00:18:48.793Z",
+ "atc-lco-cuc-atl-2026-10-20-cuc": "2026-10-21T00:18:48.793Z"
 }
