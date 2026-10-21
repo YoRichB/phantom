@@ -1,8 +1,4 @@
 {
- "asc-nba-bkn-mia-2026-10-14-pos-7pt5": "2026-10-14T21:20:12.968Z",
- "asc-nba-bkn-mia-2026-10-14-pos-5pt5": "2026-10-14T21:49:44.514Z",
- "asc-nba-bkn-mia-2026-10-14-pos-3pt5": "2026-10-14T21:49:44.514Z",
- "atc-ebfpl-mca-ars-2026-10-14-dh4-ars": "2026-10-14T21:49:44.514Z",
  "asc-nba-no-dal-2026-10-14-neg-2pt5": "2026-10-14T22:19:08.965Z",
  "asc-nba-chi-mil-2026-10-14-neg-1pt5": "2026-10-14T22:19:08.965Z",
  "asc-nba-chi-mil-2026-10-14-neg-4pt5": "2026-10-14T22:19:08.965Z",
@@ -1088,5 +1084,11 @@
  "aec-itfwo-rioita-fanlin-2026-10-22": "2026-10-21T20:18:28.084Z",
  "aec-setkameua-kovvla-rodole-2026-10-21": "2026-10-21T20:18:28.084Z",
  "atc-ebfpl-mca-tot-2026-10-21-dh2-mca": "2026-10-21T21:18:37.828Z",
- "aec-itfwo-wuszhe-prinug-2026-10-22": "2026-10-21T21:18:37.828Z"
+ "aec-itfwo-wuszhe-prinug-2026-10-22": "2026-10-21T21:18:37.828Z",
+ "atc-ebfwca-spain-fra-2026-10-21-dh6-fra": "2026-10-21T21:48:28.070Z",
+ "atc-ebfwca-arg-bra-2026-10-21-dh6-arg": "2026-10-21T22:18:32.261Z",
+ "atc-ebfwca-eng-arg-2026-10-21-dh6-arg": "2026-10-21T22:18:32.261Z",
+ "atc-ebfwca-bra-fra-2026-10-21-dh7-fra": "2026-10-21T22:18:32.261Z",
+ "atc-ebfpl-tot-mca-2026-10-21-dh3-tot": "2026-10-21T22:18:32.261Z",
+ "atc-ebfpl-che-mca-2026-10-21-dh2-mca": "2026-10-21T22:18:32.261Z"
 }
