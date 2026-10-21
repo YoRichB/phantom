@@ -1,9 +1,4 @@
 {
- "atc-nor1-sog-odd-2026-10-14-odd": "2026-10-14T16:23:42.324Z",
- "atc-nor1-sif-kil-2026-10-14-sif": "2026-10-14T16:23:42.324Z",
- "tsc-ucl-lask-liv-2026-10-14-sh-1pt5": "2026-10-14T16:48:52.288Z",
- "atc-ebfwcb-ger-net-2026-10-14-dh5-ger": "2026-10-14T16:48:52.288Z",
- "aec-atp-yoswat-marcil-2026-10-14": "2026-10-14T16:48:52.288Z",
  "atc-tff1-ant-kay-2026-10-14-kay": "2026-10-14T17:20:28.581Z",
  "aec-atp-mikbru-benbon-2026-10-14": "2026-10-14T17:20:28.581Z",
  "tsc-eurolg-fen-par-2026-10-15-163pt5": "2026-10-14T17:50:47.673Z",
@@ -1114,5 +1109,9 @@
  "aec-setkameua-bieyev-azaart-2026-10-21": "2026-10-21T16:18:29.660Z",
  "atc-ebfwcb-mor-net-2026-10-21-dh5-net": "2026-10-21T16:18:29.660Z",
  "atc-ebfwcb-net-ger-2026-10-21-dh5-net": "2026-10-21T16:18:29.660Z",
- "atc-ebfwcb-mor-bel-2026-10-21-dh5-mor": "2026-10-21T16:18:29.660Z"
+ "atc-ebfwcb-mor-bel-2026-10-21-dh5-mor": "2026-10-21T16:18:29.660Z",
+ "atc-ucl-lil-gal-2026-10-21-gal": "2026-10-21T16:48:32.491Z",
+ "aec-itfme-thiboo-mattmar-2026-10-21": "2026-10-21T16:48:32.491Z",
+ "atc-ebfwcb-por-mor-2026-10-21-dh5-mor": "2026-10-21T16:48:32.491Z",
+ "aec-utr-bralac-spilia-2026-10-20": "2026-10-21T17:18:29.797Z"
 }
