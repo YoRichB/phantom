@@ -1,10 +1,4 @@
 {
- "atc-idnsl-mau-bpi-2026-10-16-bpi": "2026-10-16T08:18:28.516Z",
- "atc-ebfsa-juv-sas-2026-10-16-dh3-sas": "2026-10-16T08:18:28.516Z",
- "aec-itfme-stesei-wojmar-2026-10-16": "2026-10-16T08:18:28.516Z",
- "atc-idnsl-pje-adb-2026-10-16-pje": "2026-10-16T08:48:28.667Z",
- "aec-itfme-egople-cruhew-2026-10-16": "2026-10-16T08:48:28.667Z",
- "atc-ebfwca-eng-arg-2026-10-16-dh2-arg": "2026-10-16T08:48:28.667Z",
  "atc-ebfwcb-ger-mor-2026-10-16-dh2-mor": "2026-10-16T09:18:27.024Z",
  "atc-ebfwcb-net-mor-2026-10-16-dh2-net": "2026-10-16T09:18:27.024Z",
  "aec-itfwo-kaynis-chezhu-2026-10-16": "2026-10-16T09:18:27.024Z",
@@ -994,5 +988,12 @@
  "aec-atp-akisan-jiecui-2026-10-23": "2026-10-23T07:18:24.522Z",
  "atc-ebfsa-nap-bol-2026-10-23-dh3-nap": "2026-10-23T07:48:24.146Z",
  "atc-ebfsa-sas-bol-2026-10-23-dh3-sas": "2026-10-23T08:18:24.554Z",
- "aec-itfwo-despap-alemaz-2026-10-23": "2026-10-23T08:18:24.554Z"
+ "aec-itfwo-despap-alemaz-2026-10-23": "2026-10-23T08:18:24.554Z",
+ "aec-itfwo-lolgiz-darlop-2026-10-23": "2026-10-23T08:48:23.900Z",
+ "aec-atp-martru-matdod-2026-10-23": "2026-10-23T09:18:26.053Z",
+ "aec-cs2-bsta-reda-2026-10-23": "2026-10-23T09:18:26.053Z",
+ "atc-ebfwca-eng-spain-2026-10-23-spain": "2026-10-23T09:18:26.053Z",
+ "atc-ebfwcb-net-mor-2026-10-23-dh2-mor": "2026-10-23T09:18:26.053Z",
+ "atc-ebfwcb-por-bel-2026-10-23-dh2-bel": "2026-10-23T09:18:26.053Z",
+ "atc-ebfwcb-mor-por-2026-10-23-dh2-mor": "2026-10-23T09:18:26.053Z"
 }
