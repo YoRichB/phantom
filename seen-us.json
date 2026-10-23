@@ -1,6 +1,4 @@
 {
- "atc-lib-est-fla-2026-10-15-draw": "2026-10-16T01:18:35.679Z",
- "atc-lpc-sap-spo-2026-10-15-sap": "2026-10-16T01:48:22.865Z",
  "atc-ebfsa-roma-juv-2026-10-16-roma": "2026-10-16T03:18:29.103Z",
  "atc-ebfcwc-mca-rme-2026-10-16-dh1-rme": "2026-10-16T03:48:25.637Z",
  "atc-ebfcwc-rpi-paris-2026-10-16-dh1-rpi": "2026-10-16T03:48:25.637Z",
@@ -981,5 +979,11 @@
  "cpc-btc-updown-1d-2026-10-22-2100z": "2026-10-23T01:18:29.037Z",
  "atc-ebfwcb-ger-por-2026-10-23-dh1-ger": "2026-10-23T01:18:29.037Z",
  "atc-ebfwcb-por-net-2026-10-23-dh1-net": "2026-10-23T01:18:29.037Z",
- "aec-itfme-serpet-conkou-2026-10-23": "2026-10-23T01:18:29.037Z"
+ "aec-itfme-serpet-conkou-2026-10-23": "2026-10-23T01:18:29.037Z",
+ "aec-itfme-stevuj-derpha-2026-10-22": "2026-10-23T01:48:28.697Z",
+ "aec-atpdb-hsusun-broadyrai-2026-10-23": "2026-10-23T01:48:28.697Z",
+ "atc-ebfcwc-bjo-rme-2026-10-23-bjo": "2026-10-23T02:18:30.537Z",
+ "atc-ebfcwc-rme-paris-2026-10-23-paris": "2026-10-23T02:18:30.537Z",
+ "atc-ebfsa-nap-roma-2026-10-23-roma": "2026-10-23T02:18:30.537Z",
+ "aec-atpdb-bhambrsegger-lammonwithro-2026-10-23": "2026-10-23T02:18:30.537Z"
 }
